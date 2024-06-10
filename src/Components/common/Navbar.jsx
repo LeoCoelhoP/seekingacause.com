@@ -2,14 +2,18 @@ import { RxInfoCircled } from 'react-icons/rx';
 import { RxAvatar } from 'react-icons/rx';
 import { LuHeart } from 'react-icons/lu';
 
+import { UserContext } from '../../Contexts/UserContext';
+
 import { RxMagnifyingGlass } from 'react-icons/rx';
 import { useContext } from 'react';
 import { LayoutContext } from '../../Contexts/LayoutContext';
 import { useNavigate } from 'react-router-dom';
+import i18next from '../../Configs/i18n';
+
 export default function Navbar() {
 	const navigate = useNavigate();
 	const { setInfoModalOpen } = useContext(LayoutContext);
-
+	const { user } = useContext(UserContext);
 	return (
 		<div
 			className={`z-10 h-[50px] bg-blue-600  w-svw shadow-t-md drop-shadow-t-md text-neutral-50 text-3xl flex flex-col items-start justify-start`}>
@@ -18,26 +22,28 @@ export default function Navbar() {
 					className='flex flex-col items-center justify-center text-center'
 					onClick={() => navigate('/')}>
 					<RxMagnifyingGlass size={'1.25rem'} />
-					Explore
+					{i18next.t('explore')}
 				</div>
-				<div
-					className='flex flex-col items-center justify-center text-center'
-					onClick={() => navigate('/favorites')}>
-					<LuHeart size={'1.25rem'} />
-					Favorites
-				</div>
+				{user && (
+					<div
+						className='flex flex-col items-center justify-center text-center'
+						onClick={() => navigate('/favorites')}>
+						<LuHeart size={'1.25rem'} />
+						{i18next.t('favorites')}
+					</div>
+				)}
 				<div
 					className='flex flex-col items-center justify-center text-center'
 					onClick={() => navigate('/auth')}>
 					<RxAvatar size={'1.25rem'} />
-					Log In
+					{user ? `${i18next.t('profile')}` : `${i18next.t('logIn')}`}
 				</div>
 				<div className='flex flex-col items-center justify-center text-center modal'>
 					<RxInfoCircled
 						onClick={() => setInfoModalOpen(true)}
 						size={'1.25rem'}
 					/>
-					About Us
+					{i18next.t('aboutUs')}
 				</div>
 			</div>
 		</div>

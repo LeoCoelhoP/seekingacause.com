@@ -1,15 +1,23 @@
 import { lazy, Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
+
+import UserContextProvider from './Contexts/UserContext';
+import NgoContextProvider from './Contexts/NgoContext';
+import LayoutContextProvider from './Contexts/LayoutContext';
 
 import MainLayout from './layouts/MainLayout';
 import Loading from './Components/Loading';
+import i18n from './Configs/i18n';
 
 const Auth = lazy(() => import('./pages/Auth'));
 const Favorites = lazy(() => import('./pages/Favorites'));
-const LayoutContextProvider = lazy(() => import('./Contexts/LayoutContext'));
 const Ngo = lazy(() => import('./pages/Ngo'));
 const Profile = lazy(() => import('./pages/Profile'));
 const Home = lazy(() => import('./pages/Home'));
+
+const storedLang = localStorage.getItem('i18nextLng') || 'en';
+i18n.changeLanguage(storedLang);
 
 function App() {
 	const router = createBrowserRouter([
@@ -64,11 +72,40 @@ function App() {
 				</Suspense>
 			),
 		},
+		{
+			path: '/verify-email',
+			element: (
+				<Suspense fallback={<Loading />}>
+					<MainLayout>
+						<Auth />
+					</MainLayout>
+				</Suspense>
+			),
+		},
+		{
+			path: '/reset-password',
+			element: (
+				<Suspense fallback={<Loading />}>
+					<MainLayout>
+						<Auth resetPassword={true} />
+					</MainLayout>
+				</Suspense>
+			),
+		},
 	]);
 	return (
-		<LayoutContextProvider>
-			<RouterProvider router={router} />
-		</LayoutContextProvider>
+		<NgoContextProvider>
+			<UserContextProvider>
+				<LayoutContextProvider>
+					<Toaster
+						toastOptions={{
+							duration: 5000,
+						}}
+					/>
+					<RouterProvider router={router} />
+				</LayoutContextProvider>
+			</UserContextProvider>
+		</NgoContextProvider>
 	);
 }
 

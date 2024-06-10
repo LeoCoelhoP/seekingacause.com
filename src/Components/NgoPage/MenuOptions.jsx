@@ -1,29 +1,39 @@
-import { useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
 
 import { LuClipboardList, LuDollarSign, LuMapPin } from 'react-icons/lu';
 import Donations from './Donations';
 import Map from './Map';
 import Reports from './Reports';
-import { MENU } from '../../Constants/NGOPage';
 import Divider from '../Divider';
+import i18next from '../../Configs/i18n';
+import { LayoutContext } from '../../Contexts/LayoutContext';
 
-const MENU_OPTIONS = [
-	{ id: 0, icon: <LuMapPin className='text-xl' />, label: MENU.LOCATION.label },
-	{
-		id: 1,
-		icon: <LuDollarSign className='text-xl' />,
-		label: MENU.DONATE.label,
-	},
-	{
-		id: 2,
-		icon: <LuClipboardList className='text-xl' />,
-		label: MENU.REPORT.label,
-	},
-];
+function getOptions() {
+	return [
+		{
+			id: 0,
+			icon: <LuMapPin className='text-xl' />,
+			label: i18next.t('location'),
+		},
+		{
+			id: 1,
+			icon: <LuDollarSign className='text-xl' />,
+			label: i18next.t('donations'),
+		},
+		{
+			id: 2,
+			icon: <LuClipboardList className='text-xl' />,
+			label: i18next.t('reports'),
+		},
+	];
+}
 
-export default function MenuOptions() {
+export default function MenuOptions({ ngoDetails }) {
 	const [menuOption, setMenuOption] = useState(0);
+	const { location, donations, report } = ngoDetails;
+	const { language } = useContext(LayoutContext);
 
+	const MENU_OPTIONS = useMemo(() => getOptions(), []);
 	return (
 		<div className='items-center w-full h-full '>
 			<div className='flex items-start justify-center gap-6'>
@@ -43,10 +53,10 @@ export default function MenuOptions() {
 			<div className='content'>
 				{menuOption === 0 && (
 					<div className='h-[200px]'>
-						<Map />
+						<Map location={location} />
 					</div>
 				)}
-				{menuOption === 1 && <Donations />}
+				{menuOption === 1 && <Donations donations={donations} />}
 				{menuOption === 2 && <Reports />}
 			</div>
 		</div>

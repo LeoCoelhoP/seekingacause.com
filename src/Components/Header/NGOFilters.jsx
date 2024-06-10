@@ -1,10 +1,10 @@
 import { PiDog } from 'react-icons/pi';
 import { GiThreeLeaves } from 'react-icons/gi';
-import { IoFastFoodOutline } from 'react-icons/io5';
-import { LuBed } from 'react-icons/lu';
+import { LuBed, LuCross } from 'react-icons/lu';
 import { BsPeople } from 'react-icons/bs';
 import { RxChevronDown } from 'react-icons/rx';
 import { useState } from 'react';
+import i18next from '../../Configs/i18n';
 
 export default function NGOFilters() {
 	const [option, setOption] = useState('Animals');
@@ -16,7 +16,7 @@ export default function NGOFilters() {
 					option === 'Animals' ? 'text-neutral-950' : ''
 				}`}>
 				<PiDog size={'1.25rem'} />
-				Animals
+				{i18next.t('animals')}
 			</div>
 			<div
 				onClick={() => setOption('Nature')}
@@ -24,15 +24,15 @@ export default function NGOFilters() {
 					option === 'Nature' ? 'text-neutral-950' : ''
 				}`}>
 				<GiThreeLeaves size={'1.25rem'} />
-				Nature
+				{i18next.t('nature')}
 			</div>
 			<div
-				onClick={() => setOption('Food')}
+				onClick={() => setOption('Health')}
 				className={`hover:text-neutral-950 flex flex-col items-center justify-center text-sm ${
-					option === 'Food' ? 'text-neutral-950' : ''
+					option === 'Health' ? 'text-neutral-950' : ''
 				}`}>
-				<IoFastFoodOutline size={'1.25rem'} />
-				Food
+				<LuCross size={'1.25rem'} />
+				{i18next.t('health')}
 			</div>
 			<div
 				onClick={() => setOption('Shelter')}
@@ -40,7 +40,7 @@ export default function NGOFilters() {
 					option === 'Shelter' ? 'text-neutral-950' : ''
 				}`}>
 				<LuBed size={'1.25rem'} />
-				Shelter
+				{i18next.t('shelter')}
 			</div>
 			<div
 				onClick={() => setOption('People')}
@@ -48,7 +48,7 @@ export default function NGOFilters() {
 					option === 'People' ? 'text-neutral-950' : ''
 				}`}>
 				<BsPeople size={'1.25rem'} />
-				People
+				{i18next.t('people')}
 			</div>
 			<div
 				onClick={() => setOption('Others')}
@@ -56,7 +56,7 @@ export default function NGOFilters() {
 					option === 'Others' ? 'text-neutral-950' : ''
 				}`}>
 				<RxChevronDown size={'1.25rem'} />
-				Others
+				{i18next.t('others')}
 			</div>
 		</div>
 	);

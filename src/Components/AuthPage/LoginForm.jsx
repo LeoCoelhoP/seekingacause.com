@@ -2,20 +2,46 @@ import Divider from '../../Components/Divider';
 import Button from '../../Components/Button';
 import { FaGoogle } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { login, recoverPassword } from '../../services/auth';
+import toast from 'react-hot-toast';
+import { emailValidator } from '../../utils/validators';
+import i18next from '../../Configs/i18n';
+import { LayoutContext } from '../../Contexts/LayoutContext';
 
-export default function LoginForm() {
-	const [loginInfo, setLoginInfo] = useState({ email: '', password: '' });
+export default function LoginForm(setUser) {
+	const { language } = useContext(LayoutContext);
+	const [loginInfo, setLoginInfo] = useState({
+		// email: 'leopadilhac1308@gmail.com',
+		// password: 'test',
+		email: '',
+		password: '',
+	});
+
+	function handlePasswordRecovery() {
+		if (!loginInfo.email)
+			return toast.error(i18next.t('forgotPasswordNoEmailValidator'));
+
+		if (!emailValidator(loginInfo.email))
+			return toast.error(i18next.t('forgotPasswordEmailValidator'));
+		console.log(language);
+		const currentLanguage = language === 'BR' ? undefined : 'en';
+		recoverPassword(loginInfo.email, currentLanguage);
+	}
+	function handleSubmit(e) {
+		e.preventDefault();
+		login({ ...loginInfo }, setUser);
+	}
 
 	return (
-		<form className='flex flex-col items-center justify-center w-5/6 mt-4 h-1/2'>
+		<form className='relative flex flex-col items-center justify-center w-5/6 mt-4 h-1/2 bottom-10'>
 			<label className='w-full'>
-				<p className='relative top-[13px] left-2 bg-neutral-200 text-xl w-fit '>
-					Email Address:
-				</p>
+				<span className='relative top-[13px] left-2 bg-neutral-200 text-xl w-fit z-20'>
+					{i18next.t('emailAddress')}:
+				</span>
 				<input
 					aria-label='Email Address'
-					className='h-[50px] border-2 w-full rounded-md border-neutral-300 bg-neutral-200 indent-4'
+					className='h-[50px] drop-shadow-md shadow-md w-full rounded-md border-neutral-300 bg-neutral-200 indent-4 focus:border-b-2  focus:border-blue-500 focus:outline-0'
 					value={loginInfo.email}
 					onChange={(e) =>
 						setLoginInfo((state) => ({ ...state, email: e.target.value }))
@@ -23,21 +49,28 @@ export default function LoginForm() {
 				/>
 			</label>
 			<label className='w-full mb-6'>
-				<p className='relative top-[13px] left-2 bg-neutral-200 text-xl w-fit '>
-					Password:
-				</p>
+				<span className='relative top-[13px] left-2 bg-neutral-200 text-xl w-fit z-20 '>
+					{i18next.t('password')}:
+				</span>
 				<input
 					aria-label='Password'
 					type='password'
-					className='h-[50px] border-2 w-full rounded-md border-neutral-300 bg-neutral-200 indent-4'
+					autoComplete='current-password'
+					className='h-[50px] drop-shadow-md shadow-md w-full rounded-md border-neutral-300 bg-neutral-200 indent-4 focus:border-b-2  focus:border-blue-500 focus:outline-0'
 					value={loginInfo.password}
 					onChange={(e) =>
 						setLoginInfo((state) => ({ ...state, password: e.target.value }))
 					}
 				/>
-				<p className='text-blue-600 '>Forgot your password?</p>
+
+				{/* at least one letter and one number, */}
+				<p className='mt-2 text-blue-600' onClick={handlePasswordRecovery}>
+					{i18next.t('forgotPassword')}
+				</p>
 			</label>
-			<Button>Log In</Button>
+			<Button type={'submit'} onClick={handleSubmit}>
+				{i18next.t('logIn')}
+			</Button>
 			<Divider>
 				<p className='font-medium'>OR</p>
 			</Divider>

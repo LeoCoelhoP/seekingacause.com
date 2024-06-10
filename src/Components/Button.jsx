@@ -4,6 +4,7 @@ export default function Button({
 	tailwind,
 	icon,
 	children,
+	type = 'button',
 	height = 'h-[50px]',
 	width = 'w-1/2',
 	textColor = 'text-neutral-50',
@@ -13,12 +14,13 @@ export default function Button({
 	onClick,
 }) {
 	return (
-		<div
+		<button
+			type={type}
 			onClick={onClick}
 			className={`${tailwind} ${bgColor} ${height} ${width} ${textColor} ${padding} modal flex items-center justify-center rounded-md`}>
 			{icon}
 			<div className={`${textSize} modal`}>{children}</div>
-		</div>
+		</button>
 	);
 }
 
@@ -33,4 +35,5 @@ Button.propTypes = {
 	padding: PropTypes.string,
 	textSize: PropTypes.string,
 	onClick: PropTypes.func,
+	type: PropTypes.string,
 };

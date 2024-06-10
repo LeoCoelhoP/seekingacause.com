@@ -1,20 +1,20 @@
 import ReactCountryFlag from 'react-country-flag';
 import PropTypes from 'prop-types';
 import { COUNTRY_OPTIONS } from '../Constants/Globals';
-
-export default function CountriesSelector({ country, setCountry }) {
+import i18n from '../Configs/i18n';
+export default function CountriesSelector({ country = 'BR', onChange }) {
 	return (
-		<label className='w-full' htmlFor='country'>
-			<p className='relative top-[13px] left-2 bg-neutral-200 text-xl w-fit z-10 '>
-				Country:
-			</p>
+		<label className='w-full h-fit' htmlFor='country'>
+			<span className='relative top-[13px] left-2 bg-neutral-200 text-xl w-fit z-10 '>
+				{i18n.t('country')}:
+			</span>
 			<select
-				aria-label='County'
+				aria-label='country'
 				id='country'
 				name='country'
-				onChange={(e) => setCountry(e.target.value)}
-				defaultValue={country}
-				className='focus:outline-blue-500 drop-shadow-md shadow-md h-[50px] w-full rounded-md  border-neutral-300 bg-neutral-200 indent-8'>
+				onChange={onChange}
+				value={country}
+				className='focus:outline-blue-500 drop-shadow-md shadow-md h-[50px] w-full rounded-md  border-neutral-300 bg-neutral-200 indent-8 focus:border-b-2  border-blue-500 focus:outline-0'>
 				{COUNTRY_OPTIONS.map((countryOption) => (
 					<option key={countryOption.value} value={countryOption.value}>
 						{countryOption.label}
@@ -36,6 +36,6 @@ export default function CountriesSelector({ country, setCountry }) {
 }
 
 CountriesSelector.propTypes = {
-	country: PropTypes.string.isRequired,
-	setCountry: PropTypes.func.isRequired,
+	country: PropTypes.string,
+	onChange: PropTypes.func.isRequired,
 };

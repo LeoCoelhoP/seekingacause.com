@@ -1,24 +1,30 @@
 import { createContext, useState } from 'react';
 import PropTypes from 'prop-types';
 
+function getLang() {
+	if (localStorage.getItem('i18nextLng') === 'en') return 'US';
+	else return 'BR';
+}
+
 export const LayoutContext = createContext();
 
 export default function LayoutContextProvider({ children }) {
 	const [state, setState] = useState({
-		isBlurred: false,
-		isInfoModalOpen: false,
-		isAdsModalOpen: false,
-		isPhoneNumberModalOpen: false,
+		adsModalOpen: { status: false, ngo: null },
+		infoModalOpen: false,
+		phoneNumberModalOpen: false,
+		language: getLang(),
+		type: 'all',
 	});
 
-	const setBlurred = (isBlurred) =>
-		setState((prev) => ({ ...prev, isBlurred }));
-	const setInfoModalOpen = (isInfoModalOpen) =>
-		setState((prev) => ({ ...prev, isInfoModalOpen }));
-	const setAdsModalOpen = (isAdsModalOpen) =>
-		setState((prev) => ({ ...prev, isAdsModalOpen }));
-	const setPhoneNumberModalOpen = (isPhoneNumberModalOpen) =>
-		setState((prev) => ({ ...prev, isPhoneNumberModalOpen }));
+	const setBlurred = (blurred) => setState((prev) => ({ ...prev, blurred }));
+	const setInfoModalOpen = (infoModalOpen) =>
+		setState((prev) => ({ ...prev, infoModalOpen }));
+	const setAdsModalOpen = (adsModalOpen) =>
+		setState((prev) => ({ ...prev, adsModalOpen }));
+	const setPhoneNumberModalOpen = (phoneNumberModalOpen) =>
+		setState((prev) => ({ ...prev, phoneNumberModalOpen }));
+	const setLanguage = (language) => setState((prev) => ({ ...prev, language }));
 
 	return (
 		<LayoutContext.Provider
@@ -28,6 +34,7 @@ export default function LayoutContextProvider({ children }) {
 				setInfoModalOpen,
 				setAdsModalOpen,
 				setPhoneNumberModalOpen,
+				setLanguage,
 			}}>
 			{children}
 		</LayoutContext.Provider>

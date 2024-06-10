@@ -14,16 +14,16 @@ export default function MainLayout({
 	showHeader = false,
 }) {
 	const {
-		isAdsModalOpen,
+		adsModalOpen,
 		setAdsModalOpen,
-		isInfoModalOpen,
+		infoModalOpen,
 		setInfoModalOpen,
-		isPhoneNumberModalOpen,
+		phoneNumberModalOpen,
 		setPhoneNumberModalOpen,
 	} = useContext(LayoutContext);
 
 	const isAnyModalOpen =
-		isInfoModalOpen || isAdsModalOpen || isPhoneNumberModalOpen;
+		infoModalOpen || adsModalOpen.status || phoneNumberModalOpen;
 
 	const handleCloseModal = useCallback(
 		(e) => {
@@ -58,9 +58,9 @@ export default function MainLayout({
 
 			{isAnyModalOpen && (
 				<div className='absolute z-20 flex items-center justify-center h-svh w-svw'>
-					{isInfoModalOpen && <InfoModal />}
-					{isAdsModalOpen && <AdsModal />}
-					{isPhoneNumberModalOpen && <RegisterPhoneNumberModal />}
+					{infoModalOpen && <InfoModal />}
+					{adsModalOpen.status && <AdsModal />}
+					{phoneNumberModalOpen && <RegisterPhoneNumberModal />}
 				</div>
 			)}
 		</div>

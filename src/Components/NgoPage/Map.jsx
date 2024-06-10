@@ -5,11 +5,8 @@ import PropTypes from 'prop-types';
 import '@maptiler/sdk/dist/maptiler-sdk.css';
 import '../../map.css';
 
-export default function Map({
-	lng = -54.3019,
-	lat = -25.1369,
-	defaultZoom = 14,
-}) {
+export default function Map({ location, defaultZoom = 14 }) {
+	const [lng, lat] = location;
 	const mapContainer = useRef(null);
 	const map = useRef(null);
 	const [zoom] = useState(defaultZoom);

@@ -2,54 +2,44 @@ import ReactCountryFlag from 'react-country-flag';
 import PropTypes from 'prop-types';
 
 import Avatar from '../Avatar';
-import { DONATE } from '../../Constants/NGOPage';
-
-const user = {
-	id: 32323,
-	avatar:
-		'https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg',
-	name: 'Leonardo P',
-	level: 9,
-	countryCode: 'BR',
-	countryName: 'Brazil',
-};
-const donations = [
-	{
-		id: 1234324,
-		user: user,
-		date: '23/10/2022',
-		donated: { money: 100 },
-	},
-];
+import i18next from '../../Configs/i18n';
 
 function DonationItem({ donate }) {
-	const { date, user } = donate;
-	const { name, level, countryCode, avatar } = user;
+	console.log(donate);
+	const { iat, type } = donate;
+	const { fullName, level, country, avatar } = donate.user;
+	const date = new Date(iat);
+	const formattedDate = date.toLocaleString().split(',')[0];
+
 	return (
 		<div className='flex items-center justify-between w-full h-full p-2 rounded-md shadow-md bg-neutral-50'>
 			<Avatar height='h-[40px]' width='w-[40px]' src={avatar} />
 			<ReactCountryFlag
 				className='relative z-30 w-full h-full rounded-md shadow-2xl emojiFlag right-5 top-4 drop-shadow-2xl'
 				svg
-				countryCode={countryCode}
+				countryCode={country}
 				style={{
 					fontSize: '1.4rem',
 				}}
 			/>
 			<div className='w-full ml-2 h-fit'>
 				<div className='flex items-start justify-start gap-2 text-xl font-semibold w-fit'>
-					<div className='break-words w-fit'>{name}</div>
+					<div className='break-words w-fit'>{fullName}</div>
 				</div>
 				<div className='font-medium'>
-					{DONATE.LEVEL_LABEL} {level}
+					{i18next.t('donateLevelLabel')}: {Math.floor(level)}
 				</div>
 
-				<div>{date}</div>
+				<div>{formattedDate}</div>
 			</div>
 
-			<div className='self-start font-semibold'>
-				$ {donate?.clicks || donate?.money}
-			</div>
+			{donate.type === 'ads' ? (
+				<div className='self-start font-semibold text-center'>Ads Donation</div>
+			) : (
+				<div className='self-start font-semibold'>
+					$ {donate?.clicks || donate?.money}
+				</div>
+			)}
 		</div>
 	);
 }
@@ -58,11 +48,11 @@ DonationItem.propTypes = {
 	donate: PropTypes.object,
 };
 
-export default function Donations() {
+export default function Donations({ donations }) {
 	return (
 		<div className='flex flex-col w-full h-full gap-4 '>
-			{donations.map((donate) => (
-				<DonationItem donate={donate} key={donate.id} />
+			{donations.map((donate, i) => (
+				<DonationItem donate={donate} key={i} />
 			))}
 		</div>
 	);

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export default function Divider({ children }) {
+export default function Divider({ children, color = 'bg-neutral-300' }) {
 	if (children)
 		return (
 			<div className='flex items-center justify-center w-full gap-4'>
@@ -10,12 +10,11 @@ export default function Divider({ children }) {
 			</div>
 		);
 	return (
-		<div className='w-full h-0.5 rounded-md bg-neutral-200 my-4'>
-			{children}
-		</div>
+		<div className={`w-full h-0.5 rounded-md ${color} my-4`}>{children}</div>
 	);
 }
 
 Divider.propTypes = {
 	children: PropTypes.node,
+	color: PropTypes.string,
 };

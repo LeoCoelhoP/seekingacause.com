@@ -1,36 +1,74 @@
-import { useCallback, useContext } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { faker } from '@faker-js/faker';
 import { LuDollarSign, LuEye, LuHeart } from 'react-icons/lu';
 import { RxShare2 } from 'react-icons/rx';
+import i18next from '../Configs/i18n';
 import PropTypes from 'prop-types';
 
 import { LayoutContext } from '../Contexts/LayoutContext';
 import Button from './Button';
 import ProgressBar from './ProgressBar';
+import ReactCountryFlag from 'react-country-flag';
 
-export default function NGOCard({ modalOpen }) {
+export default function NGOCard({ modalOpen, data, handleLike, liked }) {
+	const {
+		name,
+		namePT,
+		description,
+		descriptionPT,
+		images,
+		_id,
+		monthDonations,
+		cityAndCountry,
+	} = data;
+	const { language, setAdsModalOpen } = useContext(LayoutContext);
+	const [ngoTranslatedInfos, setNgoTranslatedInfos] = useState();
+	useEffect(() => {
+		setNgoTranslatedInfos(() =>
+			language === 'BR'
+				? { name: namePT, description: descriptionPT }
+				: { name, description },
+		);
+	}, [language, description, name, namePT, descriptionPT]);
+
 	const navigate = useNavigate();
-	const { setAdsModalOpen } = useContext(LayoutContext);
-	const liked = true;
-
 	const showNgoDetails = useCallback(() => {
-		if (!modalOpen) navigate('/ngo/213234e21');
-	}, [modalOpen, navigate]);
+		if (!modalOpen) navigate(`/ngo/${_id}`);
+	}, [modalOpen, navigate, _id]);
+
+	function handleShare() {
+		navigator.share({
+			title: 'Seeking a cause',
+			text: 'Join us and make a difference! ',
+			url: `${import.meta.env.BASE_URL}/ngo/${_id}`,
+		});
+	}
+	if (!ngoTranslatedInfos) return;
+
+	const reducedDescription = ngoTranslatedInfos.description
+		.split(' ')
+		.slice(0, 30)
+		.join(' ');
 
 	return (
 		<div className='flex flex-col justify-center text-2xl'>
 			<div className='flex flex-col items-center justify-center w-full rounded-md bg-neutral-50'>
 				<div className='relative w-full'>
+					{/* // todo carousel */}
+
 					<img
-						src={faker.image.urlLoremFlickr()}
+						src={images[1]}
 						className='h-[180px] w-full rounded-t-md shadow-md drop-shadow-sm'
 					/>
 					<div className='absolute flex items-center justify-center gap-2 top-3 end-3'>
-						<div className='bg-neutral-50  w-[50px] h-[35px] shadow-md z-10 drop-shadow-md rounded-2xl flex justify-center items-center'>
+						<div
+							onClick={handleShare}
+							className='bg-neutral-50  w-[50px] h-[35px] shadow-md z-10 drop-shadow-md rounded-2xl flex justify-center items-center'>
 							<RxShare2 size={'1.25rem'} />
 						</div>
-						<div className='bg-neutral-50 text-xl  w-[50px] h-[35px] shadow-md z-10 drop-shadow-md rounded-2xl flex justify-center items-center'>
+						<div
+							onClick={() => handleLike(_id)}
+							className='bg-neutral-50 text-xl  w-[50px] h-[35px] shadow-md z-10 drop-shadow-md rounded-2xl flex justify-center items-center'>
 							<LuHeart
 								className={`${liked ? 'text-red-600' : ''}`}
 								size={'1.25rem'}
@@ -41,35 +79,40 @@ export default function NGOCard({ modalOpen }) {
 				<div
 					onClick={showNgoDetails}
 					className='flex items-center w-full bg-neutral-50 h-fit rounded-t-xl '>
-					<div className='flex items-center justify-center w-full gap-4 text-xl'>
-						{faker.company.name()}
+					<div className='flex flex-col items-center mt-2 text-start justify-start w-full font-semibold px-2.5 text-xl'>
+						<p className='mr-auto'>{ngoTranslatedInfos.name}</p>
+						<p className='mr-auto text-base font-medium'>{cityAndCountry}</p>
 					</div>
 				</div>
-
 				<div className='px-3 py-2 text-sm ' onClick={showNgoDetails}>
-					{faker.lorem.words(20, 30)}
-					<span className='text-sky-500'> Show more...</span>
+					{reducedDescription}&nbsp;
+					<span className='text-sky-500'>{i18next.t('showMore')}</span>
 				</div>
 			</div>
-			<div className='px-4 bg-neutral-50' onClick={showNgoDetails}>
-				<ProgressBar progress={0.2} />
+			<div className='px-4 text-base bg-neutral-50' onClick={showNgoDetails}>
+				<p className='flex gap-2'>
+					{i18next.t('monthlyGoal')}
+					<span>$1{monthDonations.length.toFixed(2)}/$100.00</span>
+				</p>
+
+				<ProgressBar progress={0.1} />
 			</div>
 			<div className='flex flex-col items-center justify-between w-full p-3 bg-neutral-50 h-fit rounded-b-md'>
 				<div className='flex flex-col items-center justify-between w-full gap-2 pb-1'>
 					<div className='flex items-center justify-center w-full gap-2 modal '>
 						<Button
-							onClick={() => setAdsModalOpen(true)}
+							onClick={() => setAdsModalOpen({ status: true, ngoId: data._id })}
 							tailwind={'text-start bg-neutral-50 shadow-md drop-shadow-md'}
 							textColor='text-neutral-600'
 							textSize='text-sm'
 							icon={<LuEye className='w-1/2 text-xl ' size={'1.25rem'} />}>
-							Donate by Watching Ads
+							{i18next.t('donateByWatchingAds')}
 						</Button>
 
 						<Button
 							icon={<LuDollarSign className='text-2xl' size={'1.25rem'} />}
 							tailwind={`gap-2 shadow-md drop-shadow-md`}>
-							Donate
+							{i18next.t('donate')}
 						</Button>
 					</div>
 				</div>
