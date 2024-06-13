@@ -18,8 +18,8 @@ export default function Button({
 			type={type}
 			onClick={onClick}
 			className={`${tailwind} ${bgColor} ${height} ${width} ${textColor} ${padding} modal flex items-center justify-center rounded-md`}>
-			{icon}
-			<div className={`${textSize} modal`}>{children}</div>
+			<div className='w-[50px]'>{icon}</div>
+			<div className={`${textSize} modal lg:flex-none`}>{children}</div>
 		</button>
 	);
 }

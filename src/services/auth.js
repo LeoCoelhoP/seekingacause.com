@@ -25,7 +25,7 @@ async function verifyOTP(code, email, setUser) {
 	}
 }
 
-async function changePassword(formValues, email, code, setUser) {
+async function changePassword(formValues, email, code, setUser, navigate) {
 	try {
 		const response = await axios.post(
 			'/auth/reset-password',
@@ -43,7 +43,7 @@ async function changePassword(formValues, email, code, setUser) {
 		toast.success(response.data.message);
 		console.log(response.data);
 		setUser(() => ({ ...response.data.user }));
-
+		navigate('/', { replace: true });
 		return true;
 	} catch (error) {
 		setUser(() => null);

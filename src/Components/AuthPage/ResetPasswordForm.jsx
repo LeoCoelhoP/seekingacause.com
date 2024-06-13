@@ -1,12 +1,16 @@
 import Button from '../Button';
 
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
+import { UserContext } from '../../Contexts/UserContext';
 import i18next from '../../Configs/i18n';
 import i18n from '../../Configs/i18n';
 import { changePassword } from '../../services/auth';
 
 export default function ResetPasswordForm({ email, code, setUser }) {
+	const navigate = useNavigate();
+	const { user } = useContext(UserContext);
 	const [recoverInfo, setRecoverInfo] = useState({
 		password: '',
 		passwordConfirmation: '',
@@ -14,8 +18,12 @@ export default function ResetPasswordForm({ email, code, setUser }) {
 
 	function handleSubmit(e) {
 		e.preventDefault();
-		changePassword(recoverInfo, email, code, setUser);
+		changePassword(recoverInfo, email, code, setUser, navigate);
 	}
+
+	useEffect(() => {
+		if (user) navigate('/', { replace: true });
+	}, [user, navigate]);
 	return (
 		<form className='flex flex-col items-center justify-center w-5/6 mt-4 h-1/2'>
 			<label className='w-full'>

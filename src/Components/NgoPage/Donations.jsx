@@ -4,32 +4,45 @@ import PropTypes from 'prop-types';
 import Avatar from '../Avatar';
 import i18next from '../../Configs/i18n';
 
-function DonationItem({ donate }) {
-	console.log(donate);
+function DonationItem({ donate, profilePage }) {
 	const { iat, type } = donate;
-	const { fullName, level, country, avatar } = donate.user;
+	const { fullName, level, country, avatar } = donate?.user || {
+		fullName: 'Anonymous',
+		avatar:
+			'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541',
+		country: null,
+		level: null,
+	};
 	const date = new Date(iat);
 	const formattedDate = date.toLocaleString().split(',')[0];
 
 	return (
-		<div className='flex items-center justify-between w-full h-full p-2 rounded-md shadow-md bg-neutral-50'>
-			<Avatar height='h-[40px]' width='w-[40px]' src={avatar} />
-			<ReactCountryFlag
-				className='relative z-30 w-full h-full rounded-md shadow-2xl emojiFlag right-5 top-4 drop-shadow-2xl'
-				svg
-				countryCode={country}
-				style={{
-					fontSize: '1.4rem',
-				}}
-			/>
+		<div
+			className={`flex items-center justify-between w-full h-full p-2 rounded-md shadow-md ${
+				!profilePage ? 'bg-neutral-50' : 'bg-neutral-100'
+			}`}>
+			{!profilePage && (
+				<Avatar height='h-[40px]' width='w-[40px]' src={avatar} />
+			)}
+			{!profilePage && (
+				<ReactCountryFlag
+					className='relative z-30 w-full h-full rounded-md shadow-2xl emojiFlag right-5 top-4 drop-shadow-2xl'
+					svg
+					countryCode={country}
+					style={{
+						fontSize: '1.4rem',
+					}}
+				/>
+			)}
 			<div className='w-full ml-2 h-fit'>
 				<div className='flex items-start justify-start gap-2 text-xl font-semibold w-fit'>
-					<div className='break-words w-fit'>{fullName}</div>
+					{!profilePage && <div className='break-words w-fit'>{fullName}</div>}
 				</div>
-				<div className='font-medium'>
-					{i18next.t('donateLevelLabel')}: {Math.floor(level)}
-				</div>
-
+				{!profilePage && level && (
+					<div className='font-medium'>
+						{i18next.t('donateLevelLabel')}: {Math.floor(level)}
+					</div>
+				)}
 				<div>{formattedDate}</div>
 			</div>
 
@@ -48,11 +61,11 @@ DonationItem.propTypes = {
 	donate: PropTypes.object,
 };
 
-export default function Donations({ donations }) {
+export default function Donations({ donations, profilePage }) {
 	return (
 		<div className='flex flex-col w-full h-full gap-4 '>
 			{donations.map((donate, i) => (
-				<DonationItem donate={donate} key={i} />
+				<DonationItem profilePage={profilePage} donate={donate} key={i} />
 			))}
 		</div>
 	);

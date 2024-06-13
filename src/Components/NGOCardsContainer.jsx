@@ -8,23 +8,19 @@ export default function NGOCardsContainer({
 	setUser,
 	favoritePage = false,
 }) {
-	function handleLike(likedNgoId) {
-		like(user, setUser, likedNgoId);
-	}
 	return (
-		<main className='static flex flex-col items-center h-full gap-4 p-4 overflow-y-scroll shadow-md w-svw bg-neutral-200'>
+		<main className='static flex flex-col items-center justify-center h-full gap-4 p-4 overflow-y-scroll lg:gap-8 lg:flex-wrap md:overflow-hidden lg:flex-row w-svw bg-neutral-200'>
 			{ngos.length > 0 &&
-				ngos.map((ngo) => (
-					<NGOCard
-						key={ngo._id}
-						data={ngo}
-						handleLike={handleLike}
-						liked={user?.likes.includes(ngo._id)}
-					/>
-				))}
+				ngos.map((ngo) => {
+					if (ngo.visible)
+						return (
+							<NGOCard key={ngo._id} data={ngo} setUser={setUser} user={user} />
+						);
+					else return null;
+				})}
 			{ngos.length === 0 && favoritePage && (
-				<div className='flex flex-col items-center justify-center px-5 my-auto text-center'>
-					<LuAlertCircle size={'4rem'} className='text-neutral-500' />
+				<div className='flex flex-col items-center px-5 text-center'>
+					<LuAlertCircle size={'4rem'} className=' text-neutral-500' />
 					Sorry... No favorites found. Start by liking any NGO to see them here!
 				</div>
 			)}

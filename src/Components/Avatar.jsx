@@ -4,12 +4,11 @@ export default function Avatar({ width, height, src }) {
 	return (
 		<div
 			className={` ${width} ${height}
-    flex justify-center items-center bg-neutral-50 rounded-full
+    flex justify-center items-center rounded-full hover:opacity-60 hover:z-0 z-30 hover:cursor-auto
     `}>
 			<img
 				src={src}
-				// TODO display "[Name] profile picture."
-				alt='Avatar profile'
+				alt={`${name} Avatar profile`}
 				className='rounded-full shadow-md drop-shadow-md'
 			/>
 		</div>

@@ -48,8 +48,8 @@ export default function Auth({ resetPassword }) {
 		);
 
 	return (
-		<div className='flex flex-col items-center justify-center h-full p-4 bg-neutral-200 text-neutral-950 w-svw'>
-			<div className='flex gap-4 text-2xl text-center'>
+		<div className='flex flex-col items-center justify-center p-4 mt-10 h-fit bg-neutral-200 text-neutral-950 w-svw'>
+			<div className='flex gap-4 text-2xl text-center '>
 				<span
 					onClick={() => setLoginOpen(() => true)}
 					className={`border-b-2 p-2 w-[100px] cursor-pointer ${

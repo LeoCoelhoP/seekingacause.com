@@ -1,7 +1,6 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LuDollarSign, LuEye, LuHeart } from 'react-icons/lu';
-import { RxShare2 } from 'react-icons/rx';
+import { LuDollarSign, LuEye } from 'react-icons/lu';
 import i18next from '../Configs/i18n';
 import PropTypes from 'prop-types';
 
@@ -9,8 +8,9 @@ import { LayoutContext } from '../Contexts/LayoutContext';
 import Button from './Button';
 import ProgressBar from './ProgressBar';
 import ReactCountryFlag from 'react-country-flag';
+import Carousel from './Carousel';
 
-export default function NGOCard({ modalOpen, data, handleLike, liked }) {
+export default function NGOCard({ modalOpen, data, user, setUser }) {
 	const {
 		name,
 		namePT,
@@ -21,7 +21,8 @@ export default function NGOCard({ modalOpen, data, handleLike, liked }) {
 		monthDonations,
 		cityAndCountry,
 	} = data;
-	const { language, setAdsModalOpen } = useContext(LayoutContext);
+	const { language, setAdsModalOpen, setPaymentModalOpen } =
+		useContext(LayoutContext);
 	const [ngoTranslatedInfos, setNgoTranslatedInfos] = useState();
 	useEffect(() => {
 		setNgoTranslatedInfos(() =>
@@ -36,13 +37,6 @@ export default function NGOCard({ modalOpen, data, handleLike, liked }) {
 		if (!modalOpen) navigate(`/ngo/${_id}`);
 	}, [modalOpen, navigate, _id]);
 
-	function handleShare() {
-		navigator.share({
-			title: 'Seeking a cause',
-			text: 'Join us and make a difference! ',
-			url: `${import.meta.env.BASE_URL}/ngo/${_id}`,
-		});
-	}
 	if (!ngoTranslatedInfos) return;
 
 	const reducedDescription = ngoTranslatedInfos.description
@@ -51,30 +45,16 @@ export default function NGOCard({ modalOpen, data, handleLike, liked }) {
 		.join(' ');
 
 	return (
-		<div className='flex flex-col justify-center text-2xl'>
+		<div className='flex flex-col justify-center text-2xl md:w-[700px] md:h-full shrink-0 lg:w-[900px] '>
 			<div className='flex flex-col items-center justify-center w-full rounded-md bg-neutral-50'>
 				<div className='relative w-full'>
-					{/* // todo carousel */}
-
-					<img
-						src={images[1]}
-						className='h-[180px] w-full rounded-t-md shadow-md drop-shadow-sm'
+					<Carousel
+						images={images}
+						_id={_id}
+						user={user}
+						setUser={setUser}
+						showNgoDetails={showNgoDetails}
 					/>
-					<div className='absolute flex items-center justify-center gap-2 top-3 end-3'>
-						<div
-							onClick={handleShare}
-							className='bg-neutral-50  w-[50px] h-[35px] shadow-md z-10 drop-shadow-md rounded-2xl flex justify-center items-center'>
-							<RxShare2 size={'1.25rem'} />
-						</div>
-						<div
-							onClick={() => handleLike(_id)}
-							className='bg-neutral-50 text-xl  w-[50px] h-[35px] shadow-md z-10 drop-shadow-md rounded-2xl flex justify-center items-center'>
-							<LuHeart
-								className={`${liked ? 'text-red-600' : ''}`}
-								size={'1.25rem'}
-							/>
-						</div>
-					</div>
 				</div>
 				<div
 					onClick={showNgoDetails}
@@ -110,6 +90,9 @@ export default function NGOCard({ modalOpen, data, handleLike, liked }) {
 						</Button>
 
 						<Button
+							onClick={() =>
+								setPaymentModalOpen({ status: true, ngoId: data._id })
+							}
 							icon={<LuDollarSign className='text-2xl' size={'1.25rem'} />}
 							tailwind={`gap-2 shadow-md drop-shadow-md`}>
 							{i18next.t('donate')}

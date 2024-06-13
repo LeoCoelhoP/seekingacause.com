@@ -12,6 +12,7 @@ export default function LayoutContextProvider({ children }) {
 	const [state, setState] = useState({
 		adsModalOpen: { status: false, ngo: null },
 		infoModalOpen: false,
+		paymentModalOpen: { status: false, ngo: null },
 		phoneNumberModalOpen: false,
 		language: getLang(),
 		type: 'all',
@@ -22,6 +23,8 @@ export default function LayoutContextProvider({ children }) {
 		setState((prev) => ({ ...prev, infoModalOpen }));
 	const setAdsModalOpen = (adsModalOpen) =>
 		setState((prev) => ({ ...prev, adsModalOpen }));
+	const setPaymentModalOpen = (paymentModalOpen) =>
+		setState((prev) => ({ ...prev, paymentModalOpen }));
 	const setPhoneNumberModalOpen = (phoneNumberModalOpen) =>
 		setState((prev) => ({ ...prev, phoneNumberModalOpen }));
 	const setLanguage = (language) => setState((prev) => ({ ...prev, language }));
@@ -33,6 +36,7 @@ export default function LayoutContextProvider({ children }) {
 				setBlurred,
 				setInfoModalOpen,
 				setAdsModalOpen,
+				setPaymentModalOpen,
 				setPhoneNumberModalOpen,
 				setLanguage,
 			}}>

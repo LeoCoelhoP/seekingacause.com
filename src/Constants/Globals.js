@@ -1,3 +1,4 @@
+const DAYS_AGO = 30;
 const COUNTRY_OPTIONS = [
 	{ value: `AF`, label: `Afghanistan` },
 	{ value: `AX`, label: `Åland Islands` },
@@ -250,4 +251,4 @@ const COUNTRY_OPTIONS = [
 	{ value: `ZW`, label: `Zimbabwe` },
 ];
 
-export { COUNTRY_OPTIONS };
+export { COUNTRY_OPTIONS, DAYS_AGO };

@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 
 import UserContextProvider from './Contexts/UserContext';
 import NgoContextProvider from './Contexts/NgoContext';
@@ -16,7 +17,7 @@ const Ngo = lazy(() => import('./pages/Ngo'));
 const Profile = lazy(() => import('./pages/Profile'));
 const Home = lazy(() => import('./pages/Home'));
 
-const storedLang = localStorage.getItem('i18nextLng') || 'en';
+const storedLang = 'en';
 i18n.changeLanguage(storedLang);
 
 function App() {
@@ -93,19 +94,28 @@ function App() {
 			),
 		},
 	]);
+
+	const initialOptions = {
+		'client-id': import.meta.env.VITE_PAYPAL_ID,
+		currency: storedLang === 'pt' ? 'BRL' : 'USD',
+		intent: 'capture',
+	};
+
 	return (
-		<NgoContextProvider>
-			<UserContextProvider>
+		<UserContextProvider>
+			<NgoContextProvider>
 				<LayoutContextProvider>
 					<Toaster
 						toastOptions={{
 							duration: 5000,
 						}}
 					/>
-					<RouterProvider router={router} />
+					<PayPalScriptProvider options={initialOptions}>
+						<RouterProvider router={router} />
+					</PayPalScriptProvider>
 				</LayoutContextProvider>
-			</UserContextProvider>
-		</NgoContextProvider>
+			</NgoContextProvider>
+		</UserContextProvider>
 	);
 }
 

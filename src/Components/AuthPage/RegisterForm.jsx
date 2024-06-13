@@ -118,7 +118,7 @@ export default function RegisterForm(setUser) {
 					)}
 			</label>
 
-			<label className='relative bottom-5'>
+			<label className='relative w-full bottom-5'>
 				<CountriesSelector onChange={handleCountrySelector} />
 			</label>
 			<Button type={'submit'} onClick={handleSubmit}>

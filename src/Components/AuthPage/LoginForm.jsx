@@ -35,8 +35,8 @@ export default function LoginForm(setUser) {
 
 	return (
 		<form className='relative flex flex-col items-center justify-center w-5/6 mt-4 h-1/2 bottom-10'>
-			<label className='w-full'>
-				<span className='relative top-[13px] left-2 bg-neutral-200 text-xl w-fit z-20'>
+			<label className='w-full mt-8'>
+				<span className='relative top-[13px] left-2 bg-neutral-200 text-xl w-fit z-20 '>
 					{i18next.t('emailAddress')}:
 				</span>
 				<input
@@ -48,7 +48,7 @@ export default function LoginForm(setUser) {
 					}
 				/>
 			</label>
-			<label className='w-full mb-6'>
+			<label className='w-full mb-12'>
 				<span className='relative top-[13px] left-2 bg-neutral-200 text-xl w-fit z-20 '>
 					{i18next.t('password')}:
 				</span>

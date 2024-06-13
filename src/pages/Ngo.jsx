@@ -7,17 +7,22 @@ import NgoDescription from '../Components/NgoPage/NgoDescription';
 import { NgoContext } from '../Contexts/NgoContext';
 import { useParams } from 'react-router-dom';
 import { LayoutContext } from '../Contexts/LayoutContext';
+import { UserContext } from '../Contexts/UserContext';
+import Loading from '../Components/Loading';
+
 export default function Ngo() {
 	const { ngo } = useContext(NgoContext);
 	const { language } = useContext(LayoutContext);
+	const { user, setUser } = useContext(UserContext);
+	console.log(user);
 	const { id } = useParams();
 
-	// todo return Loading
-	if (!ngo) return;
+	if (!ngo) return <Loading />;
 
 	const ngoDetails = ngo.find((ngo) => ngo._id === id);
 	const {
 		donations,
+		website,
 		name,
 		namePT,
 		description,
@@ -27,13 +32,20 @@ export default function Ngo() {
 		monthDonations,
 	} = ngoDetails;
 	return (
-		<div className='z-0 flex flex-col items-center justify-start w-full overflow-hidden h-fit text-neutral-950'>
-			<Carousel images={images} />
-			<section className='p-4 bg-neutral-50 w-svw'>
+		<div className='z-0 flex flex-col items-center justify-start w-full overflow-hidden h-fit text-neutral-950 lg:w-5/6 lg:text-xl'>
+			<Carousel
+				images={images}
+				_id={id}
+				user={user}
+				setUser={setUser}
+				showNavigateBack={true}
+			/>
+			<section className='p-4 lg:flex-col bg-neutral-50 w-svw lg:items-center lg:w-full'>
 				<Header
 					name={language === 'US' ? name : namePT}
 					cityAndCountry={cityAndCountry}
 					monthDonations={monthDonations}
+					website={website}
 				/>
 				<Divider />
 				<NgoDescription

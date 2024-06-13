@@ -17,7 +17,7 @@ export default function Navbar() {
 	return (
 		<div
 			className={`z-10 h-[50px] bg-blue-600  w-svw shadow-t-md drop-shadow-t-md text-neutral-50 text-3xl flex flex-col items-start justify-start`}>
-			<div className='flex items-center w-full h-full text-sm text-center justify-evenly'>
+			<div className='flex items-center justify-center w-full h-full gap-12 text-sm text-center lg:gap-32 md:gap-22'>
 				<div
 					className='flex flex-col items-center justify-center text-center'
 					onClick={() => navigate('/')}>

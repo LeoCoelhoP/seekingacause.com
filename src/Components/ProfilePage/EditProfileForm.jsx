@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import Button from '../Button';
 import CountriesSelector from '../CountriesSelector';
+import i18n from '../../Configs/i18n';
 
 export default function EditProfileForm({
 	phoneNumber = 'Add to help...',
@@ -37,7 +38,9 @@ export default function EditProfileForm({
 			onSubmit={handleFormSubmission}
 			className='items-center justify-center w-full px-4 border-t-10 border-neutral-300 '>
 			<label className='w-full '>
-				<span className='relative z-10 text-xl top-4 left-2'>Full Name:</span>
+				<span className='relative z-10 text-xl top-4 left-2'>
+					{i18n.t('fullName')}:
+				</span>
 				<input
 					aria-label='Full Name'
 					className='drop-shadow-md shadow-md h-[50px]  w-full rounded-md bg-neutral-200 indent-8 focus:border-b-2  border-blue-500 focus:outline-0'
@@ -49,7 +52,7 @@ export default function EditProfileForm({
 			<div className='relative flex items-baseline justify-between w-full gap-4 bottom-4'>
 				<label className='z-20 '>
 					<span className='relative z-10 text-xl top-4 left-2'>
-						Phone Number:
+						{i18n.t('phoneNumber')}:
 					</span>
 					<input
 						type='number'

@@ -1,11 +1,17 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import ReactCountryFlag from 'react-country-flag';
 import { RxMagnifyingGlass } from 'react-icons/rx';
 import { LayoutContext } from '../../Contexts/LayoutContext';
+import { NgoContext } from '../../Contexts/NgoContext';
 import i18next from '../../Configs/i18n';
 
-export default function SearchForm() {
+export default function SearchForm({ option, setOption }) {
 	const { language, setLanguage } = useContext(LayoutContext);
+	const { ngo, setNgo } = useContext(NgoContext);
+	const [query, setQuery] = useState('');
+	useEffect(() => {
+		if (option !== 'all') setOption('All');
+	}, [query, setOption]);
 	function handleLanguageChange() {
 		if (language === 'BR') {
 			i18next.changeLanguage('en');
@@ -14,6 +20,39 @@ export default function SearchForm() {
 			i18next.changeLanguage('pt');
 			setLanguage('BR');
 		}
+	}
+
+	useEffect(() => {
+		if (!ngo && !query) return;
+
+		if (query.length > 2) {
+			const searchedNgo = ngo.map((el) => {
+				console.log(el.name.includes(query));
+				if (el.name.toLocaleLowerCase().includes(query.toLocaleLowerCase())) {
+					el.visible = true;
+				} else if (
+					el.namePT.toLocaleLowerCase().includes(query.toLocaleLowerCase())
+				) {
+					el.visible = true;
+				} else {
+					el.visible = false;
+				}
+				return el;
+			});
+			setNgo(searchedNgo);
+		} else {
+			if (query === '')
+				setNgo((state) =>
+					state.map((ngo) => {
+						ngo.visible = true;
+						return ngo;
+					}),
+				);
+		}
+	}, [query]);
+
+	function handleQuery(e) {
+		setQuery(() => e.target.value);
 	}
 	return (
 		<div className='flex items-center'>
@@ -24,6 +63,7 @@ export default function SearchForm() {
 						id='searchInput'
 						className='w-full h-full text-xl shadow rounded-xl indent-12 drop-shadow'
 						placeholder={i18next.t('typeToSearch')}
+						onChange={(e) => handleQuery(e)}
 					/>
 				</label>
 			</form>

@@ -7,23 +7,34 @@ import { LayoutContext } from '../../Contexts/LayoutContext';
 import Button from '../Button';
 import ProgressBar from '../ProgressBar';
 
-export default function Header({ cityAndCountry, name, monthDonations }) {
+export default function Header({
+	cityAndCountry,
+	name,
+	monthDonations,
+	website,
+}) {
 	const { setAdsModalOpen } = useContext(LayoutContext);
-
-	//Todo Integrate donantions with progress Bar
 	return (
 		<header className=' bg-neutral-50'>
 			<h1 className='text-3xl font-semibold break-before-avoid '>{name}</h1>
+			{website && (
+				<a
+					href={website}
+					target='_blank'
+					className='flex items-center gap-2 font-normal text-blue-600'>
+					{website}
+				</a>
+			)}
 			<p className='flex items-center gap-2 font-normal'>
 				<LuPhone />
 				(+55) 45-99874776
 			</p>
 			<p className='font-normal'>{cityAndCountry}</p>
-			<p className='flex gap-2 mt-8'>
+			<p className='flex gap-2 mt-8 '>
 				{i18next.t('monthlyGoal')}:{' '}
 				<span>${monthDonations.length.toFixed(2)}/$100.00</span>
 			</p>
-			<ProgressBar progress={monthDonations.length + 0.1} />
+			<ProgressBar progress={monthDonations.length} />
 			<div className='flex gap-2 mt-4 text-xl'>
 				<Button
 					onClick={() => setAdsModalOpen(true)}
