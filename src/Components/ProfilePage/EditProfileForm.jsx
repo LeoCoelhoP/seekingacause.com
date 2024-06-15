@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { MdOutlineModeEdit, MdOutlinePhone } from 'react-icons/md';
 import PropTypes from 'prop-types';
+import { MdOutlineModeEdit, MdOutlinePhone } from 'react-icons/md';
+
+import i18n from '../../Configs/i18n';
 
 import Button from '../Button';
 import CountriesSelector from '../CountriesSelector';
-import i18n from '../../Configs/i18n';
 
 export default function EditProfileForm({
 	phoneNumber = 'Add to help...',

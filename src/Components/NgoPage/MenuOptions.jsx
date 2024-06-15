@@ -1,12 +1,14 @@
-import { useContext, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
+import PropTypes from 'prop-types';
 
 import { LuClipboardList, LuDollarSign, LuMapPin } from 'react-icons/lu';
+
+import i18next from '../../Configs/i18n';
+
 import Donations from './Donations';
 import Map from './Map';
 import Reports from './Reports';
 import Divider from '../Divider';
-import i18next from '../../Configs/i18n';
-import { LayoutContext } from '../../Contexts/LayoutContext';
 
 function getOptions() {
 	return [
@@ -30,12 +32,11 @@ function getOptions() {
 
 export default function MenuOptions({ ngoDetails }) {
 	const [menuOption, setMenuOption] = useState(0);
-	const { location, donations, report } = ngoDetails;
-	const { language } = useContext(LayoutContext);
+	const { location, donations } = ngoDetails;
 
 	const MENU_OPTIONS = useMemo(() => getOptions(), []);
 	return (
-		<div className='items-center w-full h-full '>
+		<div className='items-center w-full h-fit '>
 			<div className='flex items-start justify-center gap-6'>
 				{MENU_OPTIONS.map(({ id, icon, label }) => (
 					<div
@@ -52,7 +53,7 @@ export default function MenuOptions({ ngoDetails }) {
 			<Divider />
 			<div className='content'>
 				{menuOption === 0 && (
-					<div className='h-[200px]'>
+					<div className='h-full'>
 						<Map location={location} />
 					</div>
 				)}
@@ -62,3 +63,7 @@ export default function MenuOptions({ ngoDetails }) {
 		</div>
 	);
 }
+
+MenuOptions.propTypes = {
+	ngoDetails: PropTypes.object,
+};

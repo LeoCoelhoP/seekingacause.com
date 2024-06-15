@@ -1,4 +1,4 @@
-import axios from '../utils/axios';
+import axios from '../Configs/axios';
 import toast from 'react-hot-toast';
 
 async function getAllNgos(setNgo) {
@@ -10,6 +10,7 @@ async function getAllNgos(setNgo) {
 		});
 		setNgo(response.data.ngos);
 	} catch (error) {
+		console.error(error);
 		toast.error(error.message);
 	}
 }

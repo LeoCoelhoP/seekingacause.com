@@ -7,57 +7,89 @@ import PayPalPaymentButton from './PayPalPaymentButton';
 
 export default function PaymentModal() {
 	const { paymentModalOpen, setPaymentModalOpen } = useContext(LayoutContext);
-	const ngoId = paymentModalOpen.ngoId;
-	const [valueToDonate, setValueToDonate] = useState(10);
-	console.log(valueToDonate);
+	const [valueToDonate, setValueToDonate] = useState(5);
 	const language = localStorage.getItem('i18nextLng') || 'en';
 
 	return (
-		<div className='absolute z-20 flex flex-col items-center justify-center w-5/6 gap-2 p-4 mx-auto my-auto overflow-y-scroll font-semibold rounded-md shadow-2xl modal h-fitblur-none text-neutral-950 drop-shadow-2xl bg-neutral-50'>
-			<div className='w-full overflow-y-scroll font-normal'>
-				<h1 className='text-2xl font-bold'>{i18next.t('paymentMethods')}</h1>
-				<br />
-				<form className='relative flex flex-col items-center justify-center w-full mb-4 text-xl h-fit'>
-					<label className='grid items-center grid-flow-col'>
-						<div className='z-20 mr-4 text-xl w-max grow '>
-							{i18next.t('donationValue')}:{' '}
+		<div className='absolute z-20 flex flex-col items-center justify-center w-5/6 gap-2 p-4 mx-auto my-auto overflow-hidden font-semibold rounded-md shadow-2xl modal h-fitblur-none text-neutral-950 drop-shadow-2xl bg-neutral-50'>
+			<div className='w-full h-full font-normal'>
+				{/* PAYMENTS OPTIONS */}
+				<h1 className='text-2xl font-bold text-center'>
+					{i18next.t('valueToDonate')}:
+				</h1>
+				<div className='flex flex-wrap items-center justify-center w-full h-full gap-4 p-2'>
+					<div className='flex gap-4 mt-2'>
+						<div
+							className={`md:w-[100px] md:h-[100px] w-[85px] h-[85px] flex items-center md:text-xl justify-center border-2 bg-neutral-50 drop-shadow-md rounded-md ${
+								valueToDonate === 5 ? 'border-yellow-400' : 'border-neutral-200'
+							}`}
+							onClick={() => setValueToDonate(5)}>
+							{language === 'pt' ? 'R$' : '$'}5,00
 						</div>
-						<label className='flex'>
-							{language === 'en' ? 'USD' : 'R$'}
-
-							<input
-								type='number'
-								value={valueToDonate}
-								className='w-full bg-neutral-50 focus:border-b-2 focus:border-blue-500 focus:outline-0'
-								onChange={(e) => setValueToDonate((state) => e.target.value)}
-							/>
-						</label>
-					</label>
-					<label className='w-full'>
-						<input
-							type='range'
-							step='10'
-							min='0'
-							aria-label='Email Address'
-							value={valueToDonate}
-							className='h-[50px] w-full rounded-md border-neutral-300 bg-neutral-200 indent-4 focus:border-b-2  focus:border-blue-500 focus:outline-0'
-							onChange={(e) => setValueToDonate((state) => e.target.value)}
-						/>
-					</label>
-				</form>
-
-				<PayPalPaymentButton
-					key={valueToDonate}
-					ngoId={ngoId}
-					valueToDonate={valueToDonate}
-					setPaymentModalOpen={setPaymentModalOpen}
-				/>
+						<div
+							className={`md:w-[100px] md:h-[100px] w-[85px] h-[85px] flex items-center md:text-xl justify-center border-2 bg-neutral-50 drop-shadow-md rounded-md ${
+								valueToDonate === 25
+									? 'border-yellow-400'
+									: 'border-neutral-200'
+							}`}
+							onClick={() => setValueToDonate(25)}>
+							{language === 'pt' ? 'R$' : '$'}25,00
+						</div>
+						<div
+							className={`md:w-[100px] md:h-[100px] w-[85px] h-[85px] flex items-center md:text-xl justify-center border-2 bg-neutral-50 drop-shadow-md rounded-md ${
+								valueToDonate === 50
+									? 'border-yellow-400'
+									: 'border-neutral-200'
+							}`}
+							onClick={() => setValueToDonate(50)}>
+							{language === 'pt' ? 'R$' : '$'}50,00
+						</div>
+					</div>
+					<div className='flex gap-4'>
+						<div
+							className={`md:w-[100px] md:h-[100px] w-[85px] h-[85px] flex items-center md:text-xl justify-center border-2 bg-neutral-50 drop-shadow-md rounded-md ${
+								valueToDonate === 100
+									? 'border-yellow-400'
+									: 'border-neutral-200'
+							}`}
+							onClick={() => setValueToDonate(100)}>
+							{language === 'pt' ? 'R$' : '$'}100,00
+						</div>
+						<div
+							className={`md:w-[100px] md:h-[100px] w-[85px] h-[85px] flex items-center md:text-xl justify-center border-2 bg-neutral-50 drop-shadow-md rounded-md ${
+								valueToDonate === 500
+									? 'border-yellow-400'
+									: 'border-neutral-200'
+							}`}
+							onClick={() => setValueToDonate(500)}>
+							{language === 'pt' ? 'R$' : '$'}500,00
+						</div>
+						<div
+							className={`md:w-[100px] md:h-[100px] w-[85px] h-[85px] flex items-center md:text-xl justify-center border-2 bg-neutral-50 drop-shadow-md rounded-md ${
+								valueToDonate === 1000
+									? 'border-yellow-400'
+									: 'border-neutral-200'
+							}`}
+							onClick={() => setValueToDonate(1000)}>
+							{language === 'pt' ? 'R$' : '$'}1000,00
+						</div>
+					</div>
+				</div>
+				{/* PayPal Options */}
+				<div className='flex items-center justify-center mt-6'>
+					<PayPalPaymentButton
+						key={valueToDonate}
+						ngoId={paymentModalOpen?.ngoId}
+						valueToDonate={valueToDonate}
+						setPaymentModalOpen={setPaymentModalOpen}
+					/>
+				</div>
 			</div>
 			<Button
 				onClick={() => setPaymentModalOpen(false)}
-				tailwind={'border-2 text-start bg-neutral-50'}
+				tailwind={'shadow-md drop-shadow-md bg-neutral-50'}
 				textColor='text-neutral-600'
-				textSize='text-sm'>
+				textSize='text-xl'>
 				{i18next.t('close')}
 			</Button>
 		</div>

@@ -1,36 +1,31 @@
+import { useCallback, useEffect } from 'react';
+import PropTypes from 'prop-types';
+
 import { PiDog } from 'react-icons/pi';
 import { GiThreeLeaves } from 'react-icons/gi';
-import { LuBed, LuCross } from 'react-icons/lu';
-import { RxMagnifyingGlass } from 'react-icons/rx';
-import { RxChevronDown } from 'react-icons/rx';
-import { useEffect, useState } from 'react';
+import { LuCross } from 'react-icons/lu';
+import { RxChevronDown, RxMagnifyingGlass } from 'react-icons/rx';
+
 import i18next from '../../Configs/i18n';
-import { NgoContext } from '../../Contexts/NgoContext';
 
 export default function NGOFilters({ ngo, setNgo, option, setOption }) {
-	useEffect(() => {
-		console.log('mudou');
-		changeOption();
+	const changeOption = useCallback(() => {
+		if (!ngo) return;
+
+		const newNgoArray = ngo?.map((el) => {
+			if (option === 'All') {
+				return { ...el, visible: true };
+			}
+			const isVisible = el.type === option;
+			return { ...el, visible: isVisible };
+		});
+
+		setNgo(newNgoArray);
 	}, [option]);
 
-	function changeOption() {
-		let newNgoArray = [];
-		console.log(option);
-		if (ngo) {
-			newNgoArray = ngo.map((el) => {
-				if (option === 'All') {
-					el.visible = true;
-					return el;
-				}
-				if (el.type !== option) el.visible = false;
-				else el.visible = true;
-
-				return el;
-			});
-		}
-
-		setNgo(() => newNgoArray);
-	}
+	useEffect(() => {
+		changeOption();
+	}, [option, changeOption]);
 
 	return (
 		<div className='shadow-md text-neutral-500  drop-shadow-md z-10 flex items-center  p-2 h-[60px] bg-neutral-50  text-3xl gap-4 justify-evenly'>
@@ -78,3 +73,10 @@ export default function NGOFilters({ ngo, setNgo, option, setOption }) {
 		</div>
 	);
 }
+
+NGOFilters.propTypes = {
+	ngo: PropTypes.array,
+	setNgo: PropTypes.func,
+	option: PropTypes.string,
+	setOption: PropTypes.func,
+};

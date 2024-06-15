@@ -4,7 +4,7 @@ import { getAllNgos } from '../services/ngo';
 
 export const NgoContext = createContext();
 
-export default function NgoContextProvider({ children }) {
+export default function NgoProvider({ children }) {
 	const [ngo, setNgo] = useState(null);
 	useEffect(() => {
 		getAllNgos(setNgo);
@@ -16,6 +16,6 @@ export default function NgoContextProvider({ children }) {
 	);
 }
 
-NgoContextProvider.propTypes = {
+NgoProvider.propTypes = {
 	children: PropTypes.node.isRequired,
 };

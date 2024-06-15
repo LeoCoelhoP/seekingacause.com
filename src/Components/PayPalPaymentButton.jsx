@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
 import { PayPalButtons } from '@paypal/react-paypal-js';
+import PropTypes from 'prop-types';
+
 import { createOrder, onApprove } from '../services/payment';
 
 export default function PayPalPaymentButton({
@@ -27,3 +28,9 @@ export default function PayPalPaymentButton({
 			}}></PayPalButtons>
 	);
 }
+
+PayPalPaymentButton.propTypes = {
+	ngoId: PropTypes.string,
+	valueToDonate: PropTypes.number,
+	setPaymentModalOpen: PropTypes.func,
+};

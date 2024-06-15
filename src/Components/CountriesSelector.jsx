@@ -1,7 +1,10 @@
 import ReactCountryFlag from 'react-country-flag';
 import PropTypes from 'prop-types';
-import { COUNTRY_OPTIONS } from '../Constants/Globals';
+
 import i18n from '../Configs/i18n';
+
+import { COUNTRY_OPTIONS } from '../Constants/Globals';
+
 export default function CountriesSelector({ country = 'BR', onChange }) {
 	return (
 		<label className='w-full h-fit' htmlFor='country'>
@@ -14,7 +17,7 @@ export default function CountriesSelector({ country = 'BR', onChange }) {
 				name='country'
 				onChange={onChange}
 				value={country}
-				className='focus:outline-blue-500 drop-shadow-md shadow-md h-[50px] w-full rounded-md  border-neutral-300 bg-neutral-200 indent-8 focus:border-b-2  border-blue-500 focus:outline-0'>
+				className='focus:outline-blue-500 drop-shadow-md shadow-md h-[50px] w-full rounded-md  border-neutral-300 bg-neutral-200 indent-8 focus:border-b-2  focus:border-blue-500 focus:outline-0'>
 				{COUNTRY_OPTIONS.map((countryOption) => (
 					<option key={countryOption.value} value={countryOption.value}>
 						{countryOption.label}

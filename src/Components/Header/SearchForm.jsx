@@ -1,18 +1,35 @@
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import ReactCountryFlag from 'react-country-flag';
+
 import { RxMagnifyingGlass } from 'react-icons/rx';
+
+import i18next from '../../Configs/i18n';
 import { LayoutContext } from '../../Contexts/LayoutContext';
 import { NgoContext } from '../../Contexts/NgoContext';
-import i18next from '../../Configs/i18n';
 
-export default function SearchForm({ option, setOption }) {
+export default function SearchForm() {
 	const { language, setLanguage } = useContext(LayoutContext);
 	const { ngo, setNgo } = useContext(NgoContext);
 	const [query, setQuery] = useState('');
+
 	useEffect(() => {
-		if (option !== 'all') setOption('All');
-	}, [query, setOption]);
-	function handleLanguageChange() {
+		if (!ngo) return;
+
+		if (query.length > 2) {
+			const searchedNgo = ngo.map((el) => {
+				const isVisible =
+					el.name.toLocaleLowerCase().includes(query.toLocaleLowerCase()) ||
+					el.namePT.toLocaleLowerCase().includes(query.toLocaleLowerCase());
+
+				return { ...el, visible: isVisible };
+			});
+			setNgo(searchedNgo);
+		} else if (query === '') {
+			setNgo((state) => state.map((el) => ({ ...el, visible: true })));
+		}
+	}, [query]);
+
+	const handleLanguageChange = useCallback(() => {
 		if (language === 'BR') {
 			i18next.changeLanguage('en');
 			setLanguage('US');
@@ -20,36 +37,7 @@ export default function SearchForm({ option, setOption }) {
 			i18next.changeLanguage('pt');
 			setLanguage('BR');
 		}
-	}
-
-	useEffect(() => {
-		if (!ngo && !query) return;
-
-		if (query.length > 2) {
-			const searchedNgo = ngo.map((el) => {
-				console.log(el.name.includes(query));
-				if (el.name.toLocaleLowerCase().includes(query.toLocaleLowerCase())) {
-					el.visible = true;
-				} else if (
-					el.namePT.toLocaleLowerCase().includes(query.toLocaleLowerCase())
-				) {
-					el.visible = true;
-				} else {
-					el.visible = false;
-				}
-				return el;
-			});
-			setNgo(searchedNgo);
-		} else {
-			if (query === '')
-				setNgo((state) =>
-					state.map((ngo) => {
-						ngo.visible = true;
-						return ngo;
-					}),
-				);
-		}
-	}, [query]);
+	}, [language, setLanguage]);
 
 	function handleQuery(e) {
 		setQuery(() => e.target.value);
@@ -77,7 +65,7 @@ export default function SearchForm({ option, setOption }) {
 						fontSize: '1.4rem',
 					}}
 				/>
-				<p className='text-sm'>{language}</p>
+				<p className='text-sm'>{language === 'BR' ? 'PT' : 'EN'}</p>
 			</div>
 		</div>
 	);

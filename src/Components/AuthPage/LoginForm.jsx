@@ -1,19 +1,20 @@
-import Divider from '../../Components/Divider';
-import Button from '../../Components/Button';
+import { useContext, useState } from 'react';
+import PropTypes from 'prop-types';
+import toast from 'react-hot-toast';
 import { FaGoogle } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
-import { useContext, useState } from 'react';
-import { login, recoverPassword } from '../../services/auth';
-import toast from 'react-hot-toast';
-import { emailValidator } from '../../utils/validators';
-import i18next from '../../Configs/i18n';
-import { LayoutContext } from '../../Contexts/LayoutContext';
 
-export default function LoginForm(setUser) {
+import i18next from '../../Configs/i18n';
+import { login, recoverPassword } from '../../services/auth';
+import { LayoutContext } from '../../Contexts/LayoutContext';
+import { emailValidator } from '../../utils/validators';
+
+import Button from '../../Components/Button';
+import Divider from '../../Components/Divider';
+
+export default function LoginForm({ setUser }) {
 	const { language } = useContext(LayoutContext);
 	const [loginInfo, setLoginInfo] = useState({
-		// email: 'leopadilhac1308@gmail.com',
-		// password: 'test',
 		email: '',
 		password: '',
 	});
@@ -24,7 +25,6 @@ export default function LoginForm(setUser) {
 
 		if (!emailValidator(loginInfo.email))
 			return toast.error(i18next.t('forgotPasswordEmailValidator'));
-		console.log(language);
 		const currentLanguage = language === 'BR' ? undefined : 'en';
 		recoverPassword(loginInfo.email, currentLanguage);
 	}
@@ -99,3 +99,7 @@ export default function LoginForm(setUser) {
 		</form>
 	);
 }
+
+LoginForm.propTypes = {
+	setUser: PropTypes.func,
+};

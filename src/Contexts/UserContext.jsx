@@ -4,7 +4,7 @@ import { verifyUser } from '../services/auth';
 
 export const UserContext = createContext();
 
-export default function UserContextProvider({ children }) {
+export default function UserProvider({ children }) {
 	const [user, setUser] = useState(null);
 	useEffect(() => {
 		verifyUser(setUser);
@@ -16,6 +16,6 @@ export default function UserContextProvider({ children }) {
 	);
 }
 
-UserContextProvider.propTypes = {
+UserProvider.propTypes = {
 	children: PropTypes.node.isRequired,
 };

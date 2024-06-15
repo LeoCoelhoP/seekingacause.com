@@ -1,9 +1,11 @@
 import { useContext } from 'react';
-import { LuDollarSign, LuEye, LuPhone } from 'react-icons/lu';
 import PropTypes from 'prop-types';
+
+import { LuDollarSign, LuEye, LuPhone } from 'react-icons/lu';
 
 import i18next from '../../Configs/i18n';
 import { LayoutContext } from '../../Contexts/LayoutContext';
+
 import Button from '../Button';
 import ProgressBar from '../ProgressBar';
 
@@ -56,4 +58,6 @@ export default function Header({
 Header.propTypes = {
 	cityAndCountry: PropTypes.string,
 	name: PropTypes.string,
+	monthDonations: PropTypes.array,
+	website: PropTypes.string,
 };

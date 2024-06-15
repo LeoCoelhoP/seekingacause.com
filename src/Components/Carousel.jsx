@@ -1,9 +1,13 @@
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LuHeart } from 'react-icons/lu';
+import PropTypes from 'prop-types';
+
 import { RxShare2 } from 'react-icons/rx';
+import { LuArrowLeft, LuHeart } from 'react-icons/lu';
+
+import { LayoutContext } from '../Contexts/LayoutContext';
+
 import { like } from '../services/user';
-import { LuArrowLeft } from 'react-icons/lu';
 
 export default function Carousel({
 	user,
@@ -13,6 +17,7 @@ export default function Carousel({
 	showNavigateBack = false,
 	showNgoDetails,
 }) {
+	const { windowWidth } = useContext(LayoutContext);
 	const navigate = useNavigate();
 	function handleShare() {
 		navigator.share({
@@ -22,7 +27,7 @@ export default function Carousel({
 		});
 	}
 	const [currentImage, setCurrentImage] = useState(1);
-	const liked = user?.likes.includes(_id);
+	const liked = user?.likes.includes(_id) || false;
 
 	function handleNavigateBack() {
 		navigate(-1);
@@ -31,29 +36,21 @@ export default function Carousel({
 		like(user, setUser, likedNgoId);
 	}
 
-	function handleScroll(e) {
-		const containerWidth = e.target.offsetWidth;
-		const imageWidth = containerWidth / images.length;
-		const imageIndex = Math.floor(e.target.scrollLeft / imageWidth) + 1;
+	const handleScroll = useCallback(
+		(e) => {
+			const containerWidth = e.target.offsetWidth;
+			const imageWidth = containerWidth / images.length;
+			const imageIndex = Math.floor(e.target.scrollLeft / imageWidth) + 1;
+			if (Number.isInteger(imageIndex) && imageIndex <= images.length) {
+				setCurrentImage(imageIndex);
+			}
+		},
+		[images.length],
+	);
 
-		// If the carousel loops around, adjust the index accordingly
-		// For example: imageIndex = (imageIndex - 1) % images.length + 1;
+	const imageHeight =
+		windowWidth > 1024 ? '400px' : windowWidth > 768 ? '300px' : '200px';
 
-		if (Number.isInteger(imageIndex) && imageIndex < images.length + 1) {
-			setCurrentImage(imageIndex);
-		}
-	}
-	const [windowWidth, setWindowWidth] = useState(0);
-	useLayoutEffect(() => {
-		console.log(windowWidth);
-		function updateWidth() {
-			setWindowWidth(window.innerWidth);
-		}
-		const event = window.addEventListener('resize', updateWidth);
-		updateWidth();
-
-		return () => window.removeEventListener('resize', event);
-	}, [windowWidth]);
 	return (
 		<div className='relative flex flex-row-reverse items-end justify-center w-full h-full'>
 			{showNavigateBack && (
@@ -83,12 +80,7 @@ export default function Carousel({
 					<img
 						style={{
 							width: '100%',
-							height:
-								windowWidth > 1024
-									? '400px'
-									: windowWidth > 768
-									? '300px'
-									: '200px',
+							height: imageHeight,
 						}}
 						src={img}
 						key={i}
@@ -96,9 +88,7 @@ export default function Carousel({
 					/>
 				))}
 			</div>
-			<div
-				className='absolute flex items-center justify-center gap-2 top-3 end-3'
-				onClick={showNavigateBack ? undefined : showNgoDetails}>
+			<div className='absolute flex items-center justify-center gap-2 top-3 end-3'>
 				<div
 					onClick={handleShare}
 					className='bg-neutral-50  w-[50px] h-[35px] shadow-md z-10 drop-shadow-md rounded-2xl flex justify-center items-center'>
@@ -118,3 +108,12 @@ export default function Carousel({
 		</div>
 	);
 }
+
+Carousel.propTypes = {
+	user: PropTypes.object,
+	setUser: PropTypes.func,
+	images: PropTypes.array,
+	_id: PropTypes.string,
+	showNavigateBack: PropTypes.bool,
+	showNgoDetails: PropTypes.func,
+};

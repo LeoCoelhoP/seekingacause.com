@@ -1,14 +1,12 @@
-import { RxInfoCircled } from 'react-icons/rx';
-import { RxAvatar } from 'react-icons/rx';
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { RxAvatar, RxInfoCircled, RxMagnifyingGlass } from 'react-icons/rx';
 import { LuHeart } from 'react-icons/lu';
 
-import { UserContext } from '../../Contexts/UserContext';
-
-import { RxMagnifyingGlass } from 'react-icons/rx';
-import { useContext } from 'react';
-import { LayoutContext } from '../../Contexts/LayoutContext';
-import { useNavigate } from 'react-router-dom';
 import i18next from '../../Configs/i18n';
+import { UserContext } from '../../Contexts/UserContext';
+import { LayoutContext } from '../../Contexts/LayoutContext';
 
 export default function Navbar() {
 	const navigate = useNavigate();

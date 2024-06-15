@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 export default function Button({
-	tailwind,
+	tailwind = '',
 	icon,
 	children,
 	type = 'button',
@@ -17,9 +17,9 @@ export default function Button({
 		<button
 			type={type}
 			onClick={onClick}
-			className={`${tailwind} ${bgColor} ${height} ${width} ${textColor} ${padding} modal flex items-center justify-center rounded-md`}>
-			<div className='w-[50px]'>{icon}</div>
-			<div className={`${textSize} modal lg:flex-none`}>{children}</div>
+			className={`${tailwind} ${bgColor} ${height} ${width} ${textColor} ${padding} flex items-center justify-center rounded-md`}>
+			{icon && <div className='w-[50px]'>{icon}</div>}
+			<div className={`${textSize}`}>{children}</div>
 		</button>
 	);
 }

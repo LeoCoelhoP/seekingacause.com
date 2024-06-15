@@ -1,7 +1,8 @@
-function emailValidator(email) {
+export function emailValidator(email) {
+	if (typeof email !== 'string') return false;
+
 	const emailRegex =
 		/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	return emailRegex.test(String(email).toLocaleLowerCase());
-}
 
-export { emailValidator };
+	return emailRegex.test(email.toLowerCase());
+}

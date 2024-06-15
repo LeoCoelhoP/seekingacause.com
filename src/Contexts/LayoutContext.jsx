@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useLayoutEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 function getLang() {
@@ -8,12 +8,13 @@ function getLang() {
 
 export const LayoutContext = createContext();
 
-export default function LayoutContextProvider({ children }) {
+export default function LayoutProvider({ children }) {
 	const [state, setState] = useState({
 		adsModalOpen: { status: false, ngo: null },
 		infoModalOpen: false,
 		paymentModalOpen: { status: false, ngo: null },
 		phoneNumberModalOpen: false,
+		windowWidth: null,
 		language: getLang(),
 		type: 'all',
 	});
@@ -28,6 +29,18 @@ export default function LayoutContextProvider({ children }) {
 	const setPhoneNumberModalOpen = (phoneNumberModalOpen) =>
 		setState((prev) => ({ ...prev, phoneNumberModalOpen }));
 	const setLanguage = (language) => setState((prev) => ({ ...prev, language }));
+	const setWindowWidth = (windowWidth) =>
+		setState((prev) => ({ ...prev, windowWidth }));
+
+	useLayoutEffect(() => {
+		function updateWidth() {
+			setWindowWidth(window.innerWidth);
+		}
+		const event = window.addEventListener('resize', updateWidth);
+		updateWidth();
+
+		return () => window.removeEventListener('resize', event);
+	}, []);
 
 	return (
 		<LayoutContext.Provider
@@ -39,12 +52,13 @@ export default function LayoutContextProvider({ children }) {
 				setPaymentModalOpen,
 				setPhoneNumberModalOpen,
 				setLanguage,
+				setWindowWidth,
 			}}>
 			{children}
 		</LayoutContext.Provider>
 	);
 }
 
-LayoutContextProvider.propTypes = {
+LayoutProvider.propTypes = {
 	children: PropTypes.node.isRequired,
 };

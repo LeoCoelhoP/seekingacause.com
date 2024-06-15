@@ -61,6 +61,7 @@
 	"phoneModalPhoneNumberPlaceholder": "+(XX) XXXXX-XXXXX",
 	"phoneModalAddPhoneNumberButtonText": "Add Phone Number",
 	"donateLevelLabel": "Donator Level",
+	"valueToDonate": "Select the donation amount",
 	"reportDownloadLink": "Download Invoice",
 	"reportTotalDonated": "Total Donated"
 }

@@ -1,17 +1,17 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+import { verifyOTP } from '../services/auth';
 import i18next from '../Configs/i18n';
 
 import { UserContext } from '../Contexts/UserContext';
 
 import LoginForm from '../Components/AuthPage/LoginForm';
 import RegisterForm from '../Components/AuthPage/RegisterForm';
-
-import { logOut, verifyOTP } from '../services/auth';
 import ResetPasswordForm from '../Components/AuthPage/ResetPasswordForm';
 
 export default function Auth({ resetPassword }) {
-	console.log(resetPassword);
 	const navigate = useNavigate();
 	const [loginOpen, setLoginOpen] = useState(true);
 	const { user, setUser } = useContext(UserContext);
@@ -21,14 +21,16 @@ export default function Auth({ resetPassword }) {
 	const email = searchParams.get('email');
 
 	useEffect(() => {
-		if (resetPassword && (!email || !code)) {
-			navigate('/auth');
-		}
 		async function validateOTP() {
 			await verifyOTP(code, email, setUser);
 		}
+    
+    if (code && email && !resetPassword) validateOTP();
+    
+		if (resetPassword && (!email || !code)) {
+			navigate('/auth');
+		}
 
-		if (code && email && !resetPassword) validateOTP();
 	}, [searchParams, setUser, navigate, code, email, resetPassword]);
 
 	useEffect(() => {
@@ -75,3 +77,7 @@ export default function Auth({ resetPassword }) {
 		</div>
 	);
 }
+
+Auth.propTypes = {
+	resetPassword: PropTypes.bool,
+};

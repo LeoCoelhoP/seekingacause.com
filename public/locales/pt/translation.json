@@ -31,6 +31,7 @@
 	"health": "Saúde",
 	"shelter": "Abrigo",
 	"default": "Todos",
+	"valueToDonate": "Selecione o valor para doação",
 	"others": "Outros",
 	"showMore": "Mostrar mais",
 	"monthlyGoal": "Meta Mensal",

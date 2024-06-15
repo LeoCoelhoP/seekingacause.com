@@ -1,16 +1,16 @@
-import Button from '../../Components/Button';
-import { register } from '../../services/auth';
-import { emailValidator } from '../../utils/validators';
-import CountriesSelector from '../CountriesSelector';
 import { useContext, useState } from 'react';
-import i18n from '../../Configs/i18n';
 import toast from 'react-hot-toast';
-import { LayoutContext } from '../../Contexts/LayoutContext';
-import { useNavigate } from 'react-router-dom';
 
-export default function RegisterForm(setUser) {
+import i18next from '../../Configs/i18n';
+import { register } from '../../services/auth';
+import { LayoutContext } from '../../Contexts/LayoutContext';
+import { emailValidator } from '../../utils/validators';
+
+import CountriesSelector from '../CountriesSelector';
+import Button from '../../Components/Button';
+
+export default function RegisterForm() {
 	const { language } = useContext(LayoutContext);
-	const navigate = useNavigate();
 	const [registerInfo, setRegisterInfo] = useState({
 		fullName: 'Leonardo Padilha',
 		email: 'leopadilhac1308@gmail.com',
@@ -24,12 +24,13 @@ export default function RegisterForm(setUser) {
 
 	function handleSubmit(e) {
 		e.preventDefault();
-		if (!registerInfo.email) return toast.error(i18n.t('emailValidator'));
+		if (!registerInfo.email) return toast.error(i18next.t('emailValidator'));
 		if (!registerInfo.fullName || registerInfo.fullName.trim().length === 0)
-			return toast.error(i18n.t('fullNameValidator'));
-		if (!registerInfo.password) return toast.error(i18n.t('passwordRequired'));
+			return toast.error(i18next.t('fullNameValidator'));
+		if (!registerInfo.password)
+			return toast.error(i18next.t('passwordRequired'));
 		if (registerInfo.password.length < 7)
-			return toast.error(i18n.t('passwordValidator'));
+			return toast.error(i18next.t('passwordValidator'));
 		const currentLanguage = language === 'BR' ? 'pt' : 'en';
 		register({ ...registerInfo }, currentLanguage);
 	}
@@ -40,7 +41,7 @@ export default function RegisterForm(setUser) {
 			onSubmit={handleSubmit}>
 			<label className='w-full'>
 				<span className='relative z-10 top-[13px] left-2 bg-neutral-200 text-xl w-fit '>
-					{i18n.t('fullName')}:
+					{i18next.t('fullName')}:
 				</span>
 				<input
 					aria-label='Full Name'
@@ -52,13 +53,13 @@ export default function RegisterForm(setUser) {
 				/>
 				{!registerInfo.fullName && registerInfo.fullName.length > 0 && (
 					<span className='text-sm text-pink-500'>
-						*{i18n.t('fullNameValidator')}
+						*{i18next.t('fullNameValidator')}
 					</span>
 				)}
 			</label>
 			<label className='w-full'>
 				<span className='relative z-10 top-[13px] left-2 bg-neutral-200 text-xl w-fit '>
-					{i18n.t('emailAddress')}:
+					{i18next.t('emailAddress')}:
 				</span>
 				<input
 					aria-label='Email Address'
@@ -70,13 +71,13 @@ export default function RegisterForm(setUser) {
 				/>
 				{registerInfo.email && !emailValidator(registerInfo.email) && (
 					<span className='text-sm text-pink-500'>
-						*{i18n.t('emailValidator')}
+						*{i18next.t('emailValidator')}
 					</span>
 				)}
 			</label>
 			<label className='w-full '>
 				<span className='relative z-10 top-[13px] left-2 bg-neutral-200 text-xl w-fit '>
-					{i18n.t('password')}:
+					{i18next.t('password')}:
 				</span>
 				<input
 					aria-label='Password'
@@ -90,13 +91,13 @@ export default function RegisterForm(setUser) {
 				{registerInfo.password.length > 0 &&
 					registerInfo.password.length < 8 && (
 						<span className='text-sm text-pink-500'>
-							*{i18n.t('passwordValidator')}
+							*{i18next.t('passwordValidator')}
 						</span>
 					)}
 			</label>
 			<label className='w-full mb-6'>
 				<span className='relative z-10 top-[13px] left-2 bg-neutral-200 text-xl w-fit '>
-					{i18n.t('confirmPassword')}:
+					{i18next.t('confirmPassword')}:
 				</span>
 				<input
 					aria-label='Confirm Password'
@@ -113,7 +114,7 @@ export default function RegisterForm(setUser) {
 				{registerInfo.passwordConfirmation.length > 0 &&
 					registerInfo.passwordConfirmation !== registerInfo.password && (
 						<span className='text-sm text-pink-500'>
-							*{i18n.t('confirmPasswordValidator')}
+							*{i18next.t('confirmPasswordValidator')}
 						</span>
 					)}
 			</label>
@@ -122,7 +123,7 @@ export default function RegisterForm(setUser) {
 				<CountriesSelector onChange={handleCountrySelector} />
 			</label>
 			<Button type={'submit'} onClick={handleSubmit}>
-				{i18n.t('register')}
+				{i18next.t('register')}
 			</Button>
 		</form>
 	);

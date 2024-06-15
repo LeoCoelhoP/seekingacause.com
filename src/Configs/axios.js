@@ -1,11 +1,11 @@
 import axios from 'axios';
-import { BASE_URL } from '../Configs/config';
-
-// ----------------------------------------------------------------------
 
 const axiosInstance = axios.create({
-	baseURL: BASE_URL,
+	baseURL: import.meta.env.VITE_BACK_END_URL,
 	withCredentials: true,
+	headers: {
+		'Content-Type': 'application/json;charset=UTF-8',
+	},
 });
 
 axiosInstance.interceptors.response.use(
@@ -17,10 +17,9 @@ axiosInstance.interceptors.response.use(
 );
 
 axiosInstance.AxiosHeaders = {
-	'Access-Control-Allow-Origin': 'http://localhost:80',
+	'Access-Control-Allow-Origin': import.meta.env.BACK_END_URL,
 	'Access-Control-Allow-Headers': 'Authorization',
 	'Access-Control-Allow-Methods': 'GET, POST, PATCH',
-	'Content-Type': 'application/json;charset=UTF-8',
 };
 
 export default axiosInstance;

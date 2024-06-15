@@ -8,20 +8,23 @@ const options = {
 	caches: ['localStorage'],
 };
 
+const currentLng = localStorage.getItem('i18nextLng') || 'en';
+const fallbackLng = currentLng === 'en' ? 'pt' : 'en';
+
 i18n
 	.use(HttpApi)
 	.use(LanguageDetector)
 	.use(initReactI18next)
 	.init({
 		supportedLngs: ['en', 'pt'],
-		fallbackLng: 'pt',
+		fallbackLng,
 		debug: true,
 		detection: options,
 		backend: {
 			loadPath: '/locales/{{lng}}/{{ns}}.json',
 		},
 		react: {
-			useSuspense: false,
+			useSuspense: true,
 		},
 	});
 

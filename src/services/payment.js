@@ -1,7 +1,7 @@
-import axios from '../utils/axios';
+import axios from '../Configs/axios';
 import toast from 'react-hot-toast';
 
-async function createOrder({ data, actions, ngoId, valueToDonate, currency }) {
+async function createOrder({ ngoId, valueToDonate, currency }) {
 	try {
 		const response = await axios.post(
 			'/payment/create-paypal-order',
@@ -14,11 +14,10 @@ async function createOrder({ data, actions, ngoId, valueToDonate, currency }) {
 		);
 		return response.data.id;
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 	}
 }
-async function onApprove(data, actions) {
-	// Order is captured on the server and the response is returned to the browser
+async function onApprove(data) {
 	try {
 		const response = await axios.post(
 			'/payment/capture-paypal-order',
@@ -34,7 +33,7 @@ async function onApprove(data, actions) {
 		});
 		return true;
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 	}
 }
 

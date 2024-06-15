@@ -1,8 +1,10 @@
 import { useContext } from 'react';
-import Button from './Button';
+
 import { LayoutContext } from '../Contexts/LayoutContext';
 
 import i18next from '../Configs/i18n';
+
+import Button from './Button';
 
 export default function InfoModal() {
 	const { setInfoModalOpen } = useContext(LayoutContext);

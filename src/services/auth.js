@@ -1,9 +1,8 @@
-import axios from '../utils/axios';
+import axios from '../Configs/axios';
 import toast from 'react-hot-toast';
 
 async function verifyOTP(code, email, setUser) {
 	try {
-		console.log(code, email);
 		const response = await axios.post(
 			'/auth/verify-otp',
 			{
@@ -21,32 +20,6 @@ async function verifyOTP(code, email, setUser) {
 	} catch (error) {
 		setUser(() => null);
 
-		toast.error(error.message);
-	}
-}
-
-async function changePassword(formValues, email, code, setUser, navigate) {
-	try {
-		const response = await axios.post(
-			'/auth/reset-password',
-			{
-				...formValues,
-				email,
-				otp: code,
-			},
-			{
-				headers: {
-					Authorization: 'Bearer',
-				},
-			},
-		);
-		toast.success(response.data.message);
-		console.log(response.data);
-		setUser(() => ({ ...response.data.user }));
-		navigate('/', { replace: true });
-		return true;
-	} catch (error) {
-		setUser(() => null);
 		toast.error(error.message);
 	}
 }
@@ -81,7 +54,25 @@ async function logOut(setUser) {
 		toast.error(error.message);
 	}
 }
-
+async function login(formValues, { setUser }) {
+	try {
+		const response = await axios.post(
+			'/auth/login',
+			{
+				...formValues,
+			},
+			{
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			},
+		);
+		toast.success(response.data.message);
+		setUser(() => ({ ...response.data.user }));
+	} catch (error) {
+		toast.error(error.message);
+	}
+}
 async function verifyUser(setUser) {
 	try {
 		const response = await axios.post('/auth/verify-user', {});
@@ -109,22 +100,28 @@ async function recoverPassword(email, language) {
 		toast.error(error.message);
 	}
 }
-async function login(formValues, { setUser }) {
+async function changePassword(formValues, email, code, setUser, navigate) {
 	try {
 		const response = await axios.post(
-			'/auth/login',
+			'/auth/reset-password',
 			{
 				...formValues,
+				email,
+				otp: code,
 			},
 			{
 				headers: {
-					'Content-Type': 'application/json',
+					Authorization: 'Bearer',
 				},
 			},
 		);
 		toast.success(response.data.message);
+		console.log(response.data);
 		setUser(() => ({ ...response.data.user }));
+		navigate('/', { replace: true });
+		return true;
 	} catch (error) {
+		setUser(() => null);
 		toast.error(error.message);
 	}
 }

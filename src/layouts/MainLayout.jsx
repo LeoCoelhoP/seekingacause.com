@@ -1,13 +1,14 @@
 import { useContext, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
-import Navbar from '../Components/common/Navbar';
-import InfoModal from '../Components/InfoModal';
-import RegisterPhoneNumberModal from '../Components/RegisterPhoneNumberModal';
-import AdsModal from '../Components/AdsModal';
 import { LayoutContext } from '../Contexts/LayoutContext';
+
+import AdsModal from '../Components/AdsModal';
 import Header from '../Components/Header';
+import InfoModal from '../Components/InfoModal';
+import Navbar from '../Components/common/Navbar';
 import PaymentModal from '../Components/PaymentModal';
+import RegisterPhoneNumberModal from '../Components/RegisterPhoneNumberModal';
 
 export default function MainLayout({
 	children,
@@ -31,36 +32,16 @@ export default function MainLayout({
 		phoneNumberModalOpen ||
 		paymentModalOpen.status;
 
-	const handleCloseModal = useCallback(
-		(e) => {
-			const divTarget = e.target.closest('div');
-			if (!divTarget || !divTarget.classList.contains('modal')) {
-				setAdsModalOpen(false);
-				setInfoModalOpen(false);
-				setPhoneNumberModalOpen(false);
-				setPaymentModalOpen(false);
-			}
-		},
-		[
-			setAdsModalOpen,
-			setInfoModalOpen,
-			setPhoneNumberModalOpen,
-			setPaymentModalOpen,
-		],
-	);
-
 	const blurClass = useMemo(
 		() => (isAnyModalOpen ? 'blur-md' : ''),
 		[isAnyModalOpen],
 	);
-
 	return (
 		<div className='flex flex-col items-center justify-start overflow-hidden bg-neutral-200 h-svh w-svw'>
 			<div className={`w-full h-fit z-10 ${blurClass}`}>
 				{showHeader && <Header />}
 			</div>
 			<div
-				onClick={handleCloseModal}
 				className={`overflow-y-scroll h-full z-0 ${blurClass} bg-neutral-200 lg:flex lg:flex-row lg:items-start lg:justify-center`}>
 				{children}
 			</div>

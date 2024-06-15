@@ -1,12 +1,15 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useContext } from 'react';
 import * as maptilersdk from '@maptiler/sdk';
 import PropTypes from 'prop-types';
+
+import { LayoutContext } from '../../Contexts/LayoutContext';
 
 import '@maptiler/sdk/dist/maptiler-sdk.css';
 import '../../map.css';
 
 export default function Map({ location, defaultZoom = 14 }) {
 	const [lng, lat] = location;
+	const { windowWidth } = useContext(LayoutContext);
 	const mapContainer = useRef(null);
 	const map = useRef(null);
 	const [zoom] = useState(defaultZoom);
@@ -29,16 +32,16 @@ export default function Map({ location, defaultZoom = 14 }) {
 			}
 		};
 	}, [lng, lat, zoom]);
-
+	const height =
+		windowWidth > 1024 ? '600px' : windowWidth > 768 ? '400px' : '200px';
 	return (
-		<div className='shadow-md map-wrap drop-shadow-md'>
-			<div ref={mapContainer} className='map' />
+		<div className='shadow-md map-wrap drop-shadow-md ' style={{ height }}>
+			<div ref={mapContainer} className='map' style={{ height }} />
 		</div>
 	);
 }
 
 Map.propTypes = {
-	lng: PropTypes.number,
-	lat: PropTypes.number,
+	location: PropTypes.array,
 	defaultZoom: PropTypes.number,
 };

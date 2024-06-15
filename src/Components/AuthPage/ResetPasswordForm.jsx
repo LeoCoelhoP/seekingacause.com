@@ -1,12 +1,12 @@
-import Button from '../Button';
-
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-import { UserContext } from '../../Contexts/UserContext';
-import i18next from '../../Configs/i18n';
-import i18n from '../../Configs/i18n';
 import { changePassword } from '../../services/auth';
+import i18next from '../../Configs/i18n';
+import { UserContext } from '../../Contexts/UserContext';
+
+import Button from '../Button';
 
 export default function ResetPasswordForm({ email, code, setUser }) {
 	const navigate = useNavigate();
@@ -41,7 +41,7 @@ export default function ResetPasswordForm({ email, code, setUser }) {
 				/>
 				{recoverInfo.password.length > 0 && recoverInfo.password.length < 8 && (
 					<span className='text-sm text-pink-500'>
-						*{i18n.t('passwordValidator')}
+						*{i18next.t('passwordValidator')}
 					</span>
 				)}
 			</label>
@@ -64,7 +64,7 @@ export default function ResetPasswordForm({ email, code, setUser }) {
 				{recoverInfo.passwordConfirmation.length > 0 &&
 					recoverInfo.passwordConfirmation !== recoverInfo.password && (
 						<span className='text-sm text-pink-500'>
-							*{i18n.t('confirmPasswordValidator')}
+							*{i18next.t('confirmPasswordValidator')}
 						</span>
 					)}
 			</label>
@@ -74,3 +74,9 @@ export default function ResetPasswordForm({ email, code, setUser }) {
 		</form>
 	);
 }
+
+ResetPasswordForm.propTypes = {
+	email: PropTypes.string,
+	code: PropTypes.string,
+	setUser: PropTypes.func,
+};
