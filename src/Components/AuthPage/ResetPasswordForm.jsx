@@ -68,7 +68,12 @@ export default function ResetPasswordForm({ email, code, setUser }) {
 						</span>
 					)}
 			</label>
-			<Button type={'submit'} onClick={handleSubmit} width='w-fit'>
+
+			<Button
+				type={'submit'}
+				onClick={handleSubmit}
+				width='w-fit'
+				tailwind='drop-shadow-md shadow-md'>
 				{i18next.t('changePassword')}
 			</Button>
 		</form>

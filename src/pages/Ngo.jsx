@@ -34,7 +34,7 @@ export default function Ngo() {
 	} = ngoDetails;
 
 	return (
-		<div className='z-0 flex flex-col items-center justify-start overflow-hidden w-fit h-max text-neutral-950 lg:w-5/6 lg:text-xl'>
+		<div className='z-0 flex flex-col items-center justify-start w-full overflow-hidden h-max text-neutral-950 lg:pr-[200px] lg:pl-[200px] lg:text-xl'>
 			<Carousel
 				images={images}
 				_id={id}
@@ -49,6 +49,7 @@ export default function Ngo() {
 					monthDonations={monthDonations}
 					donations={donations}
 					website={website}
+					id={id}
 				/>
 				<Divider />
 				<NgoDescription

@@ -122,7 +122,10 @@ export default function RegisterForm() {
 			<label className='relative w-full bottom-5'>
 				<CountriesSelector onChange={handleCountrySelector} />
 			</label>
-			<Button type={'submit'} onClick={handleSubmit}>
+			<Button
+				type={'submit'}
+				onClick={handleSubmit}
+				tailwind='drop-shadow-md shadow-md'>
 				{i18next.t('register')}
 			</Button>
 		</form>

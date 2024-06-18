@@ -14,8 +14,9 @@ export default function Header({
 	name,
 	monthDonations,
 	website,
+	id,
 }) {
-	const { setAdsModalOpen } = useContext(LayoutContext);
+	const { setAdsModalOpen, setPaymentModalOpen } = useContext(LayoutContext);
 	return (
 		<header className=' bg-neutral-50'>
 			<h1 className='text-3xl font-semibold break-before-avoid '>{name}</h1>
@@ -39,15 +40,17 @@ export default function Header({
 			<ProgressBar progress={monthDonations.length} />
 			<div className='flex gap-2 mt-4 text-xl'>
 				<Button
-					onClick={() => setAdsModalOpen(true)}
-					tailwind={'border-2 text-start bg-neutral-50'}
+					onClick={() => setAdsModalOpen({ status: true, ngoId: id })}
+					tailwind={'text-start bg-neutral-50 shadow-md drop-shadow-md'}
 					textColor='text-neutral-600'
 					textSize='text-sm'
-					icon={<LuEye className='h-[20px] w-[20px] text-xl shrink-0 mr-2' />}>
+					icon={<LuEye className='w-1/2 text-xl' size={'1.25rem'} />}>
 					{i18next.t('donateByWatchingAds')}
 				</Button>
-
-				<Button icon={<LuDollarSign className=' w-fit' />} tailwind={`gap-2`}>
+				<Button
+					onClick={() => setPaymentModalOpen({ status: true, ngoId: id })}
+					icon={<LuDollarSign className='text-2xl' size={'1.25rem'} />}
+					tailwind={`gap-2 shadow-md drop-shadow-md modal`}>
 					{i18next.t('donate')}
 				</Button>
 			</div>

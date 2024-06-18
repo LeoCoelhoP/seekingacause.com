@@ -5,6 +5,7 @@ import { NgoContext } from '../Contexts/NgoContext';
 import { UserContext } from '../Contexts/UserContext';
 
 import NGOCardsContainer from '../Components/NGOCardsContainer';
+import Loading from '../Components/Loading';
 
 export default function Favorites() {
 	const { user, setUser } = useContext(UserContext);
@@ -14,6 +15,8 @@ export default function Favorites() {
 	useEffect(() => {
 		if (!user) navigate(-1, { replace: true });
 	}, [user, navigate]);
+
+	if (!ngo) return <Loading />;
 
 	const likedNgoArray = ngo.filter((ngo) => {
 		if (user?.likes.includes(ngo._id)) return ngo;

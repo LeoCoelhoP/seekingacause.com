@@ -15,6 +15,7 @@ async function verifyOTP(code, email, setUser) {
 				},
 			},
 		);
+		console.log(response);
 		toast.success(response.data.message);
 		setUser(() => ({ ...response.data.user }));
 	} catch (error) {

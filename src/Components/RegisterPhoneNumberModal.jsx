@@ -16,8 +16,11 @@ export default function RegisterPhoneNumberModal() {
 		// Todo Phone Submission
 	}
 	return (
-		<div className='modal z-20 h-[calc(100% - 20px)] blur-none overflow-y-scroll absolute w-5/6 text-neutral-950 font-semibold drop-shadow-2xl shadow-2xl rounded-md bg-neutral-50 p-4 mx-auto my-auto flex flex-col gap-2 items-center justify-center'>
-			<h1 className='text-xl font-semibold text-center'>
+		<div className='modal z-20 h-[calc(100% - 20px)] blur-none absolute w-5/6 text-neutral-950 font-semibold drop-shadow-2xl shadow-2xl rounded-md bg-neutral-50 p-4 mx-auto my-auto flex flex-col gap-2 items-center justify-center'>
+			<h1 className='text-2xl font-semibold text-center'>
+				{i18next.t('thanksMessage')}
+			</h1>
+			<h1 className='text-xl font-medium text-center'>
 				{i18next.t('phoneModalTitle')}
 			</h1>
 			<img

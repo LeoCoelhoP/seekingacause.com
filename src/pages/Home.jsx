@@ -13,7 +13,7 @@ export default function Home() {
 	if (!ngo) return <Loading />;
 
 	return (
-		<div className='flex flex-col w-full bg-neutral-50'>
+		<div className='flex flex-col w-full md:h-fit lg:h-full bg-neutral-300'>
 			<NGOCardsContainer ngos={ngo} user={user} setUser={setUser} />
 		</div>
 	);

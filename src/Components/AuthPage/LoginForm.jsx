@@ -91,7 +91,7 @@ export default function LoginForm({ setUser }) {
 					bgColor=''
 					textColor='text-neutral-950'
 					tailwind={
-						'border-2 border-neutral-300 text-start bg-neutral-200 p-5'
+						'border-2 border-neutral-300 text-start bg-neutral-200 p-5 drop-shadow-md shadow-md'
 					}>
 					<FaXTwitter />
 				</Button>

@@ -36,7 +36,7 @@ export default function MenuOptions({ ngoDetails }) {
 
 	const MENU_OPTIONS = useMemo(() => getOptions(), []);
 	return (
-		<div className='items-center w-full h-fit '>
+		<div className='w-full  h-fit'>
 			<div className='flex items-start justify-center gap-6'>
 				{MENU_OPTIONS.map(({ id, icon, label }) => (
 					<div
@@ -51,7 +51,7 @@ export default function MenuOptions({ ngoDetails }) {
 				))}
 			</div>
 			<Divider />
-			<div className='content'>
+			<div className='w-full content'>
 				{menuOption === 0 && (
 					<div className='h-full'>
 						<Map location={location} />

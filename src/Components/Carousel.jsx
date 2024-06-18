@@ -1,4 +1,4 @@
-import { useCallback, useContext, useState } from 'react';
+import { useCallback, useContext, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -15,7 +15,6 @@ export default function Carousel({
 	images,
 	_id,
 	showNavigateBack = false,
-	showNgoDetails,
 }) {
 	const { windowWidth } = useContext(LayoutContext);
 	const navigate = useNavigate();
@@ -23,11 +22,12 @@ export default function Carousel({
 		navigator.share({
 			title: 'Seeking a cause',
 			text: 'Join us and make a difference! ',
-			url: `${import.meta.env.BASE_URL}/ngo/${_id}`,
+			url: `${import.meta.env.VITE_BASE_URL}ngo/${_id}`,
 		});
 	}
 	const [currentImage, setCurrentImage] = useState(1);
 	const liked = user?.likes.includes(_id) || false;
+	const imagesContainer = useRef(null);
 
 	function handleNavigateBack() {
 		navigate(-1);
@@ -36,55 +36,75 @@ export default function Carousel({
 		like(user, setUser, likedNgoId);
 	}
 
+	const containerWidth =
+		images.length > 2
+			? imagesContainer?.current?.offsetWidth + windowWidth
+			: imagesContainer?.current?.offsetWidth;
+	const imageWidth = containerWidth / images.length;
+	function handleClick() {
+		console.log(currentImage, images.length);
+		if (currentImage >= images.length) {
+			imagesContainer.current.scrollTo({
+				left: 0,
+				behavior: 'smooth',
+			});
+			setCurrentImage(() => 1);
+		} else {
+			setCurrentImage((state) => state + 1);
+			console.log();
+			imagesContainer.current.scrollTo({
+				left: imageWidth * (currentImage + 1),
+				behavior: 'smooth',
+			});
+		}
+	}
+
 	const handleScroll = useCallback(
 		(e) => {
-			const containerWidth = e.target.offsetWidth;
-			const imageWidth = containerWidth / images.length;
 			const imageIndex = Math.floor(e.target.scrollLeft / imageWidth) + 1;
 			if (Number.isInteger(imageIndex) && imageIndex <= images.length) {
 				setCurrentImage(imageIndex);
 			}
 		},
-		[images.length],
+		[images.length, imageWidth],
 	);
 
-	const imageHeight =
-		windowWidth > 1024 ? '400px' : windowWidth > 768 ? '300px' : '200px';
+	const imageSize =
+		windowWidth > 1024 ? '375px' : windowWidth > 768 ? '300px' : '200px';
 
 	return (
-		<div className='relative flex flex-row-reverse items-end justify-center w-full h-full'>
+		<div className='relative flex items-end justify-center w-full h-full lg:drop-shadow-md lg:shadow-md'>
 			{showNavigateBack && (
 				<div
 					onClick={handleNavigateBack}
-					className='absolute bg-neutral-50  w-[50px] h-[35px] shadow-md z-10 drop-shadow-md rounded-2xl top-3 start-3 flex items-center justify-center'>
+					className='absolute bg-neutral-50  w-[50px] h-[35px] rounded-2xl shadow-md z-10 drop-shadow-md  top-3 start-3 flex items-center justify-center'>
 					<LuArrowLeft size={'1.25rem'} />
 				</div>
 			)}
 
-			<div
-				className='absolute flex items-center justify-center w-full gap-2 mb-2'
-				onClick={showNavigateBack ? undefined : showNgoDetails}>
+			<div className='absolute flex items-center justify-center w-full gap-2 mb-2'>
 				{images.map((_, i) => (
 					<div
 						key={i}
 						className={`h-[15px] w-[15px] ${
-							i + 1 === currentImage ? 'bg-neutral-50' : 'bg-neutral-300'
+							i + 1 === currentImage ? 'bg-white' : 'bg-neutral-300'
 						} rounded-full border-[1px]`}></div>
 				))}
 			</div>
 			<div
 				className='flex w-full h-full overflow-y-scroll snap-x snap-mandatory no-scrollbar '
 				onScroll={handleScroll}
-				onClick={showNavigateBack ? undefined : showNgoDetails}>
+				onClick={handleClick}
+				ref={imagesContainer}>
 				{images.map((img, i) => (
 					<img
 						style={{
 							width: '100%',
-							height: imageHeight,
+							height: imageSize,
 						}}
 						src={img}
 						key={i}
-						className='flex-none h-full rounded-t-md snap-center w-svw'
+						className='flex-none h-full snap-center w-svw'
 					/>
 				))}
 			</div>
@@ -108,7 +128,6 @@ export default function Carousel({
 		</div>
 	);
 }
-
 Carousel.propTypes = {
 	user: PropTypes.object,
 	setUser: PropTypes.func,

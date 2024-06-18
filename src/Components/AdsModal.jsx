@@ -12,7 +12,8 @@ import { createDonation } from '../services/donation';
 import Button from './Button';
 
 export default function AdsModal() {
-	const { adsModalOpen, setAdsModalOpen } = useContext(LayoutContext);
+	const { adsModalOpen, setAdsModalOpen, setPhoneNumberModalOpen } =
+		useContext(LayoutContext);
 	const { user, setUser } = useContext(UserContext);
 	const { setNgo } = useContext(NgoContext);
 
@@ -27,6 +28,8 @@ export default function AdsModal() {
 				ngoId: adsModalOpen.ngoId,
 			});
 			setAdsModalOpen(false);
+			console.log(user);
+			if (!user.phoneNumber) setPhoneNumberModalOpen(true);
 		}
 		if (!onAds) {
 			onAds = true;
@@ -36,16 +39,17 @@ export default function AdsModal() {
 			);
 		}
 		const timeOut = setTimeout(handleDonation, 5000);
-		console.log('leo');
 		return () => clearTimeout(timeOut);
 	}, [setUser, user, setAdsModalOpen, adsModalOpen, setNgo]);
 
 	return (
-		<div className='modal z-20 h-[calc(100% - 20px)] blur-none overflow-y-scroll absolute w-5/6 text-neutral-950  font-semibold drop-shadow-2xl shadow-2xl rounded-md bg-neutral-50  p-4 mx-auto my-auto flex flex-col gap-2 items-center justify-center'>
-			<h1 className='w-full text-base font-extrabold text-center '>
+		<div className='modal z-20 h-[calc(100% - 20px)] lg:w-fit blur-none overflow-y-scroll absolute w-5/6 text-neutral-950  font-semibold drop-shadow-2xl shadow-2xl rounded-md bg-neutral-50  p-4 mx-auto my-auto flex flex-col gap-2 items-center justify-center'>
+			<h1 className='w-full text-base text-center font-extra bold md:text-2xl '>
 				{i18next.t('adsModalTitle')}
 			</h1>
-			<h2 className='text-sm text-center '>{i18next.t('adsModalText')}</h2>
+			<h2 className='text-sm text-center md:text-xl '>
+				{i18next.t('adsModalText')}
+			</h2>
 			<div className='w-full bg-neutral-200 h-fit modal'>
 				<img src={''} className='w-full h-[130px]' />
 			</div>

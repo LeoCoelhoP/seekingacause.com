@@ -31,7 +31,7 @@
 	"paymentMethods": "Donation Methods",
 	"donationValue": "Donation Value",
 	"others": "Others",
-	"showMore": "Show more",
+	"showMore": "Click to Visit Ngo Page",
 	"monthlyGoal": "Monthly Goal",
 	"donate": "Donate",
 	"donateByWatchingAds": "Donate by Watching Ads",
@@ -56,12 +56,13 @@
 	"infoModalHowItWorksText": "Explore NGOs: Browse through our curated list of NGOs to find causes that resonate with you. Each listing includes comprehensive information to help you make an informed choice. Donate: Make a direct donation to the NGO of your choice through our secure platform. Engage with ads on our site: The revenue generated from these ads will be donated to the NGOs featured on our platform. Stay Informed: Subscribe to our newsletter and follow us on social media to receive updates on the impact of your donations and the latest news from the NGOs you support.",
 	"infoModalContactUsTitle": "Contact Us:",
 	"infoModalContactUsText": "Are you an NGO looking to make a bigger impact? We'd love to hear from you! If you are an NGO that meets our standards of integrity and effectiveness, we invite you to join our platform. You can contact us at: [EMAIL]",
-	"phoneModalTitle": "Make a difference with just a few minutes of your day!",
+	"phoneModalTitle": "Make more difference with just a few minutes of your day!",
 	"phoneModalDescription": "Add your phone number to receive daily reminders to watch donation ads. Each ad you watch is donated to a worthy NGO. Register now and join us in supporting a great cause—together, we can make a great difference!",
 	"phoneModalPhoneNumberPlaceholder": "+(XX) XXXXX-XXXXX",
 	"phoneModalAddPhoneNumberButtonText": "Add Phone Number",
 	"donateLevelLabel": "Donator Level",
 	"valueToDonate": "Select the donation amount",
+	"thanksMessage": "You have donated successfully! Thank you immensely!",
 	"reportDownloadLink": "Download Invoice",
 	"reportTotalDonated": "Total Donated"
 }

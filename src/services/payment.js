@@ -28,8 +28,8 @@ async function onApprove(data) {
 				},
 			},
 		);
-		toast.success(response.data.message, {
-			duration: 10000,
+		toast.loading(response.data.message, {
+			duration: 15000,
 		});
 		return true;
 	} catch (error) {

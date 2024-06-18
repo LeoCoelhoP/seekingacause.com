@@ -28,11 +28,11 @@ export default function NGOFilters({ ngo, setNgo, option, setOption }) {
 	}, [option, changeOption]);
 
 	return (
-		<div className='shadow-md text-neutral-500  drop-shadow-md z-10 flex items-center  p-2 h-[60px] bg-neutral-50  text-3xl gap-4 justify-evenly'>
+		<div className='shadow-md text-neutral-500  drop-shadow-md z-10 flex items-center md:w-full  p-2 h-[60px] bg-neutral-100  text-3xl gap-4 justify-evenly lg:gap-24 lg:justify-center'>
 			<div
 				onClick={() => setOption('All')}
-				className={`hover:text-neutral-950 flex flex-col items-center justify-center text-sm ${
-					option === 'All' ? 'text-neutral-950' : ''
+				className={`hover:text-neutral-950 flex flex-col  items-center justify-center text-sm ${
+					option === 'All' ? 'text-neutral-950 font-semibold' : ''
 				}`}>
 				<RxMagnifyingGlass size={'1.25rem'} />
 				{i18next.t('default')}
@@ -40,7 +40,7 @@ export default function NGOFilters({ ngo, setNgo, option, setOption }) {
 			<div
 				onClick={() => setOption('Animals')}
 				className={`hover:text-neutral-950 flex flex-col items-center justify-center text-sm ${
-					option === 'Animals' ? 'text-neutral-950' : ''
+					option === 'Animals' ? 'text-neutral-950 font-semibold' : ''
 				}`}>
 				<PiDog size={'1.25rem'} />
 				{i18next.t('animals')}
@@ -48,15 +48,15 @@ export default function NGOFilters({ ngo, setNgo, option, setOption }) {
 			<div
 				onClick={() => setOption('Nature')}
 				className={`hover:text-neutral-950 flex flex-col items-center justify-center text-sm ${
-					option === 'Nature' ? 'text-neutral-950' : ''
+					option === 'Nature' ? 'text-neutral-950 font-semibold' : ''
 				}`}>
 				<GiThreeLeaves size={'1.25rem'} />
 				{i18next.t('nature')}
 			</div>
 			<div
 				onClick={() => setOption('Health')}
-				className={`hover:text-neutral-950 flex flex-col items-center justify-center text-sm ${
-					option === 'Health' ? 'text-neutral-950' : ''
+				className={`hover:text-neutral-950  flex flex-col items-center justify-center text-sm ${
+					option === 'Health' ? 'text-neutral-950 font-semibold' : ''
 				}`}>
 				<LuCross size={'1.25rem'} />
 				{i18next.t('health')}
@@ -65,7 +65,7 @@ export default function NGOFilters({ ngo, setNgo, option, setOption }) {
 			<div
 				onClick={() => setOption('Others')}
 				className={`hover:text-neutral-950 flex flex-col items-center justify-center text-sm ${
-					option === 'Others' ? 'text-neutral-950' : ''
+					option === 'Others' ? 'text-neutral-950 font-semibold' : ''
 				}`}>
 				<RxChevronDown size={'1.25rem'} />
 				{i18next.t('others')}

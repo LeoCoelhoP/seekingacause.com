@@ -24,13 +24,12 @@ export default function Auth({ resetPassword }) {
 		async function validateOTP() {
 			await verifyOTP(code, email, setUser);
 		}
-    
-    if (code && email && !resetPassword) validateOTP();
-    
+
+		if (code && email && !resetPassword) validateOTP();
+
 		if (resetPassword && (!email || !code)) {
 			navigate('/auth');
 		}
-
 	}, [searchParams, setUser, navigate, code, email, resetPassword]);
 
 	useEffect(() => {
@@ -39,7 +38,7 @@ export default function Auth({ resetPassword }) {
 
 	if (resetPassword)
 		return (
-			<div className='flex flex-col items-center justify-center h-full bg-neutral-200 text-neutral-950 w-svw'>
+			<div className='flex flex-col items-center justify-center w-full h-full bg-neutral-200 text-neutral-950'>
 				<div className='text-2xl text-center '>
 					{i18next.t('resetPassword')}
 				</div>
@@ -50,7 +49,7 @@ export default function Auth({ resetPassword }) {
 		);
 
 	return (
-		<div className='flex flex-col items-center justify-center p-4 mt-10 h-fit bg-neutral-200 text-neutral-950 w-svw'>
+		<div className='flex flex-col items-center justify-center w-full p-4 mt-10 h-fit bg-neutral-200 text-neutral-950'>
 			<div className='flex gap-4 text-2xl text-center '>
 				<span
 					onClick={() => setLoginOpen(() => true)}

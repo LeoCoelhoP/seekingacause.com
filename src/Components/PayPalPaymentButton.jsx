@@ -17,7 +17,7 @@ export default function PayPalPaymentButton({
 					actions,
 					ngoId,
 					valueToDonate,
-					currency: language === 'en' ? 'USD' : 'BRL',
+					currency: 'BRL',
 				})
 			}
 			onApprove={async (data, actions) => {

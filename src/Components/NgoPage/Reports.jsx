@@ -5,7 +5,7 @@ import { LuAlertCircle } from 'react-icons/lu';
 export default function Reports() {
 	const reports = [1, 2, 3, 4, 5];
 	return (
-		<div className='flex flex-col w-full h-full gap-4 p-4 '>
+		<div className='flex flex-col w-full h-full gap-4 px-4 '>
 			{reports &&
 				reports.map((_, i) => (
 					<div

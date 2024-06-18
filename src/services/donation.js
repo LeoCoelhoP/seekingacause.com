@@ -13,12 +13,11 @@ async function createDonation({ user, setUser, setNgo, ngoId, type }) {
 				},
 			},
 		);
-		console.log('response');
-		console.log(response);
+
 		setNgo(() => response.data.ngos);
 		if (user) setUser(() => ({ ...response.data.user }));
 
-		toast.success(response.data.message);
+		toast.success(response.data.message, { duration: 15000 });
 	} catch (error) {
 		console.error(error);
 		toast.error(error.message);

@@ -23,7 +23,7 @@ i18n.changeLanguage(storedLang);
 
 const initialOptions = {
 	'client-id': import.meta.env.VITE_PAYPAL_ID,
-	currency: storedLang === 'pt' ? 'BRL' : 'USD',
+	currency: 'BRL',
 	intent: 'capture',
 };
 

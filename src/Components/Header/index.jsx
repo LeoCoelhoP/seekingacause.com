@@ -8,7 +8,8 @@ export default function Header() {
 	const [option, setOption] = useState('All');
 
 	return (
-		<header className={`bg-neutral-50`}>
+		<header
+			className={`bg-neutral-100 md:flex md:flex-col w-full md:items-center md:w-full justify-center  lg:mx-auto`}>
 			<SearchForm option={option} setOption={setOption} />
 			<NGOFilters
 				ngo={ngo}
