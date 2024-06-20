@@ -43,7 +43,7 @@ export default function AdsModal() {
 	}, [setUser, user, setAdsModalOpen, adsModalOpen, setNgo]);
 
 	return (
-		<div className='modal z-20 h-[calc(100% - 20px)] lg:w-fit blur-none overflow-y-scroll absolute w-5/6 text-neutral-950  font-semibold drop-shadow-2xl shadow-2xl rounded-md bg-neutral-50  p-4 mx-auto my-auto flex flex-col gap-2 items-center justify-center'>
+		<div className='modal z-20 h-[calc(100% - 20px)] blur-none overflow-y-scroll absolute w-5/6 text-neutral-950  font-semibold drop-shadow-2xl shadow-2xl rounded-md bg-neutral-50  p-4 mx-auto my-auto flex flex-col gap-2 items-center justify-center'>
 			<h1 className='w-full text-base text-center font-extra bold md:text-2xl '>
 				{i18next.t('adsModalTitle')}
 			</h1>

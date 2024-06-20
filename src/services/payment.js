@@ -17,21 +17,24 @@ async function createOrder({ ngoId, valueToDonate, currency }) {
 		console.error(error);
 	}
 }
-async function onApprove(data) {
+async function onApprove(data, user, setUser, setNgo) {
 	try {
 		const response = await axios.post(
 			'/payment/capture-paypal-order',
-			{ orderID: data.orderID },
+			{ orderID: data.orderID, user },
 			{
 				headers: {
 					'Content-Type': 'application/json',
 				},
 			},
 		);
-		toast.loading(response.data.message, {
+		toast.success(response.data.message, {
 			duration: 15000,
 		});
-		return true;
+
+		console.log(response);
+		setNgo(() => response.data.ngos);
+		if (response.data.user) setUser(() => ({ ...response.data.user }));
 	} catch (error) {
 		console.error(error);
 	}

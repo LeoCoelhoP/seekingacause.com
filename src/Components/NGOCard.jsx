@@ -55,7 +55,7 @@ export default function NGOCard({ modalOpen, data, user, setUser }) {
 		.join(' ');
 
 	return (
-		<div>
+		<div className='bg-transparent lg:px-3'>
 			<div className='flex flex-col justify-start w-full text-2xl shadow-md bg-neutral-50 lg:my-2 lg:flex-row hover:cursor-pointer md:h-full lg:w-full flex-row-wrap '>
 				<div className='z-10 flex flex-col items-center justify-center w-full lg:w-fit lg:h-full bg-neutral-50'>
 					<div className='relative w-full lg:w-[400px] lg:flex-shrink-0'>

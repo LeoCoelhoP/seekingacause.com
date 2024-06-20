@@ -29,7 +29,11 @@ const initialOptions = {
 
 const routes = [
 	{ path: '/', element: <Home />, layoutProps: { showHeader: true } },
-	{ path: '/favorites', element: <Favorites /> },
+	{
+		path: '/favorites',
+		element: <Favorites />,
+		layoutProps: { showHeader: true },
+	},
 	{ path: '/auth', element: <Auth /> },
 	{ path: '/profile', element: <Profile /> },
 	{ path: '/ngo/:id', element: <Ngo />, layoutProps: { showNav: true } },

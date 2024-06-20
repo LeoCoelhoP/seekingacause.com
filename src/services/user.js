@@ -1,6 +1,32 @@
 import axios from '../Configs/axios';
 import toast from 'react-hot-toast';
 
+async function changeProfileAvatar(user, setUser, avatar) {
+	if (!user || !setUser || !avatar) {
+		toast.error('You need to be logged in to perfom this action');
+		return;
+	}
+
+	try {
+		const response = await axios.patch(
+			'/user/update-avatar',
+			{
+				avatar,
+			},
+			{ headers: 'multipart/form-data' },
+		);
+
+		if (response.data?.user) {
+			setUser(response.data.user);
+			toast.success(response.data.message);
+		} else {
+			throw new Error('Failed to update user data');
+		}
+	} catch (error) {
+		toast.error(error.message || 'An error occurred');
+	}
+}
+
 async function like(user, setUser, likedNgoId) {
 	if (!user || !setUser || !likedNgoId) {
 		toast.error('You need to be logged in to perfom this action');
@@ -13,10 +39,14 @@ async function like(user, setUser, likedNgoId) {
 		: [...user.likes, likedNgoId];
 
 	try {
-		const response = await axios.patch('/user/like', {
-			ngoArray: newLikesArray,
-			user,
-		});
+		const response = await axios.patch(
+			'/user/like',
+			{
+				ngoArray: newLikesArray,
+			},
+			{ headers: { 'Content-Type': 'application/json' } },
+		);
+
 		if (response.data?.user) {
 			setUser(response.data.user);
 		} else {
@@ -27,4 +57,4 @@ async function like(user, setUser, likedNgoId) {
 	}
 }
 
-export { like };
+export { changeProfileAvatar, like };

@@ -13,22 +13,19 @@ export default function NGOCardsContainer({
 	favoritePage = false,
 }) {
 	const ngosToDisplay = ngos.filter((ngo) => ngo.visible);
-	const { windowWidth } = useContext(LayoutContext);
 	return (
-		<main className='flex w-full h-fit'>
-			{windowWidth > 1024 && (
-				<div
-					className={`${
-						windowWidth > 1300 ? 'w-[500px]' : 'w-[100px]'
-					} h-full  bg-neutral-300`}></div>
-			)}
+		<main
+			className={`flex w-full lg:my-3  ${
+				ngosToDisplay.length === 0 ? 'h-full' : 'h-fit'
+			}`}>
 			<div className='static flex flex-col items-center justify-start w-full h-full gap-4 lg:gap-0 lg:flex-wrap lg:flex-row lg:justify-center bg-neutral-300'>
 				{ngosToDisplay.length > 0 &&
 					ngosToDisplay.map((ngo) => (
 						<NGOCard key={ngo._id} data={ngo} setUser={setUser} user={user} />
 					))}
 				{ngosToDisplay.length === 0 && favoritePage && (
-					<div className={`flex flex-col items-center  my-20 px-5 text-center`}>
+					<div
+						className={`flex flex-col h-full -wfull items-center  my-20 px-5 text-center`}>
 						<LuAlertCircle size={'4rem'} className='text-neutral-500' />
 						Sorry... No favorites found. Start by liking any NGO to see them
 						here!
@@ -42,9 +39,6 @@ export default function NGOCardsContainer({
 					</div>
 				)}
 			</div>
-			{windowWidth > 1024 && (
-				<div className='w-[500px] h-full  bg-neutral-300'></div>
-			)}
 		</main>
 	);
 }

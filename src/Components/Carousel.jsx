@@ -26,7 +26,7 @@ export default function Carousel({
 		});
 	}
 	const [currentImage, setCurrentImage] = useState(1);
-	const liked = user?.likes.includes(_id) || false;
+	const liked = user?.likes?.includes(_id) || false;
 	const imagesContainer = useRef(null);
 
 	function handleNavigateBack() {

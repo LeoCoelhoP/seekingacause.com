@@ -1,11 +1,14 @@
+import { useContext } from 'react';
 import ReactCountryFlag from 'react-country-flag';
 import PropTypes from 'prop-types';
 
 import i18next from '../../Configs/i18n';
+import { LayoutContext } from '../../Contexts/LayoutContext';
 
 import Avatar from '../Avatar';
 
 export default function DonationItem({ donate, profilePage }) {
+	const { windowWidth } = useContext(LayoutContext);
 	const { iat } = donate;
 	const { fullName, level, country, avatar } = donate?.user || {
 		fullName: 'Anonymous',
@@ -16,7 +19,8 @@ export default function DonationItem({ donate, profilePage }) {
 	};
 	const date = new Date(iat);
 	const formattedDate = date.toLocaleString().split(',')[0];
-
+	const avatarSize =
+		windowWidth > 1024 ? '100px' : windowWidth > 768 ? '60px' : '40px';
 	return (
 		<div
 			className={`flex items-center justify-between w-full h-full p-2 rounded-md shadow-md ${
@@ -24,13 +28,20 @@ export default function DonationItem({ donate, profilePage }) {
 			}`}>
 			{!profilePage && (
 				<>
-					<Avatar height='h-[40px]' width='w-[40px]' src={avatar} />
+					<div
+						className={`w-[80px] h-[80px] md:w-[100px] md:h-[100px] lg:w-[120px] lg:h-[120px]`}>
+						<Avatar
+							height={`h-[${avatarSize}]`}
+							width={`w-[${avatarSize}]`}
+							src={avatar.url}
+						/>
+					</div>
 					<ReactCountryFlag
-						className='relative z-30 w-full h-full rounded-md shadow-2xl emojiFlag right-5 top-4 drop-shadow-2xl'
+						className='relative z-30 w-full h-full rounded-md shadow-2xl emojiFlag right-5 top-4 lg:right-10 lg:top-8 drop-shadow-2xl'
 						svg
 						countryCode={country}
 						style={{
-							fontSize: '1.4rem',
+							fontSize: avatarSize === '100px' ? '2.8rem' : '1.4rem',
 						}}
 					/>
 				</>

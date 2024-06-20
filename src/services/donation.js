@@ -15,7 +15,7 @@ async function createDonation({ user, setUser, setNgo, ngoId, type }) {
 		);
 
 		setNgo(() => response.data.ngos);
-		if (user) setUser(() => ({ ...response.data.user }));
+		if (response.data.user) setUser(() => ({ ...response.data.user }));
 
 		toast.success(response.data.message, { duration: 15000 });
 	} catch (error) {

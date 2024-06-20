@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 export default function Avatar({ width, height, src, name }) {
 	return (
 		<div
-			className={` ${width} ${height}
-    flex justify-center items-center rounded-full hover:opacity-60 hover:z-0 z-30 hover:cursor-auto
+			className={`h-full w-full
+    flex justify-center  items-center lg:rounded-md rounded-xl hover:opacity-60  z-30 hover:cursor-auto
     `}>
 			<img
 				src={
@@ -12,7 +12,7 @@ export default function Avatar({ width, height, src, name }) {
 					'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541'
 				}
 				alt={`${name} Avatar profile`}
-				className='rounded-full shadow-md drop-shadow-md'
+				className={`w-full h-full rounded-xl `}
 			/>
 		</div>
 	);
