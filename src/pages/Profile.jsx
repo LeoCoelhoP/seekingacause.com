@@ -51,7 +51,7 @@ export default function Profile() {
 	}
 
 	return (
-		<div className='w-full h-full pt-2 bg-neutral-200 '>
+		<div className='w-full h-full pt-2 bg-neutral-200'>
 			<div className='grid items-center justify-center lg:overflow-hidden lg:flex lg:justify-start lg:items-start'>
 				<div className=' items-center justify-center lg:mt-14 rounded-xl shadow-md drop-shadow-md my-3 mx-auto lg:mx-auto h-[150px] w-[150px] lg:w-[300px] lg:h-[300px] bg-neutral-700'>
 					<Avatar

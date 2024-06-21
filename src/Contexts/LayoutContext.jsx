@@ -1,5 +1,6 @@
-import { createContext, useLayoutEffect, useState } from 'react';
+import { createContext, useEffect, useLayoutEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import axios from '../Configs/axios';
 
 function getLang() {
 	if (localStorage.getItem('i18nextLng') === 'en') return 'US';
@@ -19,6 +20,9 @@ export default function LayoutProvider({ children }) {
 		type: 'all',
 	});
 
+	useEffect(() => {
+		axios.defaults.headers.common['language'] = state.language;
+	}, [state.language]);
 	const setBlurred = (blurred) => setState((prev) => ({ ...prev, blurred }));
 	const setInfoModalOpen = (infoModalOpen) =>
 		setState((prev) => ({ ...prev, infoModalOpen }));

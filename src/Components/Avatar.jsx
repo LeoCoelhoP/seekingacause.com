@@ -4,7 +4,7 @@ export default function Avatar({ width, height, src, name }) {
 	return (
 		<div
 			className={`h-full w-full
-    flex justify-center  items-center lg:rounded-md rounded-xl hover:opacity-60  z-30 hover:cursor-auto
+    flex justify-center  items-center lg:rounded-md rounded-xl  z-30 hover:cursor-auto
     `}>
 			<img
 				src={

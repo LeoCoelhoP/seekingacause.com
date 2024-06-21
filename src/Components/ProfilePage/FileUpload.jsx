@@ -31,7 +31,7 @@ export default function FileUpload({ user, setUser }) {
 				type='file'
 				id='avatar'
 				name='avatar'
-				className='rounded-full lg:rounded-md w-[150px] h-[150px] opacity-0'
+				className='rounded-full lg:rounded-md w-[150px] h-[150px] opacity-0 lg:hidden'
 			/>
 		</form>
 	);
