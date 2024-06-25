@@ -30,7 +30,7 @@ export default function Carousel({
 	const imagesContainer = useRef(null);
 
 	function handleNavigateBack() {
-		navigate(-1);
+		navigate('/');
 	}
 	function handleLike(likedNgoId) {
 		like(user, setUser, likedNgoId);

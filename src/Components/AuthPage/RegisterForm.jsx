@@ -25,6 +25,8 @@ export default function RegisterForm() {
 	function handleSubmit(e) {
 		e.preventDefault();
 		if (!registerInfo.email) return toast.error(i18next.t('emailValidator'));
+		if (!registerInfo.fullName.length > 20)
+			return toast.error(i18next.t('maxNameLength'));
 		if (!registerInfo.fullName || registerInfo.fullName.trim().length === 0)
 			return toast.error(i18next.t('fullNameValidator'));
 		if (!registerInfo.password)

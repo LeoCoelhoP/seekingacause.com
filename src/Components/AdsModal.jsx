@@ -29,14 +29,11 @@ export default function AdsModal() {
 			});
 			setAdsModalOpen(false);
 			console.log(user);
-			if (!user.phoneNumber) setPhoneNumberModalOpen(true);
+			if (!user?.telegramChatId) setPhoneNumberModalOpen(true);
 		}
 		if (!onAds) {
 			onAds = true;
-			toast(
-				'You are almost there! Wait 5 more seconds for us to calculate your donation. ',
-				{ duration: 1000, icon: '⏱️' },
-			);
+			toast(i18next.t('almostThere'), { duration: 5000, icon: '⏱️' });
 		}
 		const timeOut = setTimeout(handleDonation, 5000);
 		return () => clearTimeout(timeOut);

@@ -8,7 +8,6 @@ import PayPalPaymentButton from './PayPalPaymentButton';
 export default function PaymentModal() {
 	const { paymentModalOpen, setPaymentModalOpen } = useContext(LayoutContext);
 	const [valueToDonate, setValueToDonate] = useState(5);
-	const language = localStorage.getItem('i18nextLng') || 'en';
 
 	return (
 		<div className='absolute z-20 flex flex-col items-center justify-center w-5/6 gap-2 p-4 mx-auto my-auto overflow-hidden font-semibold rounded-md shadow-2xl lg:w-fit modal h-fit blur-none text-neutral-950 drop-shadow-2xl bg-neutral-50'>

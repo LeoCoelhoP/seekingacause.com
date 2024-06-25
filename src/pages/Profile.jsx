@@ -36,15 +36,7 @@ export default function Profile() {
 	}, [user, navigate, setUser]);
 
 	if (!user) return <Loading />;
-	const {
-		avatar,
-		country,
-		donations,
-		fullName,
-		level,
-		phoneNumber,
-		totalDonated,
-	} = user;
+	const { avatar, country, donations, fullName, level, totalDonated } = user;
 
 	function handleLogOut() {
 		logOut(setUser);
@@ -84,11 +76,7 @@ export default function Profile() {
 			<div className='hidden lg:flex'>
 				<Divider />
 			</div>
-			<EditProfileForm
-				phoneNumber={phoneNumber}
-				country={country}
-				fullName={fullName}
-			/>
+			<EditProfileForm country={country} fullName={fullName} />
 			<Divider />
 			<div className='flex flex-col items-center justify-center w-full p-2 h-fit '>
 				<h1 className='p-2 mr-auto text-xl font-medium'>Last Donations:</h1>

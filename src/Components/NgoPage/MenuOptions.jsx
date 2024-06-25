@@ -36,7 +36,7 @@ export default function MenuOptions({ ngoDetails }) {
 
 	const MENU_OPTIONS = useMemo(() => getOptions(), []);
 	return (
-		<div className='w-full  h-fit'>
+		<div className='w-full h-fit'>
 			<div className='flex items-start justify-center gap-6'>
 				{MENU_OPTIONS.map(({ id, icon, label }) => (
 					<div

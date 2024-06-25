@@ -61,9 +61,7 @@ export default function DonationItem({ donate, profilePage }) {
 			{donate.type === 'ads' ? (
 				<div className='self-start font-semibold text-center'>Ads Donation</div>
 			) : (
-				<div className='self-start font-semibold'>
-					$ {donate?.clicks || donate?.money}
-				</div>
+				<div className='self-start font-semibold'>R${donate.amount.toFixed(2)}</div>
 			)}
 		</div>
 	);

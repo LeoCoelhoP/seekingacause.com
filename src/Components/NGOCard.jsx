@@ -24,11 +24,11 @@ export default function NGOCard({ modalOpen, data, user, setUser }) {
 		_id,
 		monthDonations,
 		cityAndCountry,
+		monthlyGoal,
 	} = data;
 	const { language, setAdsModalOpen, setPaymentModalOpen, windowWidth } =
 		useContext(LayoutContext);
 	const [ngoTranslatedInfos, setNgoTranslatedInfos] = useState(null);
-
 	useEffect(() => {
 		setNgoTranslatedInfos(
 			language === 'BR'
@@ -43,11 +43,8 @@ export default function NGOCard({ modalOpen, data, user, setUser }) {
 		if (!modalOpen) navigate(`/ngo/${_id}`);
 	}, [modalOpen, navigate, _id]);
 
-	const [smallDisplay] = useState(windowWidth < 1024 ? true : false);
-
 	if (!ngoTranslatedInfos) return <Loading />;
 
-	console.log(windowWidth);
 	const descriptionSize = windowWidth > 1024 ? 70 : windowWidth > 768 ? 50 : 30;
 	const reducedDescription = ngoTranslatedInfos.description
 		.split(' ')
@@ -74,7 +71,11 @@ export default function NGOCard({ modalOpen, data, user, setUser }) {
 						className='flex items-center w-full h-full bg-neutral-50'>
 						<div className='flex flex-col items-center mt-2 text-start justify-start w-full font-semibold px-2.5 text-xl'>
 							<p className='mr-auto'>{ngoTranslatedInfos.name}</p>
-							<p className='mr-auto text-base font-medium'>{cityAndCountry}</p>
+							<p className='mr-auto text-base font-medium'>
+								{cityAndCountry === 'Worldwide'
+									? i18next.t('worldWide')
+									: cityAndCountry}
+							</p>
 						</div>
 					</div>
 					<div className='px-3 py-2 text-sm' onClick={showNgoDetails}>
@@ -90,9 +91,11 @@ export default function NGOCard({ modalOpen, data, user, setUser }) {
 						onClick={showNgoDetails}>
 						<p className='flex gap-2 text-base font-medium'>
 							{i18next.t('monthlyGoal')}
-							<span>$1{monthDonations.length.toFixed(2)}/$100.00</span>
+							<span>
+								R${monthDonations.toFixed(2)}/R${monthlyGoal.toFixed(2)}
+							</span>
 						</p>
-						<ProgressBar progress={0.1} />
+						<ProgressBar progress={monthDonations / monthlyGoal} />
 					</div>
 					<div className='z-10 flex flex-col items-center justify-between w-full p-3 lg:w-3/4 bg-neutral-50 h-fit lg:mx-auto '>
 						<div className='flex flex-col items-center justify-between w-full gap-2 pb-1'>

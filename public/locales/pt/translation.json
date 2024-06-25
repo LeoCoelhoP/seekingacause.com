@@ -1,5 +1,8 @@
 {
+	"maxNameLength": "Nome não pode possuir mais de 20 caracteres.",
+	"almostThere": "Quase lá! Espere mais 5 segundos para calcularmos sua doação.",
 	"typeToSearch": "Digite para pesquisar...",
+	"worldWide": "Atuação Mundial",
 	"explore": "Explorar",
 	"favorites": "Favoritos",
 	"profile": "Perfil",
@@ -59,9 +62,9 @@
 	"infoModalContactUsTitle": "Fale Conosco:",
 	"infoModalContactUsText": "Você é uma ONG procurando fazer um impacto maior? Adoraríamos ouvir de você! Se você é uma ONG que atende aos nossos padrões de integridade e eficácia, convidamos você a se juntar à nossa plataforma. Você pode nos contatar em: [EMAIL]",
 	"phoneModalTitle": "Faça uma diferença ainda maior com apenas alguns minutos do seu dia!",
-	"phoneModalDescription": "Adicione seu número de telefone para receber lembretes diários para assistir a anúncios de doação. Cada anúncio que você assiste é doado para uma ONG digna. Registre-se agora e junte-se a nós para apoiar uma grande causa - juntos, podemos fazer uma grande diferença!",
+	"phoneModalDescription": "Adicione nosso telegram para receber lembretes diários para assistir a anúncios de doação. Todo ganho obtido com este anúncio é doado para uma ONG digna. Registre-se agora e junte-se a nós para apoiar uma grande causa - juntos, podemos fazer uma grande diferença!",
 	"phoneModalPhoneNumberPlaceholder": "+(XX) XXXXX-XXXXX",
-	"phoneModalAddPhoneNumberButtonText": "Adicionar Número de Telefone",
+	"phoneModalAddPhoneNumberButtonText": "Registrar Número de Telefone",
 	"donateLevelLabel": "Nível de Doador",
 	"reportDownloadLink": "Baixar Fatura",
 	"reportTotalDonated": "Total Doado"

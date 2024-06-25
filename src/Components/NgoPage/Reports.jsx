@@ -3,7 +3,8 @@ import i18next from '../../Configs/i18n';
 import { LuAlertCircle } from 'react-icons/lu';
 
 export default function Reports() {
-	const reports = [1, 2, 3, 4, 5];
+	// Todo
+	const reports = null;
 	return (
 		<div className='flex flex-col w-full h-full gap-4 px-4 '>
 			{reports &&

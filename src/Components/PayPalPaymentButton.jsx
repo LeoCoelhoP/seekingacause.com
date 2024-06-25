@@ -27,13 +27,11 @@ export default function PayPalPaymentButton({
 					ngoId,
 					valueToDonate,
 					currency: 'BRL',
+					user,
 				})
 			}
 			onApprove={async (data) => {
-				const response = await onApprove(data, user, setUser, setNgo);
-				if (response) {
-					setPaymentModalOpen(false);
-				}
+				await onApprove({data, user, setUser, setNgo, setPaymentModalOpen});
 			}}></PayPalButtons>
 	);
 }

@@ -4,9 +4,8 @@ import DonationItem from './DonationItem';
 
 export default function Donations({ donations, profilePage = false }) {
 	if (!donations) return;
-
 	return (
-		<div className='flex flex-col w-full h-full gap-4 '>
+		<div className='flex flex-col-reverse w-full h-full gap-4 '>
 			{donations.map((donate, i) => (
 				<DonationItem profilePage={profilePage} donate={donate} key={i} />
 			))}

@@ -12,8 +12,9 @@ import ProgressBar from '../ProgressBar';
 export default function Header({
 	cityAndCountry,
 	name,
-	monthDonations,
 	website,
+	monthDonations,
+	monthlyGoal,
 	id,
 }) {
 	const { setAdsModalOpen, setPaymentModalOpen } = useContext(LayoutContext);
@@ -33,11 +34,13 @@ export default function Header({
 				(+55) 45-99874776
 			</p>
 			<p className='font-normal'>{cityAndCountry}</p>
-			<p className='flex gap-2 mt-8 '>
+			<p className='flex gap-2 mt-8 font-medium'>
 				{i18next.t('monthlyGoal')}:{' '}
-				<span>${monthDonations.length.toFixed(2)}/$100.00</span>
+				<span>
+					R${monthDonations.toFixed(2)}/R${monthlyGoal.toFixed(2)}
+				</span>
 			</p>
-			<ProgressBar progress={monthDonations.length} />
+			<ProgressBar progress={monthDonations / monthlyGoal} />
 			<div className='flex gap-2 mt-4 text-xl'>
 				<Button
 					onClick={() => setAdsModalOpen({ status: true, ngoId: id })}

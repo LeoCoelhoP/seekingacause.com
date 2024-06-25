@@ -30,6 +30,7 @@ export default function Ngo() {
 		descriptionPT,
 		images,
 		cityAndCountry,
+		monthlyGoal,
 		monthDonations,
 	} = ngoDetails;
 
@@ -46,10 +47,11 @@ export default function Ngo() {
 				<Header
 					name={language === 'US' ? name : namePT}
 					cityAndCountry={cityAndCountry}
-					monthDonations={monthDonations}
 					donations={donations}
 					website={website}
 					id={id}
+					monthDonations={monthDonations}
+					monthlyGoal={monthlyGoal}
 				/>
 				<Divider />
 				<NgoDescription

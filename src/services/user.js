@@ -57,4 +57,23 @@ async function like(user, setUser, likedNgoId) {
 	}
 }
 
-export { changeProfileAvatar, like };
+async function updateMe({ setUser, fullName, country }) {
+	console.log(fullName);
+	try {
+		const response = await axios.patch(
+			'/user/update-me',
+			{
+				fullName,
+				country,
+			},
+			{ headers: { 'Content-Type': 'application/json' } },
+		);
+
+		setUser(response.data.user);
+		toast.success(response.data.message);
+	} catch (error) {
+		toast.error(error.message || 'An error occurred');
+	}
+}
+
+export { changeProfileAvatar, like, updateMe };
