@@ -76,11 +76,7 @@ async function login(formValues, setUser) {
 }
 async function verifyUser(setUser) {
 	try {
-		const response = await axios.post('/auth/verify-user', {
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		});
+		const response = await axios.post('/auth/verify-user');
 		setUser(() => ({ ...response.data.user }));
 	} catch (error) {
 		setUser(() => null);
