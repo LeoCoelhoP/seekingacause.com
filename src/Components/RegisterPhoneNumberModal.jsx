@@ -21,7 +21,7 @@ export default function RegisterPhoneNumberModal() {
 				{i18next.t('phoneModalTitle')}
 			</h1>
 			<img
-				className='rounded-md h-[200px] w-fit'
+				className='rounded-md md:h-[200px] w-1/2 h-1/2 md:w-fit'
 				src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/2048px-Telegram_logo.svg.png'
 				alt='Telegram Popup'
 			/>
