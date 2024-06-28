@@ -42,7 +42,6 @@ export default function Carousel({
 			: imagesContainer?.current?.offsetWidth;
 	const imageWidth = containerWidth / images.length;
 	function handleClick() {
-		console.log(currentImage, images.length);
 		if (currentImage >= images.length) {
 			imagesContainer.current.scrollTo({
 				left: 0,

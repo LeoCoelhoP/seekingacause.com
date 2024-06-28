@@ -12,11 +12,11 @@ import Button from '../../Components/Button';
 export default function RegisterForm() {
 	const { language } = useContext(LayoutContext);
 	const [registerInfo, setRegisterInfo] = useState({
-		fullName: 'Leonardo Padilha',
-		email: 'leopadilhac1308@gmail.com',
-		password: 'test',
-		passwordConfirmation: 'test',
-		country: 'BR',
+		fullName: '',
+		email: '',
+		password: '',
+		passwordConfirmation: '',
+		country: '',
 	});
 	function handleCountrySelector(e) {
 		setRegisterInfo((state) => ({ ...state, country: e.target.value }));
