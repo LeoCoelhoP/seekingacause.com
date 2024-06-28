@@ -55,7 +55,7 @@ async function logOut(setUser) {
 		toast.error(error.message);
 	}
 }
-async function login(formValues, { setUser }) {
+async function login(formValues, setUser) {
 	try {
 		const response = await axios.post(
 			'/auth/login',
@@ -66,7 +66,6 @@ async function login(formValues, { setUser }) {
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				withCredentials: true,
 			},
 		);
 		toast.success(response.data.message);
@@ -77,9 +76,7 @@ async function login(formValues, { setUser }) {
 }
 async function verifyUser(setUser) {
 	try {
-		const response = await axios.post('/auth/verify-user', {
-			withCredentials: true,
-		});
+		const response = await axios.post('/auth/verify-user');
 		setUser(() => ({ ...response.data.user }));
 	} catch (error) {
 		setUser(() => null);

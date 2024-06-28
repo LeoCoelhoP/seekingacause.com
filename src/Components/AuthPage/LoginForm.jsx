@@ -7,13 +7,15 @@ import { FaXTwitter } from 'react-icons/fa6';
 import i18next from '../../Configs/i18n';
 import { login, recoverPassword } from '../../services/auth';
 import { LayoutContext } from '../../Contexts/LayoutContext';
+import { UserContext } from '../../Contexts/UserContext';
 import { emailValidator } from '../../utils/validators';
 
 import Button from '../../Components/Button';
 import Divider from '../../Components/Divider';
 
-export default function LoginForm({ setUser }) {
+export default function LoginForm() {
 	const { language } = useContext(LayoutContext);
+	const { setUser } = useContext(UserContext);
 	const [loginInfo, setLoginInfo] = useState({
 		email: '',
 		password: '',
@@ -30,7 +32,7 @@ export default function LoginForm({ setUser }) {
 	}
 	function handleSubmit(e) {
 		e.preventDefault();
-		login({ ...loginInfo }, setUser);
+		login(loginInfo, setUser);
 	}
 
 	return (
