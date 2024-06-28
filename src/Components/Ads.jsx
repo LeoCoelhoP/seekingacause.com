@@ -1,12 +1,11 @@
 import { Adsense } from '@ctrl/react-adsense';
 
 export default function Ads() {
-	console.log('Ads called');
 	return (
 		<Adsense
-			className='w-full h-full'
-			client='ca-pub-4677074944395980'
-			slot='1224448454'
-		/>
-	);
+  client="ca-pub-7640562161899788"
+  slot="7259870550"
+  style={{ width: '100%', height: '100px' }}
+  format=""
+/>
 }
