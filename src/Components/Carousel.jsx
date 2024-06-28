@@ -41,7 +41,25 @@ export default function Carousel({
 			? imagesContainer?.current?.offsetWidth + windowWidth
 			: imagesContainer?.current?.offsetWidth;
 	const imageWidth = containerWidth / images.length;
-	function handleClick() {
+
+	const imageSize =
+		windowWidth > 1024 ? '375px' : windowWidth > 768 ? '300px' : '200px';
+
+	function handleClick({ index }) {
+		if (index === 0) {
+			imagesContainer.current.scrollTo({
+				left: 0,
+				behavior: 'smooth',
+			});
+			return setCurrentImage(() => 1);
+		}
+		if (index) {
+			setCurrentImage(() => index + 1);
+			return imagesContainer.current.scrollTo({
+				left: imageWidth * (index + 1),
+				behavior: 'smooth',
+			});
+		}
 		if (currentImage >= images.length) {
 			imagesContainer.current.scrollTo({
 				left: 0,
@@ -68,9 +86,6 @@ export default function Carousel({
 		[images.length, imageWidth],
 	);
 
-	const imageSize =
-		windowWidth > 1024 ? '375px' : windowWidth > 768 ? '300px' : '200px';
-
 	return (
 		<div className='relative flex items-end justify-center w-full h-full lg:drop-shadow-md lg:shadow-md'>
 			{showNavigateBack && (
@@ -85,9 +100,12 @@ export default function Carousel({
 				{images.map((_, i) => (
 					<div
 						key={i}
-						className={`h-[15px] w-[15px] ${
-							i + 1 === currentImage ? 'bg-white' : 'bg-neutral-300'
-						} rounded-full border-[1px]`}></div>
+						onClick={() => handleClick({ index: i })}
+						className={`h-[15px] w-[15px] lg:w-[20px] lg:h-[20px] ${
+							i + 1 === currentImage
+								? 'bg-white border-[1px] border-neutral-500'
+								: 'bg-neutral-400'
+						} rounded-full `}></div>
 				))}
 			</div>
 			<div
