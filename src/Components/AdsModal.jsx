@@ -48,13 +48,13 @@ export default function AdsModal() {
 			<h2 className='text-sm text-center md:text-xl '>
 				{i18next.t('adsModalText')}
 			</h2>
-			<div className='w-full bg-neutral-200 h-[130px] modal'>
+			<div className='w-full bg-neutral-200 h-[100px] modal'>
 				<Ads />
 			</div>
-			<div className='w-full bg-neutral-200  h-[130px] modal'>
+			<div className='w-full bg-neutral-200  h-[100px] modal'>
 				<Ads />
 			</div>
-			<div className='w-full mb-3 bg-neutral-200  h-[130px] modal'>
+			<div className='w-full mb-3 bg-neutral-200  h-[100px] modal'>
 				<Ads />
 			</div>
 			<Button

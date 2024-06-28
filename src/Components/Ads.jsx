@@ -1,6 +1,7 @@
 import { Adsense } from '@ctrl/react-adsense';
 
 export default function Ads() {
+	console.log('Ads called');
 	return (
 		<Adsense
 			className='w-full h-full'
@@ -9,4 +10,3 @@ export default function Ads() {
 		/>
 	);
 }
-
