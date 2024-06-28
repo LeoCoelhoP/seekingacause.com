@@ -107,7 +107,7 @@ export default function NGOCard({ modalOpen, data, user, setUser }) {
 									tailwind={'text-start bg-neutral-50 shadow-md drop-shadow-md'}
 									textColor='text-neutral-600'
 									textSize='text-sm'
-									icon={<LuEye className='w-1/2 text-xl' size={'1.25rem'} />}>
+									icon={<LuEye className='text-2xl' size={'1.25rem'} />}>
 									{i18next.t('donateByWatchingAds')}
 								</Button>
 								<Button

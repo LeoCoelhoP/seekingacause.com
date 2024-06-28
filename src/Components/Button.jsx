@@ -17,9 +17,9 @@ export default function Button({
 		<button
 			type={type}
 			onClick={onClick}
-			className={`${tailwind} ${bgColor} ${height} ${width} ${textColor} ${padding} flex items-center justify-center rounded-md`}>
-			{icon && <div className='w-[50px]'>{icon}</div>}
-			<div className={`${textSize}`}>{children}</div>
+			className={`${tailwind} ${bgColor} ${height} ${width} ${textColor} ${padding} flex gap-2 items-center justify-center rounded-md`}>
+			{icon && <div className='w-fit'>{icon}</div>}
+			<div className={`${textSize} break-words`}>{children}</div>
 		</button>
 	);
 }
