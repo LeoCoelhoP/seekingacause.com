@@ -10,6 +10,7 @@ import i18next from '../Configs/i18n';
 import { createDonation } from '../services/donation';
 
 import Button from './Button';
+import Ads from './Ads';
 
 export default function AdsModal() {
 	const { adsModalOpen, setAdsModalOpen, setPhoneNumberModalOpen } =
@@ -47,14 +48,14 @@ export default function AdsModal() {
 			<h2 className='text-sm text-center md:text-xl '>
 				{i18next.t('adsModalText')}
 			</h2>
-			<div className='w-full bg-neutral-200 h-fit modal'>
-				<img src={''} className='w-full h-[130px]' />
+			<div className='w-full bg-neutral-200 h-[130px] modal'>
+				<Ads />
 			</div>
-			<div className='w-full bg-neutral-200 h-fit modal'>
-				<img src={''} className='w-full h-[130px]' />
+			<div className='w-full bg-neutral-200  h-[130px] modal'>
+				<Ads />
 			</div>
-			<div className='w-full mb-3 bg-neutral-200 h-fit modal'>
-				<img src={''} className='w-full h-[130px]' />
+			<div className='w-full mb-3 bg-neutral-200  h-[130px] modal'>
+				<Ads />
 			</div>
 			<Button
 				onClick={() =>
