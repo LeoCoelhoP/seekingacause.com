@@ -101,7 +101,7 @@ export default function Carousel({
 					<div
 						key={i}
 						onClick={() => handleClick({ index: i })}
-						className={`h-[15px] w-[15px] lg:w-[20px] lg:h-[20px] ${
+						className={`h-[15px] w-[15px] lg:w-[20px] lg:h-[20px] md:w-[25px] md:h-[25px] ${
 							i + 1 === currentImage
 								? 'bg-white border-[1px] border-neutral-500'
 								: 'bg-neutral-400'
