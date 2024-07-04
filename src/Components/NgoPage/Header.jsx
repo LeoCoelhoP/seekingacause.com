@@ -44,7 +44,7 @@ export default function Header({
 			<div className='flex gap-2 mt-4 text-xl'>
 				<Button
 					onClick={() => setAdsModalOpen({ status: true, ngoId: id })}
-					tailwind={'text-start bg-neutral-50 shadow-md drop-shadow-md'}
+					tailwind={'bg-neutral-50 shadow-md drop-shadow-md'}
 					textColor='text-neutral-600'
 					textSize='text-sm'
 					icon={<LuEye className='w-1/2 text-xl' size={'1.25rem'} />}>
