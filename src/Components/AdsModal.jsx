@@ -36,7 +36,7 @@ export default function AdsModal() {
 			onAds = true;
 			toast(i18next.t('almostThere'), { duration: 5000, icon: '⏱️' });
 		}
-		const timeOut = setTimeout(handleDonation, 5000);
+		const timeOut = setTimeout(handleDonation, 8000);
 		return () => clearTimeout(timeOut);
 	}, [setUser, user, setAdsModalOpen, adsModalOpen, setNgo]);
 
