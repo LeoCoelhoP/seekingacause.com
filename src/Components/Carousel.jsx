@@ -5,9 +5,8 @@ import PropTypes from 'prop-types';
 import { RxShare2 } from 'react-icons/rx';
 import { LuArrowLeft, LuHeart } from 'react-icons/lu';
 
-import { LayoutContext } from '../Contexts/LayoutContext';
-
 import { like } from '../services/user';
+import { LayoutContext } from '../Contexts/LayoutContext';
 
 export default function Carousel({
 	user,
@@ -17,25 +16,11 @@ export default function Carousel({
 	showNavigateBack = false,
 }) {
 	const { windowWidth } = useContext(LayoutContext);
-	const navigate = useNavigate();
-	function handleShare() {
-		navigator.share({
-			title: 'Seeking a cause',
-			text: 'Join us and make a difference! ',
-			url: `${import.meta.env.VITE_BASE_URL}ngo/${_id}`,
-		});
-	}
 	const [currentImage, setCurrentImage] = useState(1);
-	const liked = user?.likes?.includes(_id) || false;
+	const navigate = useNavigate();
 	const imagesContainer = useRef(null);
 
-	function handleNavigateBack() {
-		navigate('/');
-	}
-	function handleLike(likedNgoId) {
-		like(user, setUser, likedNgoId);
-	}
-
+	const liked = user?.likes?.includes(_id) || false;
 	const containerWidth =
 		images.length > 2
 			? imagesContainer?.current?.offsetWidth + windowWidth
@@ -74,6 +59,22 @@ export default function Carousel({
 				behavior: 'smooth',
 			});
 		}
+	}
+
+	function handleLike(likedNgoId) {
+		like(user, setUser, likedNgoId);
+	}
+
+	function handleNavigateBack() {
+		navigate('/');
+	}
+
+	function handleShare() {
+		navigator.share({
+			title: 'Seeking a cause',
+			text: 'Join us and make a difference! ',
+			url: `${import.meta.env.VITE_BASE_URL}ngo/${_id}`,
+		});
 	}
 
 	const handleScroll = useCallback(

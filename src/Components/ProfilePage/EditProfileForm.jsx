@@ -1,19 +1,20 @@
 import { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import { MdOutlineModeEdit, MdOutlinePhone } from 'react-icons/md';
 
+import toast from 'react-hot-toast';
+import { MdOutlineModeEdit } from 'react-icons/md';
+
+import { updateMe } from '../../services/user';
 import { UserContext } from '../../Contexts/UserContext';
 import i18next from '../../Configs/i18n';
 
 import Button from '../Button';
 import CountriesSelector from '../CountriesSelector';
-import { updateMe } from '../../services/user';
-import toast from 'react-hot-toast';
 
 export default function EditProfileForm({ country, fullName }) {
+	const { setUser } = useContext(UserContext);
 	const [fullNameField, setFullNameField] = useState(fullName);
 	const [countryField, setCountryField] = useState(country);
-	const { setUser } = useContext(UserContext);
 
 	const isOriginalData = fullNameField === fullName && countryField === country;
 
@@ -38,6 +39,7 @@ export default function EditProfileForm({ country, fullName }) {
 			toast.error(i18next.t('maxNameLength'));
 		}
 	}
+  
 	return (
 		<form
 			onSubmit={handleFormSubmission}
@@ -54,13 +56,11 @@ export default function EditProfileForm({ country, fullName }) {
 				/>
 				<MdOutlineModeEdit className='relative bottom-8 left-2' />
 			</label>
-			<div className='relative flex items-baseline justify-between w-full gap-4 bottom-4 lg:bottom-0'>
-				{country && (
-					<CountriesSelector
-						country={countryField}
-						onChange={handleCountrySelector}
-					/>
-				)}
+			<div className='relative flex items-baseline justify-between w-full gap-4 bottom-4 lg:top-1 lg:bottom-0'>
+				<CountriesSelector
+					country={countryField}
+					onChange={handleCountrySelector}
+				/>
 			</div>
 			{!isOriginalData && (
 				<div className='flex gap-2'>

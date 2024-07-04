@@ -1,7 +1,9 @@
+import { useContext, useState } from 'react';
+
+import { NgoContext } from '../../Contexts/NgoContext';
+
 import SearchForm from './SearchForm';
 import NGOFilters from './NGOFilters';
-import { useContext, useState } from 'react';
-import { NgoContext } from '../../Contexts/NgoContext';
 
 export default function Header() {
 	const { ngo, setNgo } = useContext(NgoContext);

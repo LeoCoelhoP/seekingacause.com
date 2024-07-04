@@ -1,14 +1,12 @@
 import { lazy, Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import { Toaster } from 'react-hot-toast';
 
 import LayoutProvider from './Contexts/LayoutContext';
 import NgoProvider from './Contexts/NgoContext';
 import UserProvider from './Contexts/UserContext';
-
-import i18n from './Configs/i18n';
+import i18next from './Configs/i18n';
 import Loading from './Components/Loading';
 import MainLayout from './layouts/MainLayout';
 
@@ -19,7 +17,7 @@ const Profile = lazy(() => import('./pages/Profile'));
 const Home = lazy(() => import('./pages/Home'));
 
 const storedLang = localStorage.getItem('i18nextLng') || 'en';
-i18n.changeLanguage(storedLang);
+i18next.changeLanguage(storedLang);
 
 const initialOptions = {
 	'client-id': import.meta.env.VITE_PAYPAL_ID,

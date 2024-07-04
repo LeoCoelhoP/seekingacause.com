@@ -1,17 +1,35 @@
 import { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
+
 import toast from 'react-hot-toast';
-import { FaGoogle } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 
-import i18next from '../../Configs/i18n';
 import { login, recoverPassword } from '../../services/auth';
 import { LayoutContext } from '../../Contexts/LayoutContext';
 import { UserContext } from '../../Contexts/UserContext';
+import i18next from '../../Configs/i18n';
 import { emailValidator } from '../../utils/validators';
 
 import Button from '../../Components/Button';
 import Divider from '../../Components/Divider';
+
+const TWITTER_CLIENT_ID = import.meta.env.VITE_TWITTER_CLIENT_ID;
+const TWITTER_CODE_CHALLANGE = import.meta.env.VITE_TWITTER_CODE_CHALLANGE;
+
+function getTwitterOauthUrl() {
+	const rootUrl = 'https://twitter.com/i/oauth2/authorize';
+	const options = {
+		redirect_uri: `http://www.localhost/auth/twitter-login`,
+		client_id: TWITTER_CLIENT_ID,
+		state: 'state',
+		response_type: 'code',
+		code_challenge: TWITTER_CODE_CHALLANGE,
+		code_challenge_method: 'plain',
+		scope: ['users.read', 'tweet.read', 'follows.read'].join(' '),
+	};
+	const qs = new URLSearchParams(options).toString();
+	return `${rootUrl}?${qs}`;
+}
 
 export default function LoginForm() {
 	const { language } = useContext(LayoutContext);
@@ -70,34 +88,32 @@ export default function LoginForm() {
 					{i18next.t('forgotPassword')}
 				</p>
 			</label>
-			<Button type={'submit'} onClick={handleSubmit}>
+			<Button
+				type={'submit'}
+				onClick={handleSubmit}
+				tailwind='w-[151.5px] h-[64px]'>
 				{i18next.t('logIn')}
 			</Button>
 			<Divider>
 				<p className='font-medium'>OR</p>
 			</Divider>
-			<div className='flex gap-4 text-xl'>
-				<Button
-					width='w-[25px]'
-					height='h-[25px]'
-					bgColor=''
-					textColor='text-red-600'
-					tailwind={
-						'border-2 border-neutral-300 text-start bg-neutral-200 p-5'
-					}>
-					<FaGoogle />
-				</Button>
-				<Button
-					width='w-[25px]'
-					height='h-[25px]'
-					bgColor=''
-					textColor='text-neutral-950'
-					tailwind={
-						'border-2 border-neutral-300 text-start bg-neutral-200 p-5 drop-shadow-md shadow-md'
-					}>
-					<FaXTwitter />
-				</Button>
-			</div>
+
+			<Button
+				href={getTwitterOauthUrl()}
+				width='w-[fit]'
+				height='h-fit'
+				bgColor=''
+				textColor='text-neutral-950'
+				tailwind={
+					'border-2 border-neutral-300 text-start bg-neutral-200 p-5 drop-shadow-md shadow-md'
+				}>
+				<a href={getTwitterOauthUrl()}>
+					<span className='flex gap-4 text-sm'>
+						Log In Using
+						<FaXTwitter className='my-auto' />
+					</span>
+				</a>
+			</Button>
 		</form>
 	);
 }

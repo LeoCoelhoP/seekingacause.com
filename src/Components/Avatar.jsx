@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export default function Avatar({ width, height, src, name }) {
+export default function Avatar({ src, name }) {
 	return (
 		<div
 			className={`h-full w-full
@@ -19,8 +19,6 @@ export default function Avatar({ width, height, src, name }) {
 }
 
 Avatar.propTypes = {
-	height: PropTypes.string.isRequired,
 	name: PropTypes.string,
-	width: PropTypes.string.isRequired,
 	src: PropTypes.string,
 };

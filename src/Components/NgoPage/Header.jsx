@@ -64,6 +64,8 @@ export default function Header({
 Header.propTypes = {
 	cityAndCountry: PropTypes.string,
 	name: PropTypes.string,
-	monthDonations: PropTypes.array,
+	monthDonations: PropTypes.number,
 	website: PropTypes.string,
+	monthlyGoal: PropTypes.number,
+	id: PropTypes.string,
 };

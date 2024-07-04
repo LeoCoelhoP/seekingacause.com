@@ -13,7 +13,11 @@ async function changeProfileAvatar(user, setUser, avatar) {
 			{
 				avatar,
 			},
-			{ headers: 'multipart/form-data' },
+			{
+				headers: {
+					'Content-Type': 'multipart/form-data',
+				},
+			},
 		);
 
 		if (response.data?.user) {
@@ -46,7 +50,7 @@ async function like(user, setUser, likedNgoId) {
 			},
 			{ headers: { 'Content-Type': 'application/json' } },
 		);
-
+    
 		if (response.data?.user) {
 			setUser(response.data.user);
 		} else {
@@ -58,7 +62,6 @@ async function like(user, setUser, likedNgoId) {
 }
 
 async function updateMe({ setUser, fullName, country }) {
-	console.log(fullName);
 	try {
 		const response = await axios.patch(
 			'/user/update-me',
@@ -69,8 +72,10 @@ async function updateMe({ setUser, fullName, country }) {
 			{ headers: { 'Content-Type': 'application/json' } },
 		);
 
-		setUser(response.data.user);
-		toast.success(response.data.message);
+		if (response.data?.user) {
+			setUser(response.data.user);
+			toast.success(response.data.message);
+		} else throw new Error('Failed to update user data');
 	} catch (error) {
 		toast.error(error.message || 'An error occurred');
 	}

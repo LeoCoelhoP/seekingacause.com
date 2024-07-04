@@ -1,14 +1,20 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
+import { LayoutContext } from '../Contexts/LayoutContext';
 import { NgoContext } from '../Contexts/NgoContext';
 import { UserContext } from '../Contexts/UserContext';
 
-import NGOCardsContainer from '../Components/NGOCardsContainer';
 import Loading from '../Components/Loading';
+import NGOCardsContainer from '../Components/NGOCardsContainer';
 
 export default function Home() {
+	const { setPage } = useContext(LayoutContext);
 	const { ngo } = useContext(NgoContext);
 	const { user, setUser } = useContext(UserContext);
+
+	useEffect(() => {
+		setPage('home');
+	}, []);
 
 	if (!ngo) return <Loading />;
 

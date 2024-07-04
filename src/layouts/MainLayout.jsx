@@ -32,6 +32,7 @@ export default function MainLayout({
 		() => (isAnyModalOpen ? 'blur-md' : ''),
 		[isAnyModalOpen],
 	);
+
 	return (
 		<div className='flex flex-col items-center justify-start overflow-hidden bg-neutral-200 h-svh w-svw'>
 			<div className={`w-full h-fit  ${blurClass} bg-neutral-50 z-20`}>

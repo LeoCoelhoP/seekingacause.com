@@ -1,11 +1,11 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
-import ReactCountryFlag from 'react-country-flag';
 
+import ReactCountryFlag from 'react-country-flag';
 import { RxMagnifyingGlass } from 'react-icons/rx';
 
-import i18next from '../../Configs/i18n';
 import { LayoutContext } from '../../Contexts/LayoutContext';
 import { NgoContext } from '../../Contexts/NgoContext';
+import i18next from '../../Configs/i18n';
 
 export default function SearchForm() {
 	const { language, setLanguage } = useContext(LayoutContext);

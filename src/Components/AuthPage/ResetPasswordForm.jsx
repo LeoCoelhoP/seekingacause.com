@@ -3,27 +3,28 @@ import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { changePassword } from '../../services/auth';
-import i18next from '../../Configs/i18n';
 import { UserContext } from '../../Contexts/UserContext';
+import i18next from '../../Configs/i18n';
 
 import Button from '../Button';
 
 export default function ResetPasswordForm({ email, code, setUser }) {
-	const navigate = useNavigate();
 	const { user } = useContext(UserContext);
 	const [recoverInfo, setRecoverInfo] = useState({
 		password: '',
 		passwordConfirmation: '',
 	});
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (user) navigate('/', { replace: true });
+	}, [user, navigate]);
 
 	function handleSubmit(e) {
 		e.preventDefault();
 		changePassword(recoverInfo, email, code, setUser, navigate);
 	}
 
-	useEffect(() => {
-		if (user) navigate('/', { replace: true });
-	}, [user, navigate]);
 	return (
 		<form className='flex flex-col items-center justify-center w-5/6 mt-4 h-1/2'>
 			<label className='w-full'>

@@ -1,23 +1,32 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { NgoContext } from '../Contexts/NgoContext';
 import { LayoutContext } from '../Contexts/LayoutContext';
+import { NgoContext } from '../Contexts/NgoContext';
 import { UserContext } from '../Contexts/UserContext';
 
 import Carousel from '../Components/Carousel';
 import Divider from '../Components/Divider';
 import Header from '../Components/NgoPage/Header';
+import Loading from '../Components/Loading';
 import MenuOptions from '../Components/NgoPage/MenuOptions';
 import NgoDescription from '../Components/NgoPage/NgoDescription';
-import Loading from '../Components/Loading';
 
 export default function Ngo() {
-	const { ngo } = useContext(NgoContext);
 	const { language } = useContext(LayoutContext);
+	const { ngo } = useContext(NgoContext);
 	const { user, setUser } = useContext(UserContext);
+	const scrollController = useRef();
 	const { id } = useParams();
 
+	useEffect(() => {
+		if (!scrollController.current) return;
+		scrollController.current.scrollIntoView({
+			block: 'start',
+			behavior: 'instant',
+		});
+	}, []);
+  
 	if (!ngo) return <Loading />;
 
 	const ngoDetails = ngo.find((ngo) => ngo._id === id);
@@ -35,7 +44,9 @@ export default function Ngo() {
 	} = ngoDetails;
 
 	return (
-		<div className='z-0 flex flex-col items-center justify-start w-full overflow-hidden h-max text-neutral-950 lg:pr-[200px] lg:pl-[200px] lg:text-xl'>
+		<div
+			ref={scrollController}
+			className='z-0 flex flex-col items-center justify-start w-full overflow-hidden h-max text-neutral-950 lg:pr-[200px] lg:pl-[200px] lg:text-xl'>
 			<Carousel
 				images={images}
 				_id={id}

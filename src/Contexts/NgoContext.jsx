@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+
 import { getAllNgos } from '../services/ngo';
 
 export const NgoContext = createContext();

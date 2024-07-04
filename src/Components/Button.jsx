@@ -12,14 +12,37 @@ export default function Button({
 	padding = 'p-2',
 	textSize = 'text-xl',
 	onClick,
+	href,
 }) {
-	return (
+	return href ? (
+		<a href={href}>
+			<button
+				type={type}
+				onClick={onClick}
+				className={`${tailwind} ${bgColor} ${height} ${width} ${textColor} ${padding} flex gap-2 items-center justify-center rounded-md`}>
+				{icon && (
+					<div onClick={onClick} className='w-fit'>
+						{icon}
+					</div>
+				)}
+				<div onClick={onClick} className={`${textSize} break-words`}>
+					{children}
+				</div>
+			</button>
+		</a>
+	) : (
 		<button
 			type={type}
 			onClick={onClick}
 			className={`${tailwind} ${bgColor} ${height} ${width} ${textColor} ${padding} flex gap-2 items-center justify-center rounded-md`}>
-			{icon && <div className='w-fit'>{icon}</div>}
-			<div className={`${textSize} break-words`}>{children}</div>
+			{icon && (
+				<div onClick={onClick} className='w-fit'>
+					{icon}
+				</div>
+			)}
+			<div onClick={onClick} className={`${textSize} break-words`}>
+				{children}
+			</div>
 		</button>
 	);
 }
@@ -36,4 +59,5 @@ Button.propTypes = {
 	textSize: PropTypes.string,
 	onClick: PropTypes.func,
 	type: PropTypes.string,
+	href: PropTypes.string,
 };

@@ -1,8 +1,8 @@
-import ReactCountryFlag from 'react-country-flag';
 import PropTypes from 'prop-types';
 
-import i18n from '../Configs/i18n';
+import ReactCountryFlag from 'react-country-flag';
 
+import i18n from '../Configs/i18n';
 import { COUNTRY_OPTIONS } from '../Constants/Globals';
 
 export default function CountriesSelector({ country = 'BR', onChange }) {

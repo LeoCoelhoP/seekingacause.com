@@ -1,9 +1,10 @@
 import { useContext } from 'react';
-import ReactCountryFlag from 'react-country-flag';
 import PropTypes from 'prop-types';
 
-import i18next from '../../Configs/i18n';
+import ReactCountryFlag from 'react-country-flag';
+
 import { LayoutContext } from '../../Contexts/LayoutContext';
+import i18next from '../../Configs/i18n';
 
 import Avatar from '../Avatar';
 
@@ -61,7 +62,9 @@ export default function DonationItem({ donate, profilePage }) {
 			{donate.type === 'ads' ? (
 				<div className='self-start font-semibold text-center'>Ads Donation</div>
 			) : (
-				<div className='self-start font-semibold'>R${donate.amount.toFixed(2)}</div>
+				<div className='self-start font-semibold'>
+					R${donate.amount.toFixed(2)}
+				</div>
 			)}
 		</div>
 	);

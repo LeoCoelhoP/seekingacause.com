@@ -18,11 +18,13 @@ export default function LayoutProvider({ children }) {
 		windowWidth: null,
 		language: getLang(),
 		type: 'all',
+		page: 'home',
 	});
 
 	useEffect(() => {
 		axios.defaults.headers.common['language'] = state.language;
 	}, [state.language]);
+  
 	const setBlurred = (blurred) => setState((prev) => ({ ...prev, blurred }));
 	const setInfoModalOpen = (infoModalOpen) =>
 		setState((prev) => ({ ...prev, infoModalOpen }));
@@ -35,6 +37,7 @@ export default function LayoutProvider({ children }) {
 	const setLanguage = (language) => setState((prev) => ({ ...prev, language }));
 	const setWindowWidth = (windowWidth) =>
 		setState((prev) => ({ ...prev, windowWidth }));
+	const setPage = (page) => setState((prev) => ({ ...prev, page }));
 
 	useLayoutEffect(() => {
 		function updateWidth() {
@@ -57,6 +60,7 @@ export default function LayoutProvider({ children }) {
 				setPhoneNumberModalOpen,
 				setLanguage,
 				setWindowWidth,
+				setPage,
 			}}>
 			{children}
 		</LayoutContext.Provider>

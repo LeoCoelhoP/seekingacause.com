@@ -2,23 +2,33 @@ import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { verifyOTP } from '../services/auth';
-import i18next from '../Configs/i18n';
-
+import { twitterLoginFinal, verifyOTP } from '../services/auth';
+import { LayoutContext } from '../Contexts/LayoutContext';
 import { UserContext } from '../Contexts/UserContext';
+import i18next from '../Configs/i18n';
 
 import LoginForm from '../Components/AuthPage/LoginForm';
 import RegisterForm from '../Components/AuthPage/RegisterForm';
 import ResetPasswordForm from '../Components/AuthPage/ResetPasswordForm';
 
 export default function Auth({ resetPassword }) {
-	const navigate = useNavigate();
-	const [loginOpen, setLoginOpen] = useState(true);
+	const { setPage } = useContext(LayoutContext);
 	const { user, setUser } = useContext(UserContext);
+	const [loginOpen, setLoginOpen] = useState(true);
 
+	const navigate = useNavigate();
 	const [searchParams] = useSearchParams();
+
 	const code = searchParams.get('code');
 	const email = searchParams.get('email');
+	const twitterToken = searchParams.get('twitter-token');
+
+	useEffect(() => {
+		if (twitterToken) {
+			console.log(twitterToken);
+			twitterLoginFinal({ twitterToken, setUser });
+		}
+	}, [twitterToken, setUser]);
 
 	useEffect(() => {
 		async function validateOTP() {
@@ -34,7 +44,8 @@ export default function Auth({ resetPassword }) {
 
 	useEffect(() => {
 		if (user && !resetPassword) navigate('/profile', { replace: true });
-	}, [user, resetPassword, navigate]);
+		setPage('auth');
+	}, [user, resetPassword, navigate, setPage]);
 
 	if (resetPassword)
 		return (

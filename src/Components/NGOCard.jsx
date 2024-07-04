@@ -2,19 +2,22 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { LayoutContext } from '../Contexts/LayoutContext';
-
-import Loading from './Loading';
-
-import ProgressBar from './ProgressBar';
-import Button from './Button';
-import Carousel from './Carousel';
-
 import { LuDollarSign, LuEye } from 'react-icons/lu';
 
+import { LayoutContext } from '../Contexts/LayoutContext';
 import i18next from '../Configs/i18n';
 
+import Button from './Button';
+import Carousel from './Carousel';
+import Loading from './Loading';
+import ProgressBar from './ProgressBar';
+
 export default function NGOCard({ modalOpen, data, user, setUser }) {
+	const { language, setAdsModalOpen, setPaymentModalOpen, windowWidth } =
+		useContext(LayoutContext);
+	const [ngoTranslatedInfos, setNgoTranslatedInfos] = useState(null);
+	const navigate = useNavigate();
+
 	const {
 		name,
 		namePT,
@@ -26,9 +29,7 @@ export default function NGOCard({ modalOpen, data, user, setUser }) {
 		cityAndCountry,
 		monthlyGoal,
 	} = data;
-	const { language, setAdsModalOpen, setPaymentModalOpen, windowWidth } =
-		useContext(LayoutContext);
-	const [ngoTranslatedInfos, setNgoTranslatedInfos] = useState(null);
+
 	useEffect(() => {
 		setNgoTranslatedInfos(
 			language === 'BR'
@@ -36,8 +37,6 @@ export default function NGOCard({ modalOpen, data, user, setUser }) {
 				: { name, description },
 		);
 	}, [language, description, name, namePT, descriptionPT]);
-
-	const navigate = useNavigate();
 
 	const showNgoDetails = useCallback(() => {
 		if (!modalOpen) navigate(`/ngo/${_id}`);
@@ -65,7 +64,9 @@ export default function NGOCard({ modalOpen, data, user, setUser }) {
 						/>
 					</div>
 				</div>
-				<div className='flex flex-col bg-neutral-50 lg:h-fit'>
+				<div
+					className='flex flex-col bg-neutral-50 lg:h-fit'
+					onClick={showNgoDetails}>
 					<div
 						onClick={showNgoDetails}
 						className='flex items-center w-full h-full bg-neutral-50'>

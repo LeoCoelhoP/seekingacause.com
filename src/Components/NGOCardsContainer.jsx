@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { LuAlertCircle } from 'react-icons/lu';
 
 import NGOCard from './NGOCard';
-import { useContext } from 'react';
-import { LayoutContext } from '../Contexts/LayoutContext';
 
 export default function NGOCardsContainer({
 	ngos,
@@ -13,6 +11,7 @@ export default function NGOCardsContainer({
 	favoritePage = false,
 }) {
 	const ngosToDisplay = ngos.filter((ngo) => ngo.visible);
+
 	return (
 		<main
 			className={`flex w-full lg:my-3  ${

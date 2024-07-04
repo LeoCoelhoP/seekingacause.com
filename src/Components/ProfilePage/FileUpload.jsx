@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+
 import { CiCirclePlus } from 'react-icons/ci';
+
 import { changeProfileAvatar } from '../../services/user';
 
 export default function FileUpload({ user, setUser }) {
@@ -18,7 +21,7 @@ export default function FileUpload({ user, setUser }) {
 	}
 	return (
 		<form
-			className='fixed end-0 z-30 w-[150px] bottom-0 h-[150px] bg-transparent  lg:w-full lg:h-full rounded-xl'
+			className='absolute w-full h-full bottom-[0px]'
 			encType='multipart/form-data'>
 			<label
 				htmlFor='avatar'
@@ -31,8 +34,13 @@ export default function FileUpload({ user, setUser }) {
 				type='file'
 				id='avatar'
 				name='avatar'
-				className='rounded-full lg:rounded-md w-[150px] h-[150px] opacity-0 lg:hidden'
+				className='hidden'
 			/>
 		</form>
 	);
 }
+
+FileUpload.propTypes = {
+	user: PropTypes.object.isRequired,
+	setUser: PropTypes.func.isRequired,
+};

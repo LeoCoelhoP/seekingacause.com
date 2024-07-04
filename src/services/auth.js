@@ -15,13 +15,11 @@ async function verifyOTP(code, email, setUser) {
 				},
 			},
 		);
-		console.log(response);
 		toast.success(response.data.message);
 		setUser(() => ({ ...response.data.user }));
 	} catch (error) {
 		setUser(() => null);
-
-		toast.error(error.message);
+		toast.error(error.message || 'An error occurred');
 	}
 }
 
@@ -39,20 +37,19 @@ async function register(formValues, language) {
 				},
 			},
 		);
-		toast.success(response.data.message);
+		toast.success(response.data.message, { duration: 5000 });
 		return true;
 	} catch (error) {
-		toast.error(error.message);
+		toast.error(error.message || 'An error occurred');
 	}
 }
 async function logOut(setUser) {
-	console.log('lOOOOGOUT');
 	setUser(() => null);
 	try {
 		const response = await axios.post('/auth/log-out');
 		toast.success(response.data.message);
 	} catch (error) {
-		toast.error(error.message);
+		toast.error(error.message || 'An error occurred');
 	}
 }
 async function login(formValues, setUser) {
@@ -71,15 +68,51 @@ async function login(formValues, setUser) {
 		toast.success(response.data.message);
 		setUser(() => ({ ...response.data.user }));
 	} catch (error) {
-		toast.error(error.message);
+		toast.error(error.message || 'An error occurred');
 	}
 }
+
+async function twitterLogin() {
+	try {
+		await axios.post('/auth/twitter-login', {
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
+	} catch (error) {
+		toast.error(error.message);
+		toast.error(error.message || 'An error occurred');
+	}
+}
+
+async function twitterLoginFinal({ twitterToken, setUser }) {
+	try {
+		const response = await axios.post(
+			'/auth/twitter-login-final',
+			{
+				twitterToken,
+			},
+			{
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			},
+		);
+		toast.success(response.data.message);
+		setUser(() => ({ ...response.data.user }));
+	} catch (error) {
+		toast.error(error.message || 'An error occurred');
+	}
+}
+
 async function verifyUser(setUser) {
 	try {
 		const response = await axios.post('/auth/verify-user');
-		setUser(() => ({ ...response.data.user }));
+		if (response.data.user) setUser(() => ({ ...response.data.user }));
+		else setUser(() => null);
 	} catch (error) {
 		setUser(() => null);
+		return;
 	}
 }
 async function recoverPassword(email, language) {
@@ -98,7 +131,7 @@ async function recoverPassword(email, language) {
 		);
 		toast.success(response.data.message);
 	} catch (error) {
-		toast.error(error.message);
+		toast.error(error.message || 'An error occurred');
 	}
 }
 async function changePassword(formValues, email, code, setUser, navigate) {
@@ -117,13 +150,12 @@ async function changePassword(formValues, email, code, setUser, navigate) {
 			},
 		);
 		toast.success(response.data.message);
-		console.log(response.data);
 		setUser(() => ({ ...response.data.user }));
 		navigate('/', { replace: true });
 		return true;
 	} catch (error) {
 		setUser(() => null);
-		toast.error(error.message);
+		toast.error(error.message || 'An error occurred');
 	}
 }
 
@@ -135,4 +167,6 @@ export {
 	logOut,
 	recoverPassword,
 	changePassword,
+	twitterLogin,
+	twitterLoginFinal,
 };

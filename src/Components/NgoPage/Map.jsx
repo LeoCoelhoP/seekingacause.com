@@ -1,18 +1,18 @@
 import { useRef, useEffect, useState, useContext } from 'react';
-import * as maptilersdk from '@maptiler/sdk';
 import PropTypes from 'prop-types';
+
+import * as maptilersdk from '@maptiler/sdk';
 
 import { LayoutContext } from '../../Contexts/LayoutContext';
 
 import '@maptiler/sdk/dist/maptiler-sdk.css';
-import '../../map.css';
 
 export default function Map({ location, defaultZoom = 14 }) {
-	const [lng, lat] = location;
 	const { windowWidth } = useContext(LayoutContext);
+	const [zoom] = useState(defaultZoom);
 	const mapContainer = useRef(null);
 	const map = useRef(null);
-	const [zoom] = useState(defaultZoom);
+	const [lng, lat] = location;
 	maptilersdk.config.apiKey = import.meta.env.VITE_MAPTILER_API_KEY;
 
 	useEffect(() => {

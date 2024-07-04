@@ -12,6 +12,7 @@ export default function RegisterPhoneNumberModal() {
 		const timeOut = setTimeout(() => setPhoneNumberModalOpen(false), 7000);
 		return () => clearTimeout(timeOut);
 	}, [setPhoneNumberModalOpen]);
+
 	return (
 		<div className='modal z-20 h-[calc(100% - 20px)] blur-none absolute lg:w-2/6 w-5/6 text-neutral-950 font-semibold drop-shadow-2xl shadow-2xl rounded-md bg-neutral-50 p-4 mx-auto my-auto flex flex-col gap-2 items-center justify-center'>
 			<h1 className='text-2xl font-semibold text-center'>

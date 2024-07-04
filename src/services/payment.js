@@ -14,7 +14,7 @@ async function createOrder({ ngoId, valueToDonate, currency, user }) {
 		);
 		return response.data.id;
 	} catch (error) {
-		console.error(error);
+		toast.error(error.message || 'An error occurred');
 	}
 }
 async function onApprove({ data, user, setUser, setNgo, setPaymentModalOpen }) {
@@ -55,11 +55,10 @@ async function onApprove({ data, user, setUser, setNgo, setPaymentModalOpen }) {
 			return ngo;
 		});
 		setNgo(() => updatedNgos);
-		console.log('leoo');
 		setPaymentModalOpen(false);
 		if (response.data.user) setUser(() => ({ ...response.data.user }));
 	} catch (error) {
-		console.error(error);
+		toast.error(error.message || 'An error occurred');
 	}
 }
 

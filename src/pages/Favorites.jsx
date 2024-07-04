@@ -1,20 +1,23 @@
 import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { LayoutContext } from '../Contexts/LayoutContext';
 import { NgoContext } from '../Contexts/NgoContext';
 import { UserContext } from '../Contexts/UserContext';
 
-import NGOCardsContainer from '../Components/NGOCardsContainer';
 import Loading from '../Components/Loading';
+import NGOCardsContainer from '../Components/NGOCardsContainer';
 
 export default function Favorites() {
-	const { user, setUser } = useContext(UserContext);
+	const { setPage } = useContext(LayoutContext);
 	const { ngo } = useContext(NgoContext);
+	const { user, setUser } = useContext(UserContext);
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (!user) navigate(-1, { replace: true });
-	}, [user, navigate]);
+		setPage('favorites');
+	}, [user, navigate, setPage]);
 
 	if (!ngo) return <Loading />;
 

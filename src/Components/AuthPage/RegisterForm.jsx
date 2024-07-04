@@ -1,9 +1,11 @@
 import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import toast from 'react-hot-toast';
 
-import i18next from '../../Configs/i18n';
 import { register } from '../../services/auth';
 import { LayoutContext } from '../../Contexts/LayoutContext';
+import i18next from '../../Configs/i18n';
 import { emailValidator } from '../../utils/validators';
 
 import CountriesSelector from '../CountriesSelector';
@@ -11,12 +13,13 @@ import Button from '../../Components/Button';
 
 export default function RegisterForm() {
 	const { language } = useContext(LayoutContext);
+	const navigate = useNavigate();
 	const [registerInfo, setRegisterInfo] = useState({
 		fullName: '',
 		email: '',
 		password: '',
 		passwordConfirmation: '',
-		country: '',
+		country: 'BR',
 	});
 	function handleCountrySelector(e) {
 		setRegisterInfo((state) => ({ ...state, country: e.target.value }));
@@ -34,7 +37,7 @@ export default function RegisterForm() {
 		if (registerInfo.password.length < 7)
 			return toast.error(i18next.t('passwordValidator'));
 		const currentLanguage = language === 'BR' ? 'pt' : 'en';
-		register({ ...registerInfo }, currentLanguage);
+		if (register({ ...registerInfo }, currentLanguage)) navigate('/');
 	}
 
 	return (
