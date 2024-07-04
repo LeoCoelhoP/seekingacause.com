@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'react';
 
 const atOptions = {
-	key: '17679d6d6f6c215eea67e80d47925f1f',
+	key: 'bfa3fc6f68bb29f47d5fd42c9dc04ab8',
 	format: 'iframe',
-	height: 300,
-	width: 160,
+	height: 250,
+	width: 300,
 };
 
 export default function Ads() {
