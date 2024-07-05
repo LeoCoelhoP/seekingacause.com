@@ -46,6 +46,7 @@
 	"monthlyGoal": "Monthly Goal",
 	"nature": "Nature",
 	"noLoggedInFavorites": "Please, Log in to check your favorites.",
+  "noReport": "Sorry... There are no reports available for this NGO as it is its first month on our website. Please come back next month to check the monthly report.",
 	"others": "Others",
 	"password": "Password",
 	"passwordRequired": "Password is required",

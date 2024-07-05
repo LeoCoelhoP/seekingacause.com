@@ -23,7 +23,7 @@ export default function Navbar() {
 					}`}
 					onClick={() => navigate('/')}>
 					<RxMagnifyingGlass size={'1.25rem'} />
-					{i18next.t('explore')}
+					{i18next.t('explore') || 'Explorar'}
 				</div>
 				{user && (
 					<div
@@ -32,7 +32,7 @@ export default function Navbar() {
 						}`}
 						onClick={() => navigate('/favorites')}>
 						<LuHeart size={'1.25rem'} />
-						{i18next.t('favorites')}
+						{i18next.t('favorites') || 'Favoritos'}
 					</div>
 				)}
 				<div
@@ -41,14 +41,16 @@ export default function Navbar() {
 					}`}
 					onClick={() => navigate('/auth')}>
 					<RxAvatar size={'1.25rem'} />
-					{user ? `${i18next.t('profile')}` : `${i18next.t('logIn')}`}
+					{user
+						? `${i18next.t('profile') || 'Explorar'}`
+						: `${i18next.t('logIn') || 'Entrar'}`}
 				</div>
 				<div className='flex flex-col items-center justify-center text-center modal'>
 					<RxInfoCircled
 						onClick={() => setInfoModalOpen(true)}
 						size={'1.25rem'}
 					/>
-					{i18next.t('aboutUs')}
+					{i18next.t('aboutUs') || 'Sobre Nós'}
 				</div>
 			</div>
 		</div>

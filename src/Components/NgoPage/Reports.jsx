@@ -29,9 +29,7 @@ export default function Reports() {
 			{!reports && (
 				<div className='flex flex-col items-center w-full h-full text-center bg-neutral-50 text-neutral-500'>
 					<LuAlertCircle size={'4rem'} />
-					Sorry... There are no reports available for this NGO as it is its
-					first month on our website. Please come back next month to check the
-					monthly report.
+				{	i18next.t('noReport')}
 				</div>
 			)}
 		</div>
