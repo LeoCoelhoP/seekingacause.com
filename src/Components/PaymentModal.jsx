@@ -10,13 +10,13 @@ export default function PaymentModal() {
 	const [valueToDonate, setValueToDonate] = useState(5); // Default donation: R$5,00
 
 	return (
-		<div className='absolute z-20 flex flex-col items-center justify-center w-5/6 gap-2 p-4 mx-auto my-auto overflow-hidden font-semibold rounded-md shadow-2xl lg:w-fit modal h-fit blur-none text-neutral-950 drop-shadow-2xl bg-neutral-50'>
-			<div className='w-full h-full font-normal'>
+		<div className='absolute z-20 flex flex-col items-center justify-center w-5/6 gap-2 p-4 mx-auto my-auto font-semibold rounded-md shadow-2xl lg:w-fit modal h-fit blur-none text-neutral-950 drop-shadow-2xl bg-neutral-50'>
+			<div className='w-full font-normal h-fit'>
 				{/* PAYMENTS OPTIONS */}
 				<h1 className='text-2xl font-bold text-center'>
 					{i18next.t('valueToDonate')}:
 				</h1>
-				<div className='flex flex-wrap items-center justify-center w-full h-full gap-4 p-2'>
+				<div className='flex flex-wrap items-center justify-center w-full gap-4 p-2 h-fit'>
 					<div className='flex gap-4 mt-2'>
 						<div
 							className={`md:w-[100px] md:h-[100px] w-[85px] h-[85px] flex items-center md:text-xl justify-center border-2 bg-neutral-50 drop-shadow-md rounded-md ${

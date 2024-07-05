@@ -24,7 +24,7 @@ export default function LayoutProvider({ children }) {
 	useEffect(() => {
 		axios.defaults.headers.common['language'] = state.language;
 	}, [state.language]);
-  
+
 	const setBlurred = (blurred) => setState((prev) => ({ ...prev, blurred }));
 	const setInfoModalOpen = (infoModalOpen) =>
 		setState((prev) => ({ ...prev, infoModalOpen }));
