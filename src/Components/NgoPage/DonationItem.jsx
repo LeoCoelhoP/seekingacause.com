@@ -30,9 +30,7 @@ export default function DonationItem({ donate, profilePage }) {
     >
       {!profilePage && (
         <>
-          <div
-            className={`w-[80px] h-[80px] md:w-[100px] md:h-[100px] lg:w-[120px] lg:h-[120px]`}
-          >
+          <div className={`w-[80px] h-[80px] `}>
             <ReactCountryFlag
               className='relative z-30 w-full h-full rounded-md shadow-2xl emojiFlag right-5 top-4 lg:right-10 lg:top-8 drop-shadow-2xl'
               svg
