@@ -15,6 +15,7 @@ const Favorites = lazy(() => import('./pages/Favorites'));
 const Ngo = lazy(() => import('./pages/Ngo'));
 const Profile = lazy(() => import('./pages/Profile'));
 const Home = lazy(() => import('./pages/Home'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 const storedLang = localStorage.getItem('i18nextLng') || 'en';
 i18next.changeLanguage(storedLang);
@@ -37,7 +38,7 @@ const routes = [
   { path: '/ngo/:id', element: <Ngo />, layoutProps: { showNav: true } },
   { path: '/verify-email', element: <Auth /> },
   { path: '/reset-password', element: <Auth resetPassword={true} /> },
-  { path: '*', element: <Home />, layoutProps: { showHeader: true } },
+  { path: '*', element: <NotFound /> },
 ];
 
 const router = createBrowserRouter(

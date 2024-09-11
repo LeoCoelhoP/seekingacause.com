@@ -32,7 +32,7 @@ export default function DonationItem({ donate, profilePage }) {
         <>
           <div className={`w-[80px] h-[80px] `}>
             <ReactCountryFlag
-              className='relative z-30 w-full h-full rounded-md shadow-2xl emojiFlag top-4 lg:right-10 lg:top-8 drop-shadow-2xl'
+              className='relative z-30 w-full h-full rounded-md shadow-2xl emojiFlag drop-shadow-2xl'
               svg
               countryCode={country}
               style={{
