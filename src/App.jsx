@@ -26,30 +26,25 @@ const initialOptions = {
   intent: 'capture',
 };
 
-const routes = [
-  { path: '/', element: <Home />, layoutProps: { showHeader: true } },
-  {
-    path: '/favorites',
-    element: <Favorites />,
-    layoutProps: { showHeader: true },
-  },
-  { path: '/auth', element: <Auth /> },
-  { path: '/profile', element: <Profile /> },
-  { path: '/ngo/:id', element: <Ngo />, layoutProps: { showNav: true } },
-  { path: '/verify-email', element: <Auth /> },
-  { path: '/reset-password', element: <Auth resetPassword={true} /> },
-  { path: '*', element: <NotFound /> },
-];
-
-const router = createBrowserRouter(
-  routes.map(({ element, layoutProps, ...route }) => ({
-    ...route,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <MainLayout {...layoutProps}>{element}</MainLayout>
-      </Suspense>
-    ),
-  }))
+const routes = (
+  <Router>
+    <MainLayout>
+      <Switch>
+        <Route exact path='/' component={Home} />
+        <Route path='/favorites' component={Favorites} />
+        <Route path='/auth' component={Auth} />
+        <Route path='/profile' component={Profile} />
+        <Route path='/ngo/:id' component={Ngo} />
+        <Route path='/verify-email' component={Auth} />
+        <Route
+          path='/reset-password'
+          component={() => <Auth resetPassword={true} />}
+        />
+        <Route component={NotFound} />{' '}
+        {/* This will catch all unknown routes */}
+      </Switch>
+    </MainLayout>
+  </Router>
 );
 
 function App() {
@@ -59,7 +54,7 @@ function App() {
         <LayoutProvider>
           <Toaster toastOptions={{ duration: 5000 }} />
           <PayPalScriptProvider options={initialOptions}>
-            <RouterProvider router={router} />
+            {routes}
           </PayPalScriptProvider>
         </LayoutProvider>
       </NgoProvider>
