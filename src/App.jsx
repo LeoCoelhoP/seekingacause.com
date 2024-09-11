@@ -1,5 +1,5 @@
-import { lazy } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import { Toaster } from 'react-hot-toast';
 
@@ -25,25 +25,19 @@ const initialOptions = {
   intent: 'capture',
 };
 
-const routes = (
-  <Router>
-    <MainLayout>
-      <Switch>
-        <Route exact path='/' component={Home} />
-        <Route path='/favorites' component={Favorites} />
-        <Route path='/auth' component={Auth} />
-        <Route path='/profile' component={Profile} />
-        <Route path='/ngo/:id' component={Ngo} />
-        <Route path='/verify-email' component={Auth} />
-        <Route
-          path='/reset-password'
-          component={() => <Auth resetPassword={true} />}
-        />
-        <Route component={NotFound} />{' '}
-        {/* This will catch all unknown routes */}
-      </Switch>
-    </MainLayout>
-  </Router>
+const AppRoutes = () => (
+  <MainLayout>
+    <Routes>
+      <Route path='/' element={<Home />} />
+      <Route path='/favorites' element={<Favorites />} />
+      <Route path='/auth' element={<Auth />} />
+      <Route path='/profile' element={<Profile />} />
+      <Route path='/ngo/:id' element={<Ngo />} />
+      <Route path='/verify-email' element={<Auth />} />
+      <Route path='/reset-password' element={<Auth resetPassword={true} />} />
+      <Route path='*' element={<NotFound />} />
+    </Routes>
+  </MainLayout>
 );
 
 function App() {
@@ -53,7 +47,11 @@ function App() {
         <LayoutProvider>
           <Toaster toastOptions={{ duration: 5000 }} />
           <PayPalScriptProvider options={initialOptions}>
-            {routes}
+            <Suspense fallback={<div>Loading...</div>}>
+              <Router>
+                <AppRoutes />
+              </Router>
+            </Suspense>
           </PayPalScriptProvider>
         </LayoutProvider>
       </NgoProvider>
