@@ -1,5 +1,5 @@
-import { lazy, Suspense } from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { lazy } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import { Toaster } from 'react-hot-toast';
 
@@ -7,7 +7,6 @@ import LayoutProvider from './Contexts/LayoutContext';
 import NgoProvider from './Contexts/NgoContext';
 import UserProvider from './Contexts/UserContext';
 import i18next from './Configs/i18n';
-import Loading from './Components/Loading';
 import MainLayout from './layouts/MainLayout';
 
 const Auth = lazy(() => import('./pages/Auth'));
