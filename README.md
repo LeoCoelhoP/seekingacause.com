@@ -1,5 +1,5 @@
-<h1>Way To Ace, Back End</h1>
-<p>This front-end is built with React, providing a seamless experience for taking or downloading practice exams, while also tracking your study progress through the website.</p>
+<h1>Seeking a Cause, Front End</h1>
+<p>This front-end uses React, enabling seamless connections between donors and non-governmental organizations (NGOs) through the website.</p>
 
 <h2>Table of Contents</h2>
 <ul>
@@ -10,15 +10,17 @@
 
 <h2 id="features">Features</h2>
 <ul>
-  <li><strong>Exams:</strong> Seamlessly integrated Exams Donload or take it online</li>
-  <li><strong>Projects Database:</strong> Securely stores and manages all exam results in a scalable database.</li>
-  <li><strong>Smooth User Experience:</strong> Provides intuitive account creation and tools to enhance study progress.</li>
+  <li><strong>Connection:</strong> Seamlessly connects user with NGOs</li>
+  <li><strong>Donation:</strong>Enhance User Donations through Advertising or Monetary Contributions.</li>
+  <li><strong>Smooth User Experience:</strong> Provides intuitive account creation and tools to enhance and register user donation.</li>
 </ul>
 
 
 <h2 id="technologies-used">Technologies Used</h2>
 <ul>
   <li>React: Front End framework</li>
+  <li>Paypal Payments API</li>
+  <li>AdsTerra Ads API</li>
 </ul>
 
 <h2 id="contact">Contact</h2>
